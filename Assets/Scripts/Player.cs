@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
         {
             if (jumpCount > 0)
             {
-                rb.velocity = new Vector2(0,9);
+                rb.velocity += new Vector2(0,5);
                 jumpCount -= 1; 
             }
            
@@ -45,6 +45,23 @@ public class Player : MonoBehaviour
         {
             jumpCount = 2;
             Debug.Log("Collided with floor.");
+        }
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            rb.AddForce(new Vector2(-3,0));
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            rb.AddForce(new Vector2(+3,0));
+        }
+        if (Input.GetKey(KeyCode.W))
+        {
+            //rb.AddForce(new Vector2(-1,0));
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            //rb.AddForce(new Vector2(-1,0));
         }
     }
 }
