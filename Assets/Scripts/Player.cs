@@ -7,12 +7,14 @@ public class Player : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Collider2D collider;
+    private AudioSource jumpSound;
     
     private int jumpCount;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         collider = GetComponent<Collider2D>();
+        jumpSound = GetComponent<AudioSource>();
     }
 
     private void Awake()
@@ -37,6 +39,7 @@ public class Player : MonoBehaviour
             {
                 rb.velocity += new Vector2(0,5);
                 jumpCount -= 1; 
+                jumpSound.Play();
             }
            
             Debug.Log(jumpCount);
