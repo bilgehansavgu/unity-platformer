@@ -54,7 +54,7 @@ public class Player1 : MonoBehaviour
         {
             if (jumpCount > 0)
             {
-                rb.velocity += new Vector2(0,5);
+                rb.velocity = new Vector2(rb.velocity.x,10);
                 jumpCount -= 1; 
                 jumpSound.Play();
             }
@@ -69,11 +69,19 @@ public class Player1 : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A))
         {
-            rb.AddForce(new Vector2(-3,0));
+            rb.velocity = new Vector2(-10,rb.velocity.y);
+        }
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            rb.velocity = new Vector2(-3,rb.velocity.y);
         }
         if (Input.GetKey(KeyCode.D))
         {
-            rb.AddForce(new Vector2(+3,0));
+            rb.velocity = (new Vector2(10,rb.velocity.y));
+        }
+        if (Input.GetKeyUp(KeyCode.D))
+        {
+            rb.velocity = (new Vector2(3,rb.velocity.y));
         }
         if (Input.GetKey(KeyCode.W))
         {
