@@ -10,16 +10,21 @@ public class Player : MonoBehaviour
     private AudioSource jumpSound;
     
     private int jumpCount;
+
+    private float movementVelocity = 10;
+    private float movementVelocityAfterMovement = 2;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         collider = GetComponent<Collider2D>();
         jumpSound = GetComponent<AudioSource>();
+        rb.mass = 10;
     }
 
     private void Awake()
     {
         jumpCount = 2;
+        
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -27,6 +32,10 @@ public class Player : MonoBehaviour
         if (other.collider.tag == "Floor")
         {
             jumpCount = 2;
+        }
+        if (other.collider.tag == "Wall")
+        {
+            //transform.rotation = Quaternion.Euler(0,0,90);
         }
     }
 
@@ -37,7 +46,7 @@ public class Player : MonoBehaviour
         {
             if (jumpCount > 0)
             {
-                rb.velocity = new Vector2(rb.velocity.x,10);
+                rb.velocity = new Vector2(rb.velocity.x,5);
                 jumpCount -= 1; 
                 jumpSound.Play();
             }
@@ -47,32 +56,31 @@ public class Player : MonoBehaviour
         if (collider.gameObject.CompareTag("Floor"))
         {
             jumpCount = 2;
-            Debug.Log("Collided with floor.");
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            rb.velocity = new Vector2(-10,rb.velocity.y);
+            rb.velocity = new Vector2(-movementVelocity,rb.velocity.y);
         }
         if (Input.GetKeyUp(KeyCode.A))
         {
-            rb.velocity = new Vector2(-3,rb.velocity.y);
+            rb.velocity = new Vector2(-movementVelocityAfterMovement,rb.velocity.y);
         }
         if (Input.GetKey(KeyCode.D))
         {
-            rb.velocity = (new Vector2(10,rb.velocity.y));
+            rb.velocity = (new Vector2(movementVelocity,rb.velocity.y));
         }
         if (Input.GetKeyUp(KeyCode.D))
         {
-            rb.velocity = (new Vector2(3,rb.velocity.y));
+            rb.velocity = (new Vector2(movementVelocityAfterMovement,rb.velocity.y));
         }
         if (Input.GetKey(KeyCode.W))
         {
-            //rb.AddForce(new Vector2(-1,0));
+            rb.velocity = (new Vector2(rb.velocity.x, movementVelocity));
         }
         if (Input.GetKey(KeyCode.S))
         {
-            //rb.AddForce(new Vector2(-1,0));
+            rb.velocity = (new Vector2(rb.velocity.x, -movementVelocity));
         }
     }
 }
