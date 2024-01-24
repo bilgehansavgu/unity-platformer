@@ -39,11 +39,11 @@ public class Player1 : MonoBehaviour
     {
         if (other.collider.tag == "Floor")
         {
-            jumpCount = 2;
+            jumpCount = 2;	
         }
         if (other.collider.tag == "Wall")
         {
-            //transform.rotation = Quaternion.Euler(0,0,90);
+            transform.rotation = Quaternion.Euler(0,0,90);
         }
     }
     void Update()
