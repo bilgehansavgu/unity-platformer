@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Sprites/Player/pixil-frame-0_9.png.meta
-guid: c5e54067a8d20c54da79107be1901ecc
-========
-guid: def014b698af7d045b4848aa3e80f9a9
->>>>>>>> 3da90c1 (new animation sprites added):Assets/Animations/player/Zabo_new_anim/C_1'1'(R)-Sheet.png.meta
+guid: 6ba29b3a13a632b45b111a519250b189
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -49,10 +45,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 144
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
