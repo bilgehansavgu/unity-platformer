@@ -16,7 +16,7 @@ public class WalkingState : IPlayerState
         Debug.Log("Walking State Update");
     
         float horizontalInput = Input.GetAxis("Horizontal");
-        ((PlayerParam)playerManager.GetComponent<PlayerParam>()).Move(horizontalInput);
+        //((PlayerParam)playerManager.GetComponent<PlayerParam>()).Move(horizontalInput);
     }
 
 

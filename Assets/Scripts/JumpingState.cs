@@ -9,7 +9,7 @@ public class JumpingState : IPlayerState
         // Logic when entering
         Debug.Log("Entering Jumping State");
         
-        ((PlayerParam)playerManager.GetComponent<PlayerParam>()).Jump();
+        //((PlayerParam)playerManager.GetComponent<PlayerParam>()).Jump();
     }
 
     public void UpdateState(PlayerStateManager playerManager)

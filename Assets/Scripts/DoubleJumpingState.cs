@@ -9,7 +9,7 @@ public class DoubleJumpingState : IPlayerState
         // Logic when entering
         Debug.Log("Entering Double Jumping State");
         
-        ((PlayerParam)playerManager.GetComponent<PlayerParam>()).Jump();
+        //((PlayerParam)playerManager.GetComponent<PlayerParam>()).Jump();
 
     }
 
