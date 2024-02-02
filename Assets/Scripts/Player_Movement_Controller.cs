@@ -12,7 +12,11 @@ public class Player_Movement_Controller : MonoBehaviour
     private float speed = 8f;
     private float jumpingPower = 16f;
     private bool isFacingRight = true;
-
+    private Animator animator;
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
     void Update()
     {
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
@@ -26,10 +30,21 @@ public class Player_Movement_Controller : MonoBehaviour
             Flip(); 
         }
     }
+    
+    
+    public void Attack(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            animator.SetTrigger("isCrossPunch");
+        }
+    }
 
     public void Move(InputAction.CallbackContext context)
     {
+        
         horizontal = context.ReadValue<Vector2>().x;
+        animator.SetBool("run", horizontal != 0);
     }
 
     public void Jump(InputAction.CallbackContext context)
