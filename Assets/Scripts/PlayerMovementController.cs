@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
 
     public void HandleHook()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             
@@ -51,6 +51,11 @@ public class PlayerController : MonoBehaviour
         {
             hookTransform.position = transform.position;
             lineRenderer.enabled = false;
+        }
+        
+        if (Input.GetKeyDown(KeyCode.H))
+        { 
+            //TODO maybe implement a hook for the pull mechanic?
         }
     }
 }

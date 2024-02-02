@@ -16,5 +16,9 @@ public class PlayerActionAnimationController : MonoBehaviour
         {
             animator.SetTrigger("isCrossPunch");
         }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            animator.SetTrigger("isPull");
+        }
     }
 }
