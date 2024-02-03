@@ -3,10 +3,8 @@ public class TODO
 
 {
     /*
-     *  - ip mekaniklerini oluştur.
-     *  - ip sprite'ı oluştur.
-     *  - düşme mekaniklerini iyileştir.
-     *  - duvara değince sabit kalma bugını çöz.
+     * TODO scene içerisine UI ekle (mesela cross için 'Press G to Cross Punch', Pull için 'Press H to Pull')
+     * TODO ip sprite'ı oluştur.
      *  
      * 
      */

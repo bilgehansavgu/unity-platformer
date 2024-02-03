@@ -7,25 +7,27 @@ public class Player : MonoBehaviour
 {
     private Rigidbody2D rb;
     private CapsuleCollider2D _collider;
-    private AudioSource jumpSound;
+    private AudioSource _jumpSound;
     
-    private int jumpCount;
+    private int _jumpCount;
 
-    private float movementVelocity = 10;
-    private float movementVelocityAfterMovement = 2;
+    [SerializeField]private float _movementVelocity = 10;
+    [SerializeField]private float _movementVelocityAfterMovement = 2;
+    [SerializeField] private float _jumpVelocity = 5;
     
-    private bool isFaceRight = true;
+    private bool _isFaceRight = true;
+    
 
     void Start()
     {
         _collider = GetComponent<CapsuleCollider2D>();
         rb = GetComponent<Rigidbody2D>();
-        jumpSound = GetComponent<AudioSource>();
+        _jumpSound = GetComponent<AudioSource>();
     }
 
     private void Awake()
     {
-        jumpCount = 2;
+        _jumpCount = 2;
         
     }
 
@@ -33,7 +35,7 @@ public class Player : MonoBehaviour
     {
         if (other.collider.tag == "Floor")
         {
-            jumpCount = 2;
+            _jumpCount = 2;
         }
         if (other.collider.tag == "Wall")
         {
@@ -46,46 +48,46 @@ public class Player : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump"))
         {
-            if (jumpCount > 0)
+            if (_jumpCount > 0)
             {
-                //rb.velocity = new Vector2(rb.velocity.x,10);
-                rb.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
-                jumpCount -= 1; 
-                jumpSound.Play();
+                rb.velocity = new Vector2(rb.velocity.x,_jumpVelocity);
+                //rb.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
+                _jumpCount -= 1; 
+                _jumpSound.Play();
             }
            
-            Debug.Log(jumpCount);
+            Debug.Log(_jumpCount);
         }
         if (_collider.gameObject.CompareTag("Floor"))
         {
-            jumpCount = 2;
+            _jumpCount = 2;
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            if (isFaceRight)
+            if (_isFaceRight)
             {
                 transform.Rotate(0,180,0);
-                isFaceRight = false;
+                _isFaceRight = false;
             }
-            rb.velocity = new Vector2(-movementVelocity,rb.velocity.y);
+            rb.velocity = new Vector2(-_movementVelocity,rb.velocity.y);
         }
         if (Input.GetKeyUp(KeyCode.A))
         {
-            rb.velocity = new Vector2(-movementVelocityAfterMovement,rb.velocity.y);
+            rb.velocity = new Vector2(-_movementVelocityAfterMovement,rb.velocity.y);
         }
         if (Input.GetKey(KeyCode.D))
         {
-            if (!isFaceRight)
+            if (!_isFaceRight)
             {
                 transform.Rotate(0,180,0);
-                isFaceRight = true;
+                _isFaceRight = true;
             }
-            rb.velocity = (new Vector2(movementVelocity,rb.velocity.y));
+            rb.velocity = (new Vector2(_movementVelocity,rb.velocity.y));
         }
         if (Input.GetKeyUp(KeyCode.D))
         {
-            rb.velocity = (new Vector2(movementVelocityAfterMovement,rb.velocity.y));
+            rb.velocity = (new Vector2(_movementVelocityAfterMovement,rb.velocity.y));
         }
     }
 
