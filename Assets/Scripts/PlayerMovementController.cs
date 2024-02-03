@@ -1,29 +1,28 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     public Transform hookTransform;
-    private Rigidbody2D rb;
+    private Rigidbody2D _rb;
 
-    private LineRenderer lineRenderer;
+    private LineRenderer _lineRenderer;
     
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        lineRenderer = GetComponent<LineRenderer>();
+        _rb = GetComponent<Rigidbody2D>();
+        _lineRenderer = GetComponent<LineRenderer>();
 
-        lineRenderer.positionCount = 2;
-        lineRenderer.startWidth = 0.02f;
-        lineRenderer.endWidth = 0.05f;
+        _lineRenderer.positionCount = 2;
+        _lineRenderer.startWidth = 0.02f;
+        _lineRenderer.endWidth = 0.05f;
     }
 
     void Update()
     {
         if (hookTransform != null)
         {
-            lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, hookTransform.position);
+            _lineRenderer.SetPosition(0, transform.position);
+            _lineRenderer.SetPosition(1, hookTransform.position);
         }
         
         HandleHook();
@@ -31,7 +30,7 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    public void HandleHook()
+    private void HandleHook()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -42,15 +41,15 @@ public class PlayerController : MonoBehaviour
             if (hit.collider != null)
             {
                 hookTransform.position = hit.point;
-                rb.velocity = 3 * (hookTransform.position - transform.position);
-                lineRenderer.enabled = true;
+                _rb.velocity = 3 * (hookTransform.position - transform.position);
+                _lineRenderer.enabled = true;
             }
         }
         
         if (Input.GetMouseButtonUp(0))
         {
             hookTransform.position = transform.position;
-            lineRenderer.enabled = false;
+            _lineRenderer.enabled = false;
         }
         
         if (Input.GetKeyDown(KeyCode.H))

@@ -4,21 +4,24 @@ using UnityEngine;
 
 public class PlayerActionAnimationController : MonoBehaviour
 {
-    private Animator animator;
+    private Animator _animator;
+    private static readonly int IsCrossPunch = Animator.StringToHash("isCrossPunch");
+    private static readonly int IsPull = Animator.StringToHash("isPull");
+
     void Start()
     {
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
     }
     
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
-            animator.SetTrigger("isCrossPunch");
+            _animator.SetTrigger(IsCrossPunch);
         }
         if (Input.GetKeyDown(KeyCode.H))
         {
-            animator.SetTrigger("isPull");
+            _animator.SetTrigger(IsPull);
         }
     }
 }
