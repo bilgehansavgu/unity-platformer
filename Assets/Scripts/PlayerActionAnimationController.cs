@@ -7,15 +7,10 @@ public class PlayerActionAnimationController : MonoBehaviour
 {
     private Animator _animator;
 
-    public bool _locked = false;
+    [SerializeField] private bool _locked = false;
     
-    private int _comboStep = 0;
+    [SerializeField] private int _comboStep = 0;
     [SerializeField] private float _timer;
-
-    public bool Locked
-    {
-        set { _locked = value; }
-    }
 
     void Start()
     {
@@ -24,6 +19,7 @@ public class PlayerActionAnimationController : MonoBehaviour
     
     void Update()
     {
+        
         // Timer
         Debug.Log(_comboStep);
         if (_timer > 0)
@@ -37,12 +33,12 @@ public class PlayerActionAnimationController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
         {
-            PlayUnlocked("WalkR");
+            PlayInterruptible("WalkR");
         }
         
         if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
         {
-            PlayUnlocked("Idle");
+            PlayInterruptible("idle");
         }
 
         if (Input.GetKeyDown(KeyCode.G))
@@ -51,17 +47,14 @@ public class PlayerActionAnimationController : MonoBehaviour
             {
                 PlayLocked("LightJabR");
                 resetTimer();
-                _comboStep++;
             }
             else if (_comboStep == 1)
             {
                 PlayLocked("CrossPunchR");
                 resetTimer();
-                _comboStep++;
             }
             else if (_comboStep == 2)
             {
-                _comboStep = 0;
                 resetTimer();
                 PlayLocked("JumpAndGroundSlamR");
             }
@@ -70,27 +63,39 @@ public class PlayerActionAnimationController : MonoBehaviour
     
     public void AnimationFinishedCallback()
     {
-        UnlockAnimationController();
+        _locked = false;
+        PlayInterruptible("idle");
+    }
+    
+    public void ComboStepAnimationFinishedCallback()
+    {
+        _locked = false;
+        PlayInterruptible("idle");
+        _comboStep++;
+    }
+    
+    public void LastComboStepAnimationFinishedCallback()
+    {
+        _locked = false;
+        _comboStep = 0;
+        PlayInterruptible("idle");
     }
     
     void PlayLocked(string stateName)
     {
         if (_locked) return;
-        LockAnimationController();
+        _locked = true;
         _animator.Play(stateName);
     }
     
-    void PlayUnlocked(string stateName)
+    void PlayInterruptible(string stateName)
     {
         if (_locked) return;
-        UnlockAnimationController();
-        _animator.Play(stateName);
+        _locked = false;
+        _animator.Play(stateName, 0, 0f);
     }
     
-    public void LockAnimationController()
-    {
-        _locked = true;
-    }
+    // Helpers
     
     public void UnlockAnimationController()
     {
