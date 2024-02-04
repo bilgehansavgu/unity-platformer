@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if (Input.GetButtonDown("Jump"))
@@ -65,6 +65,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A))
         {
+            // Flip
             if (_isFaceRight)
             {
                 transform.Rotate(0,180,0);
@@ -78,6 +79,7 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.D))
         {
+            // Flip
             if (!_isFaceRight)
             {
                 transform.Rotate(0,180,0);
@@ -93,7 +95,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // JUMP
+        // Jump
         if (rb.velocity.y <= 0)
         {
             rb.velocity += Vector2.up * (Physics2D.gravity.y * (3f) * Time.deltaTime);
