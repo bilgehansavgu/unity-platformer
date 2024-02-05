@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    
     private Rigidbody2D rb;
     private CapsuleCollider2D _collider;
     private AudioSource _jumpSound;
@@ -15,6 +16,9 @@ public class Player : MonoBehaviour
     [SerializeField]private float _movementVelocityAfterMovement = 2;
     [SerializeField] private float _jumpVelocity = 5;
     
+    [SerializeField]private float JumpFallVelDecrement = (3f);
+    [SerializeField]private float JumpRiseVelDec = (3f);
+    [SerializeField]private float JumpRiseVelDecHold = (1f);
     private bool _isFaceRight = true;
     
 
@@ -96,13 +100,18 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         // Jump
-        if (rb.velocity.y <= 0)
+        if (rb.velocity.y <= 0)// if falling down
         {
-            rb.velocity += Vector2.up * (Physics2D.gravity.y * (3f) * Time.deltaTime);
+            
+            rb.velocity += Vector2.up * (Physics2D.gravity.y * JumpFallVelDecrement * Time.deltaTime); //3
         }
-        else if (rb.velocity.y > 0 && !Input.GetButton("Jump"))
+        else if (rb.velocity.y > 0 && !Input.GetButton("Jump")) // if rising and space hold down
         {
-            rb.velocity += Vector2.up * (Physics2D.gravity.y * (2f) * Time.deltaTime);
+            rb.velocity += Vector2.up * (Physics2D.gravity.y * JumpRiseVelDec * Time.deltaTime); //3
+        }
+        else if (rb.velocity.y > 0 && Input.GetButton("Jump")) // if rising but not hold down
+        {
+            rb.velocity += Vector2.up * (Physics2D.gravity.y * JumpRiseVelDecHold * Time.deltaTime);
         }
     }
 }

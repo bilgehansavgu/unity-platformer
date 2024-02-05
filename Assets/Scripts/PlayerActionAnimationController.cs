@@ -35,36 +35,35 @@ public class PlayerActionAnimationController : MonoBehaviour
         {
             PlayInterruptible("WalkR");
         }
-        
-        if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+        else if ((Input.GetKeyUp(KeyCode.A) && Input.GetKey(KeyCode.D) == false) || (Input.GetKeyUp(KeyCode.D) && Input.GetKey(KeyCode.A) == false))
         {
             PlayInterruptible("idle");
         }
+        
 
-        if (Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKeyDown(KeyCode.N) || Input.GetKeyDown(KeyCode.M) )
         {
-            if (_comboStep == 0)
+            if (_comboStep == 0 && Input.GetKeyDown(KeyCode.N))
             {
                 PlayLocked("LightJabR");
                 resetTimer();
             }
-            else if (_comboStep == 1)
+            else if (_comboStep == 1 && Input.GetKeyDown(KeyCode.N))
             {
                 PlayLocked("CrossPunchR");
                 resetTimer();
             }
-            else if (_comboStep == 2)
+            else if (_comboStep == 2 && Input.GetKeyDown(KeyCode.N))
+            {
+                resetTimer();
+                PlayLocked("chain_punch_R_animation");
+            }
+            else if (_comboStep == 2 && Input.GetKeyDown(KeyCode.M))
             {
                 resetTimer();
                 PlayLocked("JumpAndGroundSlamR");
             }
         }
-    }
-    
-    public void AnimationFinishedCallback()
-    {
-        _locked = false;
-        PlayInterruptible("idle");
     }
     
     public void ComboStepAnimationFinishedCallback()
