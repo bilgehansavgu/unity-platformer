@@ -36,7 +36,11 @@ public class Player_Movement_Controller : MonoBehaviour
     {
         if (context.performed)
         {
-            animator.SetTrigger("isCrossPunch");
+            animator.SetBool("punch", true);
+        }
+        if (context.canceled)
+        {
+            animator.SetBool("punch", false);
         }
     }
 
@@ -44,7 +48,8 @@ public class Player_Movement_Controller : MonoBehaviour
     {
         
         horizontal = context.ReadValue<Vector2>().x;
-        animator.SetBool("run", horizontal != 0);
+        animator.SetBool("walk", horizontal != 0);
+        
     }
 
     public void Jump(InputAction.CallbackContext context)
