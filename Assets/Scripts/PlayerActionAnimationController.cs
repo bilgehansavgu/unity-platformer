@@ -91,7 +91,7 @@ public class PlayerActionAnimationController : MonoBehaviour
     {
         if (_locked) return;
         _locked = false;
-        _animator.Play(stateName, 0, 0f);
+        _animator.Play(stateName);
     }
     
     // Helpers
