@@ -39,18 +39,23 @@ public class PlayerActionAnimationController : MonoBehaviour
         {
             PlayInterruptible("idle");
         }
-        
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            //PlayLocked("jump_deneme_R");
+        }
 
         if (Input.GetKeyDown(KeyCode.N) || Input.GetKeyDown(KeyCode.M) )
         {
             if (_comboStep == 0 && Input.GetKeyDown(KeyCode.N))
             {
-                PlayLocked("LightJabR");
+                
+                PlayLocked("CrossPunchR");
                 resetTimer();
             }
             else if (_comboStep == 1 && Input.GetKeyDown(KeyCode.N))
             {
-                PlayLocked("CrossPunchR");
+                PlayLocked("LightJabR");
                 resetTimer();
             }
             else if (_comboStep == 2 && Input.GetKeyDown(KeyCode.N))
@@ -77,6 +82,12 @@ public class PlayerActionAnimationController : MonoBehaviour
     {
         _locked = false;
         _comboStep = 0;
+        PlayInterruptible("idle");
+    }
+    
+    public void AnimationFinishedCallback()
+    {
+        _locked = false;
         PlayInterruptible("idle");
     }
     

@@ -170,6 +170,55 @@ Transform:
   - {fileID: 691014714}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &150203404
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 150203406}
+  - component: {fileID: 150203405}
+  m_Layer: 0
+  m_Name: Unity-RecorderBindings
+  m_TagString: EditorOnly
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &150203405
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150203404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a24bc7e8573847adbdf1198360b3c794, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_References:
+    m_Keys:
+    - 2e6c52d232a1d004e91f60af3368c88a
+    m_Values:
+    - {fileID: 519420028}
+--- !u!4 &150203406
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150203404}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &426445391
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,7 +462,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ef24656c8c394678ae6e2c56cb8d106, type: 3}
   m_Name: 
@@ -1825,6 +1874,9 @@ MonoBehaviour:
   _movementVelocity: 10
   _movementVelocityAfterMovement: 2
   _jumpVelocity: 5
+  JumpFallVelDecrement: 3
+  JumpRiseVelDec: 3
+  JumpRiseVelDecHold: 1
 --- !u!50 &753559270
 Rigidbody2D:
   serializedVersion: 4
@@ -2243,6 +2295,9 @@ MonoBehaviour:
   _movementVelocity: 10
   _movementVelocityAfterMovement: 2
   _jumpVelocity: 5
+  JumpFallVelDecrement: 3
+  JumpRiseVelDec: 3
+  JumpRiseVelDecHold: 1
 --- !u!50 &761564726
 Rigidbody2D:
   serializedVersion: 4
@@ -2661,6 +2716,9 @@ MonoBehaviour:
   _movementVelocity: 10
   _movementVelocityAfterMovement: 2
   _jumpVelocity: 5
+  JumpFallVelDecrement: 3
+  JumpRiseVelDec: 3
+  JumpRiseVelDecHold: 1
 --- !u!50 &939813088
 Rigidbody2D:
   serializedVersion: 4
@@ -12520,6 +12578,9 @@ MonoBehaviour:
   _movementVelocity: 10
   _movementVelocityAfterMovement: 2
   _jumpVelocity: 10
+  JumpFallVelDecrement: 3
+  JumpRiseVelDec: 3
+  JumpRiseVelDecHold: 1
 --- !u!212 &2072058080
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12885,3 +12946,4 @@ SceneRoots:
   - {fileID: 753559273}
   - {fileID: 3026378}
   - {fileID: 1143439460}
+  - {fileID: 150203406}
