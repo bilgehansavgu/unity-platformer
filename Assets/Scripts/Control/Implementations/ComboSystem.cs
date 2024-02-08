@@ -58,6 +58,9 @@ public class ComboSystem : MonoBehaviour, IComboSystem
         CheckCombos();
     }
     
+    // Animation dalgasını bu fonksiyondan çıkar true false dönsün
+    // Combolar objeleştirilecek
+    // Input bilgi akışı eventler üzerinden yapılcak.(ON..  eventlere subsribe olcak)
     private void CheckCombos()
     {
         foreach (var comboSequence in comboResultAnimations.Keys)
