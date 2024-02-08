@@ -5,20 +5,20 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    
     private Rigidbody2D rb;
     private CapsuleCollider2D _collider;
     private AudioSource _jumpSound;
     
     private int _jumpCount;
 
-    [SerializeField]private float _movementVelocity = 10;
-    [SerializeField]private float _movementVelocityAfterMovement = 2;
-    [SerializeField] private float _jumpVelocity = 5;
+    [SerializeField]private float _maxMovementVelocity = 10;
+    [SerializeField]private float _movementVelocityAfterMovement = 2; 
+    [SerializeField]private float _dashVelocity = 5;
     
-    [SerializeField]private float JumpFallVelDecrement = (3f);
-    [SerializeField]private float JumpRiseVelDec = (3f);
-    [SerializeField]private float JumpRiseVelDecHold = (1f);
+    [SerializeField]private float _jumpVelocity = 5;
+    [SerializeField]private float _jumpFallVelDecrement = 3f;
+    [SerializeField]private float _jumpRiseVelDec = 3f;
+    [SerializeField]private float _jumpRiseVelDecHold = 1f;
     private bool _isFaceRight = true;
     
 
@@ -32,7 +32,6 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         _jumpCount = 2;
-        
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -47,15 +46,16 @@ public class Player : MonoBehaviour
         }
     }
 
-
     void Update()
     {
+        //Jump
         if (Input.GetButtonDown("Jump"))
         {
             if (_jumpCount > 0)
             {
-                rb.velocity = new Vector2(rb.velocity.x,_jumpVelocity);
-                //rb.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
+                rb.velocity += new Vector2(0, -rb.velocity.y);
+                rb.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
+                
                 _jumpCount -= 1; 
                 _jumpSound.Play();
             }
@@ -66,7 +66,20 @@ public class Player : MonoBehaviour
         {
             _jumpCount = 2;
         }
+        
+        //Dash
+        if (Input.GetKeyDown(KeyCode.LeftShift) )
+        {
+            if (_isFaceRight)
+            {
+                rb.AddForce(new Vector2(7,0), ForceMode2D.Impulse);
+            } else
+            {
+                rb.AddForce(new Vector2(-7,0), ForceMode2D.Impulse);
+            }
+        }
 
+        //Walk Left
         if (Input.GetKey(KeyCode.A))
         {
             // Flip
@@ -75,12 +88,14 @@ public class Player : MonoBehaviour
                 transform.Rotate(0,180,0);
                 _isFaceRight = false;
             }
-            rb.velocity = new Vector2(-_movementVelocity,rb.velocity.y);
+            WalkLeft();
         }
         if (Input.GetKeyUp(KeyCode.A))
         {
-            rb.velocity = new Vector2(-_movementVelocityAfterMovement,rb.velocity.y);
+            rb.velocity += new Vector2(-rb.velocity.x/2, 0);
         }
+        
+        //Walk Right
         if (Input.GetKey(KeyCode.D))
         {
             // Flip
@@ -89,29 +104,52 @@ public class Player : MonoBehaviour
                 transform.Rotate(0,180,0);
                 _isFaceRight = true;
             }
-            rb.velocity = (new Vector2(_movementVelocity,rb.velocity.y));
+            WalkRight();
         }
         if (Input.GetKeyUp(KeyCode.D))
         {
-            rb.velocity = (new Vector2(_movementVelocityAfterMovement,rb.velocity.y));
+            rb.velocity += new Vector2(-rb.velocity.x/2, 0);
+        }
+    }
+
+    private void WalkRight()
+    {
+        if (rb.velocity.x < _maxMovementVelocity)
+        {
+            float speedDifference = Mathf.Abs(_maxMovementVelocity - rb.velocity.x);
+            rb.velocity += new Vector2(speedDifference, 0);
+        }
+    }
+
+    private void WalkLeft()
+    {
+        if (rb.velocity.x > -_maxMovementVelocity)
+        {
+            float speedDifference = Mathf.Abs(_maxMovementVelocity + rb.velocity.x);
+            rb.velocity += new Vector2(-speedDifference, 0);
         }
     }
 
     private void FixedUpdate()
     {
         // Jump
-        if (rb.velocity.y <= 0)// if falling down
+        
+        // if falling down
+        if (rb.velocity.y <= 0)
         {
-            
-            rb.velocity += Vector2.up * (Physics2D.gravity.y * JumpFallVelDecrement * Time.deltaTime); //3
+            rb.velocity += Vector2.up * (Physics2D.gravity.y * _jumpFallVelDecrement * Time.deltaTime);
         }
-        else if (rb.velocity.y > 0 && !Input.GetButton("Jump")) // if rising and space hold down
+        
+        // if rising and space hold down
+        else if (rb.velocity.y > 0 && !Input.GetButton("Jump"))
         {
-            rb.velocity += Vector2.up * (Physics2D.gravity.y * JumpRiseVelDec * Time.deltaTime); //3
+            rb.velocity += Vector2.up * (Physics2D.gravity.y * _jumpRiseVelDec * Time.deltaTime);
         }
-        else if (rb.velocity.y > 0 && Input.GetButton("Jump")) // if rising but not hold down
+        
+        // if rising but space not hold down
+        else if (rb.velocity.y > 0 && Input.GetButton("Jump"))
         {
-            rb.velocity += Vector2.up * (Physics2D.gravity.y * JumpRiseVelDecHold * Time.deltaTime);
+            rb.velocity += Vector2.up * (Physics2D.gravity.y * _jumpRiseVelDecHold * Time.deltaTime);
         }
     }
 }

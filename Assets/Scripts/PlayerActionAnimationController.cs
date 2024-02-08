@@ -11,14 +11,28 @@ public class PlayerActionAnimationController : MonoBehaviour
     
     [SerializeField] private int _comboStep = 0;
     [SerializeField] private float _timer;
+    
+    [SerializeField] private bool _isMoving = false;
 
+    private Rigidbody2D rb;
+    
+    //BURAYA ACIL STATE MACHINE LAZIM HER TARAF IF ELSE IF ELSE IF ELSE
     void Start()
     {
         _animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
     }
     
     void Update()
     {
+        if (rb.velocity.x != 0 && rb.velocity.y != 0)
+        {
+            _isMoving = true;
+        }
+        else
+        {
+            _isMoving = false;
+        }
         
         // Timer
         Debug.Log(_comboStep);
@@ -40,9 +54,9 @@ public class PlayerActionAnimationController : MonoBehaviour
             PlayInterruptible("idle");
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            //PlayLocked("jump_deneme_R");
+            PlayLocked("dash_R_animation");
         }
 
         if (Input.GetKeyDown(KeyCode.N) || Input.GetKeyDown(KeyCode.M) )
@@ -74,15 +88,47 @@ public class PlayerActionAnimationController : MonoBehaviour
     public void ComboStepAnimationFinishedCallback()
     {
         _locked = false;
-        PlayInterruptible("idle");
+        
+        if (_isMoving)
+        {
+            PlayInterruptible("WalkR");
+        }
+        else
+        {
+            PlayInterruptible("idle");
+        }
+
         _comboStep++;
     }
     
     public void LastComboStepAnimationFinishedCallback()
     {
         _locked = false;
+                
+        if (_isMoving)
+        {
+            PlayInterruptible("WalkR");
+        }
+        else
+        {
+            PlayInterruptible("idle");
+        }
+
         _comboStep = 0;
-        PlayInterruptible("idle");
+    }
+    
+    public void DashAnimationFinishedCallback()
+    {
+        _locked = false;
+                
+        if (_isMoving)
+        {
+            PlayInterruptible("WalkR");
+        }
+        else
+        {
+            PlayInterruptible("idle");
+        }
     }
     
     public void AnimationFinishedCallback()
@@ -102,7 +148,7 @@ public class PlayerActionAnimationController : MonoBehaviour
     {
         if (_locked) return;
         _locked = false;
-        _animator.Play(stateName, 0, 0f);
+        _animator.Play(stateName);
     }
     
     // Helpers
