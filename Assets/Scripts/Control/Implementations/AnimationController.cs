@@ -13,4 +13,34 @@ public class AnimationController : MonoBehaviour, IAnimationController
     {
         animator.Play("idle"); 
     }
+    public float GetAnimationLength(string animationName)
+    {
+        AnimationClip clip = FindAnimationClip(animationName);
+
+        if (clip != null)
+        {
+            return clip.length;
+        }
+        else
+        {
+            Debug.LogWarning("Animation clip '" + animationName + "' not found.");
+            return 0f;
+        }
+    }
+
+    private AnimationClip FindAnimationClip(string animationName)
+    {
+        if (animator != null)
+        {
+            AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
+            foreach (AnimationClip clip in clips)
+            {
+                if (clip.name == animationName)
+                {
+                    return clip;
+                }
+            }
+        }
+        return null;
+    }
 }

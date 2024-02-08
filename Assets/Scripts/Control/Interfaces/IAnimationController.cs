@@ -5,4 +5,5 @@ using UnityEngine;
 public interface IAnimationController
 {
     void PlayAnimation(string animationName);
+    float GetAnimationLength(string animationName);
 }

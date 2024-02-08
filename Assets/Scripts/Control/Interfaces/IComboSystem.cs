@@ -5,7 +5,6 @@ using UnityEngine;
 public interface IComboSystem
 {
     event System.Action OnAnimationFinished;
-    void Initialize(AnimationController controller);
     void OnCrossPunch();
     void OnLightJab();
     

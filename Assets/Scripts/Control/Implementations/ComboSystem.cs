@@ -1,21 +1,22 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
+
 
 public class ComboSystem : MonoBehaviour, IComboSystem
 {
-    [SerializeField] private AnimationController animationController; // Serialized field for AnimationController
+    [SerializeField] private AnimationController animationController;
     public event System.Action OnAnimationFinished;
     private List<string> currentCombo = new List<string>();
     private Dictionary<List<string>, string> comboResultAnimations = new Dictionary<List<string>, string>();
-
+    private bool isPlayingComboAnimation = false;
+    private Coroutine comboInputCoroutine;
+    
     private void Start()
     {
         DefineCombos();
     }
-    public void Initialize(AnimationController controller)
-    {
-        animationController = controller;
-    }
+
     private void DefineCombos()
     {
         List<string> comboSequence1 = new List<string> { "CrossPunch", "LightJab", "CrossPunch" };
@@ -23,24 +24,40 @@ public class ComboSystem : MonoBehaviour, IComboSystem
 
         List<string> comboSequence2 = new List<string> { "LightJab", "LightJab", "CrossPunch" };
         comboResultAnimations.Add(comboSequence2, "chain_punch_R_animation");
-
     }
+
     public void OnCrossPunch()
     {
-        Debug.Log("Cross Punch Added to combo waitlist");
-
-        currentCombo.Add("CrossPunch");
+        AddInputToCombo("CrossPunch");
         PlayAnimation("cross_punch_R_animation");
-        CheckCombos();
     }
+
     public void OnLightJab()
     {
-        Debug.Log("Light Jab Added to combo waitlist");
-
-        currentCombo.Add("LightJab");
+        AddInputToCombo("LightJab");
         PlayAnimation("light_jab_animation");
+    }
+    private void AddInputToCombo(string input)
+    {
+        if (isPlayingComboAnimation)
+        {
+            return;
+        }
+        currentCombo.Add(input);
+        
+        if (comboInputCoroutine != null)
+        {
+            StopCoroutine(comboInputCoroutine);
+        }
+        comboInputCoroutine = StartCoroutine(ComboInputDelay());
+    }
+
+    private IEnumerator ComboInputDelay()
+    {
+        yield return new WaitForSeconds(1f);
         CheckCombos();
     }
+    
     private void CheckCombos()
     {
         foreach (var comboSequence in comboResultAnimations.Keys)
@@ -48,19 +65,18 @@ public class ComboSystem : MonoBehaviour, IComboSystem
             if (IsComboMatch(comboSequence))
             {
                 string comboResultAnimationName = comboResultAnimations[comboSequence];
+                Debug.Log("Matching combo sequence: " + string.Join(" -> ", comboSequence) + " -> " + comboResultAnimationName);
                 PlayAnimation(comboResultAnimationName);
                 currentCombo.Clear();
-                
-                if (OnAnimationFinished != null)
-                    OnAnimationFinished();
                 return;
             }
         }
+        Debug.Log("No matching combo found.");
+        currentCombo.Clear();
     }
-
+    
     private bool IsComboMatch(List<string> comboSequence)
     {
-        // Check if the current combo matches the specified sequence
         if (currentCombo.Count < comboSequence.Count)
             return false;
 
@@ -69,9 +85,9 @@ public class ComboSystem : MonoBehaviour, IComboSystem
             if (currentCombo[i] != comboSequence[i])
                 return false;
         }
-
         return true;
     }
+    
     private void PlayAnimation(string animationName)
     {
         if (animationController != null)

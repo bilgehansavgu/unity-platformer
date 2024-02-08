@@ -5,6 +5,8 @@ using UnityEngine;
 public class InputHandler : MonoBehaviour, IInputHandler
 {
     [SerializeField] private ComboSystem comboSystem; 
+    private float lastPunchTime;
+    private float punchInterval = 0.3f;
 
     public IComboSystem ComboSystem 
     { 
@@ -18,20 +20,22 @@ public class InputHandler : MonoBehaviour, IInputHandler
 
     public void OnCrossPunch()
     {
-        Debug.Log("Cross Punch Pressed");
-        if (ComboSystem != null)
+        float currentTime = Time.time;
+        if (currentTime - lastPunchTime >= punchInterval)
         {
-            Debug.Log("Combo system initialized");
+            Debug.Log("Cross Punch Pressed");
+            lastPunchTime = currentTime;
             ComboSystem.OnCrossPunch();
         }
     }
 
     public void OnLightJab()
     {
-        Debug.Log("Light Jab Pressed");
-        if (ComboSystem != null)
+        float currentTime = Time.time;
+        if (currentTime - lastPunchTime >= punchInterval)
         {
-            Debug.Log("Combo system initialized");
+            Debug.Log("Light Jab Pressed");
+            lastPunchTime = currentTime;
             ComboSystem.OnLightJab();
         }
     }
