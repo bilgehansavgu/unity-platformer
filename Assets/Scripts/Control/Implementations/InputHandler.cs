@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class InputHandler : MonoBehaviour, IInputHandler
 {
     [SerializeField] private ComboSystem comboSystem; 
+    [SerializeField] private AnimationController animationController;
     [SerializeField]private float _maxMovementVelocity = 10;
     [SerializeField]private float _movementVelocityAfterMovement = 2; 
     [SerializeField]private float _dashVelocity = 5;
@@ -17,7 +18,8 @@ public class InputHandler : MonoBehaviour, IInputHandler
     private float lastPunchTime;
     private float punchInterval = 0.3f;
     private bool isFaceRight = true;
-    private bool isJumping = true;
+    private bool isMoving = false;
+    private bool isJumping = false;
     private Rigidbody2D rb;
     private CapsuleCollider2D _collider;
     public IComboSystem ComboSystem 
@@ -33,6 +35,7 @@ public class InputHandler : MonoBehaviour, IInputHandler
             Debug.LogError("Rigidbody2D component not found on the player GameObject.");
         }
     }
+    
     public void OnCrossPunch()
     {
         float currentTime = Time.time;
@@ -56,16 +59,21 @@ public class InputHandler : MonoBehaviour, IInputHandler
     public void OnMoveRight()
     {
         Debug.Log("Move Right Pressed");
+        isMoving = true;
+        PlayAnimation("walk_R_animation");
         WalkRight();
     }
     public void OnMoveLeft()
     {
         Debug.Log("Move Left Pressed");
+        isMoving = true;
+        PlayAnimation("walk_R_animation");
         WalkLeft();
     }
     public void OnJump()
     {
         Debug.Log("Jump Pressed");
+        isJumping = true;
         // if falling down
         if (rb.velocity.y <= 0)
         {
@@ -99,5 +107,29 @@ public class InputHandler : MonoBehaviour, IInputHandler
             float speedDifference = Mathf.Abs(_maxMovementVelocity + rb.velocity.x);
             rb.velocity += new Vector2(-speedDifference, 0);
         }    
+    }
+    public void OnEndJump()
+    {
+        Debug.Log("Jump Ended");
+        isJumping = false;
+    }
+    void Update()
+    {
+        if (rb.velocity.magnitude < 2f)
+        {
+            Debug.Log("Player is idle.");
+            PlayAnimation("idle");
+        }
+    }
+    private void PlayAnimation(string animationName)
+    {
+        if (animationController != null)
+        {
+            animationController.PlayAnimation(animationName);
+        }
+        else
+        {
+            Debug.LogWarning("AnimationController reference is null in ComboSystem. Cannot play animation.");
+        }
     }
 }

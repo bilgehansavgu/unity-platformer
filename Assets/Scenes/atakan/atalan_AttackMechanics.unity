@@ -13059,6 +13059,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   comboSystem: {fileID: 2072058091}
+  animationController: {fileID: 2072058090}
   _maxMovementVelocity: 10
   _movementVelocityAfterMovement: 2
   _dashVelocity: 5
