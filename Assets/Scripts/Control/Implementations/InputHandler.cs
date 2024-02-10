@@ -70,6 +70,12 @@ public class InputHandler : MonoBehaviour, IInputHandler
         PlayAnimation("walk_R_animation");
         WalkLeft();
     }
+    public void OnDash()
+    {
+        Debug.Log("Dash Pressed");
+        isMoving = true;
+        PlayAnimation("dash_R_animation");
+    }
     public void OnJump()
     {
         Debug.Log("Jump Pressed");

@@ -9,4 +9,6 @@ public interface IInputHandler
     void OnMoveRight();
     void OnMoveLeft();
     void OnJump();
+    void OnDash();
+
 }
