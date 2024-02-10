@@ -1693,6 +1693,7 @@ MonoBehaviour:
   _locked: 0
   _comboStep: 0
   _timer: 2
+  _isMoving: 0
 --- !u!95 &753559267
 Animator:
   serializedVersion: 5
@@ -1822,12 +1823,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7461da3a584c24b269ce65661ef57758, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementVelocity: 10
+  _maxMovementVelocity: 10
   _movementVelocityAfterMovement: 2
+  _dashVelocity: 5
   _jumpVelocity: 5
-  JumpFallVelDecrement: 3
-  JumpRiseVelDec: 3
-  JumpRiseVelDecHold: 1
+  _jumpFallVelDecrement: 3
+  _jumpRiseVelDec: 3
+  _jumpRiseVelDecHold: 1
 --- !u!50 &753559270
 Rigidbody2D:
   serializedVersion: 4
@@ -2114,6 +2116,7 @@ MonoBehaviour:
   _locked: 0
   _comboStep: 0
   _timer: 2
+  _isMoving: 0
 --- !u!95 &761564723
 Animator:
   serializedVersion: 5
@@ -2243,12 +2246,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7461da3a584c24b269ce65661ef57758, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementVelocity: 10
+  _maxMovementVelocity: 10
   _movementVelocityAfterMovement: 2
+  _dashVelocity: 5
   _jumpVelocity: 5
-  JumpFallVelDecrement: 3
-  JumpRiseVelDec: 3
-  JumpRiseVelDecHold: 1
+  _jumpFallVelDecrement: 3
+  _jumpRiseVelDec: 3
+  _jumpRiseVelDecHold: 1
 --- !u!50 &761564726
 Rigidbody2D:
   serializedVersion: 4
@@ -2535,6 +2539,7 @@ MonoBehaviour:
   _locked: 0
   _comboStep: 0
   _timer: 2
+  _isMoving: 0
 --- !u!95 &939813085
 Animator:
   serializedVersion: 5
@@ -2664,12 +2669,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7461da3a584c24b269ce65661ef57758, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementVelocity: 10
+  _maxMovementVelocity: 10
   _movementVelocityAfterMovement: 2
+  _dashVelocity: 5
   _jumpVelocity: 5
-  JumpFallVelDecrement: 3
-  JumpRiseVelDec: 3
-  JumpRiseVelDecHold: 1
+  _jumpFallVelDecrement: 3
+  _jumpRiseVelDec: 3
+  _jumpRiseVelDecHold: 1
 --- !u!50 &939813088
 Rigidbody2D:
   serializedVersion: 4
@@ -12479,7 +12485,7 @@ GameObject:
   - component: {fileID: 2072058086}
   - component: {fileID: 2072058079}
   - component: {fileID: 2072058089}
-  - component: {fileID: 2072058092}
+  - component: {fileID: 2072058093}
   - component: {fileID: 2072058091}
   - component: {fileID: 2072058090}
   m_Layer: 0
@@ -12528,12 +12534,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7461da3a584c24b269ce65661ef57758, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementVelocity: 10
+  _maxMovementVelocity: 10
   _movementVelocityAfterMovement: 2
+  _dashVelocity: 5
   _jumpVelocity: 10
-  JumpFallVelDecrement: 3
-  JumpRiseVelDec: 3
-  JumpRiseVelDecHold: 1
+  _jumpFallVelDecrement: 3
+  _jumpRiseVelDec: 3
+  _jumpRiseVelDecHold: 1
 --- !u!212 &2072058080
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12886,12 +12893,88 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 5e018cb9-5b88-4b18-b9b7-d57ac2a77c8b
-    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: 40a4090c-d6be-4290-b878-dd597431624e
     m_ActionName: Player/Look[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2072058093}
+        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
+        m_MethodName: OnLightJab
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6ef528f5-5829-4a3c-bffc-c8af94b63a7a
+    m_ActionName: Player/LightJab[/Keyboard/m]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2072058093}
+        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
+        m_MethodName: OnCrossPunch
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6851ba92-e5b1-4a67-8156-b4de4bef4bee
+    m_ActionName: Player/CrossPunch[/Keyboard/n]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2072058093}
+        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
+        m_MethodName: OnMoveLeft
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9210c289-ec31-49a5-bfcf-fb455e5b04b3
+    m_ActionName: Player/MoveLeft[/Keyboard/a]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2072058093}
+        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
+        m_MethodName: OnMoveRight
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c66dad3b-cdcf-4c72-b77a-9e0393fb1bf4
+    m_ActionName: Player/MoveRight[/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2072058093}
+        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2487a7ce-a102-4919-9227-1b5f88f304fe
+    m_ActionName: Player/Jump[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: e82a5a00-c239-4365-8a38-6b41eb57e8a1
@@ -12932,38 +13015,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 31a940e4-446f-4216-8f21-3d05aed147d5
     m_ActionName: UI/TrackedDeviceOrientation
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2072058092}
-        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
-        m_MethodName: OnLightJab
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 6ef528f5-5829-4a3c-bffc-c8af94b63a7a
-    m_ActionName: Player/LightJab[/Keyboard/b]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2072058092}
-        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
-        m_MethodName: OnCrossPunch
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 6851ba92-e5b1-4a67-8156-b4de4bef4bee
-    m_ActionName: Player/CrossPunch[/Keyboard/n]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -12995,7 +13046,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animationController: {fileID: 2072058090}
---- !u!114 &2072058092
+--- !u!114 &2072058093
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13008,6 +13059,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   comboSystem: {fileID: 2072058091}
+  _maxMovementVelocity: 10
+  _movementVelocityAfterMovement: 2
+  _dashVelocity: 5
+  _jumpVelocity: 5
+  _jumpFallVelDecrement: 3
+  _jumpRiseVelDec: 3
+  _jumpRiseVelDecHold: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
