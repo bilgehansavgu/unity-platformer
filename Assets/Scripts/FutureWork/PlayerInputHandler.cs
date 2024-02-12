@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class HandlerInputSystem : MonoBehaviour
+public class PlayerInputHandler : MonoBehaviour
 {
 
     [Header("Input Action Asset")]
@@ -23,7 +23,7 @@ public class HandlerInputSystem : MonoBehaviour
     public bool JumpTriggered { get; private set;}
     public float SprintValue { get; private set;}
 
-    public static HandlerInputSystem Instance { get; private set;}
+    public static PlayerInputHandler Instance { get; private set;}
 
     private void Awake()
     {
