@@ -2,13 +2,10 @@ using UnityEngine;
 
 public class AnimationController : MonoBehaviour, IAnimationController
 {
+    
     [SerializeField] private Animator animator;
     private Rigidbody2D rb;
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-    }
-
+ 
     public void PlayAnimation(string animationName)
     {
         animator = GetComponent<Animator>();
@@ -20,11 +17,7 @@ public class AnimationController : MonoBehaviour, IAnimationController
     }
     void Update()
     {
-        if (rb.velocity.magnitude < 2f)
-        {
-            Debug.Log("Player is idle.");
-            PlayAnimation("idle");
-        }
+  
     }
     public float GetAnimationLength(string animationName)
     {
