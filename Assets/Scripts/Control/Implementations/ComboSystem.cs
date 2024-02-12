@@ -11,12 +11,27 @@ public class ComboSystem : MonoBehaviour, IComboSystem
     private Dictionary<List<string>, string> comboResultAnimations = new Dictionary<List<string>, string>();
     private bool isPlayingComboAnimation = false;
     private Coroutine comboInputCoroutine;
+    private PlayerInputHandler inputHandler;
     
     private void Start()
     {
+        inputHandler = PlayerInputHandler.Instance;
         DefineCombos();
+        
     }
-
+    private void FixedUpdate()
+    {
+        if (inputHandler.CrossPunchTriggered)
+        {
+            AddInputToCombo("CrossPunch");
+            PlayAnimation("cross_punch_R_animation");
+        }
+        if (inputHandler.LightJabTriggered)
+        {
+            AddInputToCombo("LightJab");
+            PlayAnimation("light_jab_animation");
+        }
+    }
     private void DefineCombos()
     {
         List<string> comboSequence1 = new List<string> { "CrossPunch", "LightJab", "CrossPunch" };
@@ -24,18 +39,6 @@ public class ComboSystem : MonoBehaviour, IComboSystem
 
         List<string> comboSequence2 = new List<string> { "LightJab", "LightJab", "CrossPunch" };
         comboResultAnimations.Add(comboSequence2, "chain_punch_R_animation");
-    }
-
-    public void OnCrossPunch()
-    {
-        AddInputToCombo("CrossPunch");
-        PlayAnimation("cross_punch_R_animation");
-    }
-
-    public void OnLightJab()
-    {
-        AddInputToCombo("LightJab");
-        PlayAnimation("light_jab_animation");
     }
     private void AddInputToCombo(string input)
     {
@@ -54,7 +57,7 @@ public class ComboSystem : MonoBehaviour, IComboSystem
 
     private IEnumerator ComboInputDelay()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         CheckCombos();
     }
     

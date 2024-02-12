@@ -16,14 +16,22 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private string move = "Move";
     [SerializeField] private string jump = "Jump";
     [SerializeField] private string sprint = "Sprint";
+    [SerializeField] private string crossPunch = "CrossPunch";
+    [SerializeField] private string lightJab = "LightJab";
+
     private InputAction moveAction;
     private InputAction jumpAction;
     private InputAction sprintAction;
+    private InputAction attackCrossPunch;
+    private InputAction attackLightJab;
+
     public Vector2 MoveInput { get; private set;} 
     public bool JumpTriggered { get; private set;}
     public float SprintValue { get; private set;}
-
+    public bool CrossPunchTriggered { get; private set;}
+    public bool LightJabTriggered { get; private set;}
     public static PlayerInputHandler Instance { get; private set;}
+    
 
     private void Awake()
     {
@@ -40,7 +48,10 @@ public class PlayerInputHandler : MonoBehaviour
         moveAction = playerControls.FindActionMap(actionMapName).FindAction(move);
         jumpAction = playerControls.FindActionMap(actionMapName).FindAction(jump);
         sprintAction = playerControls.FindActionMap(actionMapName).FindAction(sprint);
-
+        
+        attackCrossPunch = playerControls.FindActionMap(actionMapName).FindAction(crossPunch);
+        attackLightJab = playerControls.FindActionMap(actionMapName).FindAction(lightJab);
+        
         RegisterInputActions();
     }
     void RegisterInputActions()
@@ -53,6 +64,12 @@ public class PlayerInputHandler : MonoBehaviour
         
         sprintAction.performed += context => SprintValue = context.ReadValue<float>();
         sprintAction.canceled += context => SprintValue = 0f;  
+        
+        attackCrossPunch.performed += context => CrossPunchTriggered = true;
+        attackCrossPunch.canceled += context => CrossPunchTriggered = false;   
+        
+        attackLightJab.performed += context => LightJabTriggered = true;
+        attackLightJab.canceled += context => LightJabTriggered = false;   
     }
 
     private void OnEnable()
@@ -60,11 +77,17 @@ public class PlayerInputHandler : MonoBehaviour
         moveAction.Enable();
         jumpAction.Enable();
         sprintAction.Enable();
+        
+        attackCrossPunch.Enable();
+        attackLightJab.Enable();
     }
     private void OnDisable()
     {
         moveAction.Disable();
         jumpAction.Disable();
         sprintAction.Disable();
+        
+        attackCrossPunch.Disable();
+        attackLightJab.Disable();
     }
 }

@@ -21,26 +21,6 @@ public class InputHandler : MonoBehaviour, IInputHandler
         get { return movementSystem; } 
         set { movementSystem = value as MovementSystem; } 
     }
-    public void OnCrossPunch()
-    {
-        float currentTime = Time.time;
-        if (currentTime - lastPunchTime >= punchInterval)
-        {
-            Debug.Log("Cross Punch Pressed");
-            lastPunchTime = currentTime;
-            ComboSystem.OnCrossPunch();
-        }
-    }
-    public void OnLightJab()
-    {
-        float currentTime = Time.time;
-        if (currentTime - lastPunchTime >= punchInterval)
-        {
-            Debug.Log("Light Jab Pressed");
-            lastPunchTime = currentTime;
-            ComboSystem.OnLightJab();
-        }
-    }
     public void OnMoveRight()
     {
         PlayAnimation("walk_R_animation");
