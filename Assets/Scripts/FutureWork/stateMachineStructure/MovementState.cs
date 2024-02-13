@@ -9,12 +9,14 @@ public class MovementState : MonoBehaviour, IPlayerState
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        inputHandler = FindObjectOfType<PlayerStateInputs>();
+        inputHandler = GetComponent<PlayerStateInputs>();
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     public void EnterState()
     {
         // Initialize state
+
     }
 
     public void UpdateState()

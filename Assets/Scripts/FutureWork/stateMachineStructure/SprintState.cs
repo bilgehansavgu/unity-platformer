@@ -13,7 +13,6 @@ public class SprintState : MonoBehaviour, IPlayerState
     public void EnterState()
     {
         // Perform jump action
-        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
     }
 
     public void UpdateState()
