@@ -26,7 +26,7 @@ public class PlayerStateInputs : MonoBehaviour
     public InputAction attackTriangleAction;
     
     public Vector2 MoveInputValue { get; private set; }
-    public bool jumpTriggered = false
+    public bool jumpTriggered = false;
     public bool attackSquareActionTriggered = false;
 
     private void Awake()

@@ -419,6 +419,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2072058076}
+  _Zoffset: -10
+  _Yoffset: 1
+  sceneName: 
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1678,6 +1681,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hookTransform: {fileID: 1143439460}
+  _rb: {fileID: 0}
+  _lineRenderer: {fileID: 0}
 --- !u!114 &753559266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1823,6 +1828,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7461da3a584c24b269ce65661ef57758, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  _collider: {fileID: 0}
+  _jumpSound: {fileID: 0}
+  _jumpCount: 0
   _maxMovementVelocity: 10
   _movementVelocityAfterMovement: 2
   _dashVelocity: 5
@@ -1830,6 +1839,7 @@ MonoBehaviour:
   _jumpFallVelDecrement: 3
   _jumpRiseVelDec: 3
   _jumpRiseVelDecHold: 1
+  _isFaceRight: 1
 --- !u!50 &753559270
 Rigidbody2D:
   serializedVersion: 4
@@ -2101,6 +2111,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hookTransform: {fileID: 1143439460}
+  _rb: {fileID: 0}
+  _lineRenderer: {fileID: 0}
 --- !u!114 &761564722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2246,6 +2258,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7461da3a584c24b269ce65661ef57758, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  _collider: {fileID: 0}
+  _jumpSound: {fileID: 0}
+  _jumpCount: 0
   _maxMovementVelocity: 10
   _movementVelocityAfterMovement: 2
   _dashVelocity: 5
@@ -2253,6 +2269,7 @@ MonoBehaviour:
   _jumpFallVelDecrement: 3
   _jumpRiseVelDec: 3
   _jumpRiseVelDecHold: 1
+  _isFaceRight: 1
 --- !u!50 &761564726
 Rigidbody2D:
   serializedVersion: 4
@@ -2433,6 +2450,56 @@ MonoBehaviour:
   sprint: Sprint
   crossPunch: CrossPunch
   lightJab: LightJab
+  moveAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 28039e48-21af-4ddb-baee-7dcdd6d8e0e1
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  jumpAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 372411d0-0fb5-4321-83b9-0a15c1aeed0d
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  sprintAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: dab0ab4f-3958-41f5-baf8-2a4b58e7db4c
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  attackCrossPunch:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 255831dd-807a-411d-a8a7-7831b568d417
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  attackLightJab:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: b91e0683-aa84-4d53-9b9c-484c98bb0e03
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  <MoveInput>k__BackingField: {x: 0, y: 0}
+  <JumpTriggered>k__BackingField: 0
+  <SprintValue>k__BackingField: 0
+  <CrossPunchTriggered>k__BackingField: 0
+  <LightJabTriggered>k__BackingField: 0
 --- !u!1 &939813081
 GameObject:
   m_ObjectHideFlags: 0
@@ -2576,6 +2643,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hookTransform: {fileID: 1143439460}
+  _rb: {fileID: 0}
+  _lineRenderer: {fileID: 0}
 --- !u!114 &939813084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2721,6 +2790,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7461da3a584c24b269ce65661ef57758, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  _collider: {fileID: 0}
+  _jumpSound: {fileID: 0}
+  _jumpCount: 0
   _maxMovementVelocity: 10
   _movementVelocityAfterMovement: 2
   _dashVelocity: 5
@@ -2728,6 +2801,7 @@ MonoBehaviour:
   _jumpFallVelDecrement: 3
   _jumpRiseVelDec: 3
   _jumpRiseVelDecHold: 1
+  _isFaceRight: 1
 --- !u!50 &939813088
 Rigidbody2D:
   serializedVersion: 4
@@ -12572,6 +12646,7 @@ GameObject:
   - component: {fileID: 2072058095}
   - component: {fileID: 2072058094}
   - component: {fileID: 2072058093}
+  - component: {fileID: 2072058100}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -12943,6 +13018,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b71aba96979d4346b6fe6204440d117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputHandler: {fileID: 2072058099}
+  stateMachine: {fileID: 2072058098}
+  groundCheckDistance: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &2072058094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12955,6 +13036,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb96fa4e98c6711419fa0711428413aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateMachine: {fileID: 2072058098}
+  inputHandler: {fileID: 2072058099}
+  groundCheckDistance: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &2072058095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12980,7 +13067,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08e59180dec0c4c468a59f0643579e29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateMachine: {fileID: 2072058098}
+  inputHandler: {fileID: 2072058099}
+  moveSpeed: 5
   jumpForce: 10
+  groundCheckDistance: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &2072058097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12995,6 +13089,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   inputHandler: {fileID: 2072058099}
+  stateMachine: {fileID: 2072058098}
 --- !u!114 &2072058098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13026,6 +13121,66 @@ MonoBehaviour:
   sprint: Sprint
   attackSquare: AttackSquare
   attackTriangle: AttackTriangle
+  moveAction:
+    m_Name: Move
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: dd8911c2-b0c0-4e5e-8552-6313d055aba7
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  jumpAction:
+    m_Name: Jump
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 4476e279-3aa8-4a0a-8aae-20fad2e2e5a1
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  sprintAction:
+    m_Name: Sprint
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 7216a8e9-64ac-4762-b762-fb39db2df53b
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  attackSquareAction:
+    m_Name: Attack Square
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 3959d52e-7594-4c13-ba03-ff356cc02372
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  attackTriangleAction:
+    m_Name: Attack Triangle
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 0bd6ac6f-ae21-40ea-827d-eae44e7e0302
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  jumpTriggered: 0
+  attackSquareActionTriggered: 0
+--- !u!114 &2072058100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072058076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc7772e8035f43fc97e666f3e1d80de6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputHandler: {fileID: 2072058099}
   stateMachine: {fileID: 2072058098}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
