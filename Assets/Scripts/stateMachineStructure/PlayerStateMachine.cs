@@ -1,8 +1,14 @@
+using System;
 using UnityEngine;
 
 public class PlayerStateMachine : MonoBehaviour
 {
     private IPlayerState currentState;
+
+    public void Start()
+    {
+        SetState(GetComponent<IdleState>());
+    }
 
     public void SetState(IPlayerState state)
     {
@@ -15,7 +21,7 @@ public class PlayerStateMachine : MonoBehaviour
         currentState.EnterState();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (currentState != null)
         {

@@ -6,6 +6,5 @@ public interface IPlayerState
 {
     void EnterState();
     void UpdateState();
-    void OnAnimationFinished();
     void ExitState();
 }

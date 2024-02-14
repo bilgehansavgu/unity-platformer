@@ -1,14 +1,16 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MovementState : MonoBehaviour, IPlayerState
 {
-    private PlayerMovement playerMovement;
+
     private Animator animator;
     private Rigidbody2D rb;
     private bool facingRight = true;
 
     [SerializeField] private float moveSpeed = 5f;
     public PlayerStateInputs inputHandler;
+    public PlayerStateMachine stateMachine;
 
     private void Start()
     {
@@ -16,41 +18,41 @@ public class MovementState : MonoBehaviour, IPlayerState
         inputHandler = GetComponent<PlayerStateInputs>();
         animator = GetComponent<Animator>();
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        
     }
 
     public void EnterState()
     {
+        Debug.Log("MMMMEnterState");
         // Initialize state
         animator.Play("walk_R_animation");
+
     }
 
     public void UpdateState()
     {
-        if (inputHandler == null)
-        {
-            Debug.LogError("PlayerInputHandler not found!");
-            return;
-        }
-        Vector2 moveInput = inputHandler.MoveInputValue;
-        rb.velocity = new Vector2(moveInput.x * moveSpeed, rb.velocity.y);
+        Debug.Log("MMMMupdateState");
+        rb.velocity = new Vector2(inputHandler.MoveInputValue.x * moveSpeed, rb.velocity.y);
         
-        if (moveInput.x > 0 && !facingRight)
+        if (inputHandler.MoveInputValue.x > 0 && !facingRight)
         {
             FlipPlayer();
         }
-        else if (moveInput.x < 0 && facingRight)
+        else if (inputHandler.MoveInputValue.x < 0 && facingRight)
         {
             FlipPlayer();
         }
-        else if (moveInput.x == 0)
+        else if (inputHandler.MoveInputValue.x == 0)
         {
-            animator.Play("idle");
+            stateMachine.SetState(GetComponent<IdleState>());
         }
     }
-    public void OnAnimationFinished()
+    public void ExitState()
     {
-        animator.Play("idle");
+        Debug.Log("MMMMExitState");
+
     }
+
     private void FlipPlayer()
     {
         facingRight = !facingRight; // Toggle facing direction
@@ -63,9 +65,5 @@ public class MovementState : MonoBehaviour, IPlayerState
 
         // Apply the new rotation
         transform.eulerAngles = newRotation;
-    }
-    public void ExitState()
-    {
-        // Clean up state
     }
 }

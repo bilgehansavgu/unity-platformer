@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,16 +19,13 @@ public class PlayerStateInputs : MonoBehaviour
     [SerializeField] private string attackSquare = "AttackSquare";
     [SerializeField] private string attackTriangle = "AttackTriangle";
 
-    private InputAction moveAction;
-    private InputAction jumpAction;
-    private InputAction sprintAction;
-    private InputAction attackSquareAction;
-    private InputAction attackTriangleAction;
-
-    public PlayerStateMachine stateMachine;
+    public InputAction moveAction ;
+    public InputAction jumpAction;
+    public InputAction sprintAction;
+    public InputAction attackSquareAction;
+    public InputAction attackTriangleAction;
+    
     public Vector2 MoveInputValue { get; private set; }
-    public static PlayerStateInputs Instance { get; private set;}
-    private bool inAttackState = false;
 
 
 
@@ -38,8 +36,6 @@ public class PlayerStateInputs : MonoBehaviour
         sprintAction = playerControls.FindActionMap(actionMapName).FindAction(sprint);
         attackSquareAction = playerControls.FindActionMap(actionMapName).FindAction(attackSquare);
         attackTriangleAction = playerControls.FindActionMap(actionMapName).FindAction(attackTriangle);
-        
-        stateMachine = GetComponent<PlayerStateMachine>();
 
         RegisterInputActions();
     }
@@ -47,30 +43,17 @@ public class PlayerStateInputs : MonoBehaviour
     void RegisterInputActions()
     {
         moveAction.performed += context => {
-            if (!inAttackState) // Allow movement only if not in an attack state
-            {
-                MoveInputValue = context.ReadValue<Vector2>();
-                stateMachine.SetState(GetComponent<MovementState>());
-            }
+            MoveInputValue = context.ReadValue<Vector2>();
+            
+            Debug.Log("moveActionperformed" + MoveInputValue);
         };
-        moveAction.canceled += context => MoveInputValue = Vector2.zero;
-
-        jumpAction.performed += context => {
-            if (!inAttackState) // Allow jumping only if not in an attack state
-            {
-                stateMachine.SetState(GetComponent<JumpState>());
-            }
+        moveAction.canceled += context =>
+        {
+            MoveInputValue = Vector2.zero;
+            Debug.Log("moveActioncanceled" + MoveInputValue);
         };
-        sprintAction.performed += context => {stateMachine.SetState(GetComponent<SprintState>());};
-
-        attackSquareAction.performed += context => {stateMachine.SetState(GetComponent<SquareAttackState>());};
-
-        attackTriangleAction.performed += context => {stateMachine.SetState(GetComponent<TriangleAttackState>());};
     }
-    public void SetAttackState(bool value)
-    {
-        inAttackState = value;
-    }
+
     private void OnEnable()
     {
         moveAction.Enable();

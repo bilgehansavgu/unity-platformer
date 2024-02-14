@@ -1,0 +1,40 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class IdleState : MonoBehaviour, IPlayerState
+{
+    private Animator animator;
+    private Rigidbody2D rb;
+    public PlayerStateInputs inputHandler;
+    public PlayerStateMachine stateMachine;
+    
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        inputHandler = GetComponent<PlayerStateInputs>();
+    }
+
+    public void EnterState()
+    {
+        animator.Play("idle");
+
+        Debug.Log("IdleEnterState");
+    }
+    
+
+    public void UpdateState()
+    {
+        if (inputHandler.MoveInputValue.x != 0)
+        {
+            stateMachine.SetState(GetComponent<MovementState>());
+        }
+        Debug.Log("IdleUpdateState");
+    }
+
+    public void ExitState()
+    {
+        Debug.Log("IdleExitState");
+    }
+}
