@@ -58,6 +58,12 @@ public class PlayerActionAnimationController : MonoBehaviour
         {
             PlayLocked("dash_R_animation");
         }
+        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            
+            PlayInterruptible("jump_animation");
+        }
 
         if (Input.GetKeyDown(KeyCode.N) || Input.GetKeyDown(KeyCode.M) )
         {
@@ -134,7 +140,15 @@ public class PlayerActionAnimationController : MonoBehaviour
     public void AnimationFinishedCallback()
     {
         _locked = false;
-        PlayInterruptible("idle");
+        
+        if (_isMoving)
+        {
+            PlayInterruptible("WalkR");
+        }
+        else
+        {
+            PlayInterruptible("idle");
+        }
     }
     
     void PlayLocked(string stateName)
@@ -150,6 +164,7 @@ public class PlayerActionAnimationController : MonoBehaviour
         _locked = false;
         _animator.Play(stateName);
     }
+    
     
     // Helpers
     
