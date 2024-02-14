@@ -23,15 +23,11 @@ public class MovementState : MonoBehaviour, IPlayerState
 
     public void EnterState()
     {
-        Debug.Log("MMMMEnterState");
-        // Initialize state
         animator.Play("walk_R_animation");
-
     }
 
     public void UpdateState()
     {
-        Debug.Log("MMMMupdateState");
         rb.velocity = new Vector2(inputHandler.MoveInputValue.x * moveSpeed, rb.velocity.y);
         
         if (inputHandler.MoveInputValue.x > 0 && !facingRight)
@@ -46,24 +42,25 @@ public class MovementState : MonoBehaviour, IPlayerState
         {
             stateMachine.SetState(GetComponent<IdleState>());
         }
+
+        if (inputHandler.jumpTriggered)
+        {
+            stateMachine.SetState(GetComponent<JumpState>());
+        }
     }
     public void ExitState()
     {
-        Debug.Log("MMMMExitState");
 
     }
 
     private void FlipPlayer()
     {
-        facingRight = !facingRight; // Toggle facing direction
+        facingRight = !facingRight;
 
-        // Calculate the new rotation
         Vector3 newRotation = transform.eulerAngles;
-
-        // Flip around the Y-axis (180 degrees)
+        
         newRotation.y += 180f;
-
-        // Apply the new rotation
+        
         transform.eulerAngles = newRotation;
     }
 }

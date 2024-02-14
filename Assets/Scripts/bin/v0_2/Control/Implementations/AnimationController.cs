@@ -5,6 +5,7 @@ public class AnimationController : MonoBehaviour, IAnimationController
     
     [SerializeField] private Animator animator;
     private Rigidbody2D rb;
+    private bool isAnimationFinished;
  
     public void PlayAnimation(string animationName)
     {

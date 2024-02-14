@@ -30,11 +30,20 @@ public class IdleState : MonoBehaviour, IPlayerState
         {
             stateMachine.SetState(GetComponent<MovementState>());
         }
-        Debug.Log("IdleUpdateState");
+
+        if (inputHandler.jumpTriggered)
+        {
+            stateMachine.SetState(GetComponent<JumpState>());
+        }
+
+        if (inputHandler.attackSquareActionTriggered)
+        {
+            stateMachine.SetState(GetComponent<SquareAttackState>());
+        }
     }
 
     public void ExitState()
     {
-        Debug.Log("IdleExitState");
+
     }
 }

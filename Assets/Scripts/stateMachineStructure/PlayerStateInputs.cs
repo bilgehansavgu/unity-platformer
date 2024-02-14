@@ -26,8 +26,8 @@ public class PlayerStateInputs : MonoBehaviour
     public InputAction attackTriangleAction;
     
     public Vector2 MoveInputValue { get; private set; }
-
-
+    public bool jumpTriggered = false
+    public bool attackSquareActionTriggered = false;
 
     private void Awake()
     {
@@ -37,21 +37,24 @@ public class PlayerStateInputs : MonoBehaviour
         attackSquareAction = playerControls.FindActionMap(actionMapName).FindAction(attackSquare);
         attackTriangleAction = playerControls.FindActionMap(actionMapName).FindAction(attackTriangle);
 
-        RegisterInputActions();
+        UpdateInputActions();
     }
 
-    void RegisterInputActions()
+    void UpdateInputActions()
     {
         moveAction.performed += context => {
             MoveInputValue = context.ReadValue<Vector2>();
-            
-            Debug.Log("moveActionperformed" + MoveInputValue);
         };
         moveAction.canceled += context =>
         {
             MoveInputValue = Vector2.zero;
-            Debug.Log("moveActioncanceled" + MoveInputValue);
         };
+
+        jumpAction.performed += context => jumpTriggered = true;
+        jumpAction.canceled += context => jumpTriggered = false;
+
+        attackSquareAction.performed += context => attackSquareActionTriggered = true;
+        attackSquareAction.performed += context => attackSquareActionTriggered = false;
     }
 
     private void OnEnable()

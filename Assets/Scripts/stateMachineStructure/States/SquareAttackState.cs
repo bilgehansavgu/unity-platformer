@@ -2,41 +2,38 @@ using UnityEngine;
 
 public class SquareAttackState : MonoBehaviour, IPlayerState
 {
-    // Reference to player's movement script to check if grounded
+
 
     private Animator animator;
     private Rigidbody2D rb;
+    public PlayerStateMachine stateMachine;
+    public PlayerStateInputs inputHandler;
 
-
-    // References to grounded and aerial attack animations
+    
     private string groundedAttackAnimation = "chain_punch_R_animation";
     private string aerialAttackAnimation = "jump_and_ground_slam_R_animation";
     
-    [SerializeField] private float groundCheckDistance = 1f; // Distance to check for ground
+    [SerializeField] private float groundCheckDistance = 1f;
     [SerializeField] private LayerMask groundLayer;
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-
+        animator = GetComponent<Animator>();
+        stateMachine = GetComponent<PlayerStateMachine>();
+        inputHandler = GetComponent<PlayerStateInputs>();
     }
 
     public void EnterState()
     {
         if (IsGrounded())
         {
-            // Perform grounded attack action
-            Debug.Log("Performing grounded square attack");
             animator.Play(groundedAttackAnimation);
         }
         else
         {
-            // Perform aerial attack action
-            Debug.Log("Performing aerial square attack");
             animator.Play(aerialAttackAnimation);
             rb.AddForce(Vector2.down * 8, ForceMode2D.Impulse);
-
         }
 
     }
@@ -49,7 +46,7 @@ public class SquareAttackState : MonoBehaviour, IPlayerState
 
     public void ExitState()
     {
-        // Cleanup state if needed
+        
     }
     
     public bool IsGrounded()
@@ -59,5 +56,36 @@ public class SquareAttackState : MonoBehaviour, IPlayerState
         
         // If the raycast hit something and it's not a trigger collider, consider the player grounded
         return hit.collider != null && !hit.collider.isTrigger;
+    }
+    
+    public float GetAnimationLength(string animationName)
+    {
+        AnimationClip clip = FindAnimationClip(animationName);
+
+        if (clip != null)
+        {
+            return clip.length;
+        }
+        else
+        {
+            Debug.LogWarning("Animation clip '" + animationName + "' not found.");
+            return 0f;
+        }
+    }
+
+    private AnimationClip FindAnimationClip(string animationName)
+    {
+        if (animator != null)
+        {
+            AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
+            foreach (AnimationClip clip in clips)
+            {
+                if (clip.name == animationName)
+                {
+                    return clip;
+                }
+            }
+        }
+        return null;
     }
 }
