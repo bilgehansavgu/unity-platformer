@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class JumpState : MonoBehaviour, IPlayerState
 {
+    private PlayerMovement playerMovement;
+    private Animator animator;
     private Rigidbody2D rb;
     [SerializeField] private float jumpForce = 10f;
 
@@ -20,7 +22,10 @@ public class JumpState : MonoBehaviour, IPlayerState
     {
         // You can add any specific logic for the JumpState update if needed
     }
-
+    public void OnAnimationFinished()
+    {
+        animator.Play("idle");
+    }
     public void ExitState()
     {
         // You can add any cleanup logic for when the player exits the JumpState

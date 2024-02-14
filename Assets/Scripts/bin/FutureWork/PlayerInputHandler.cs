@@ -65,11 +65,11 @@ public class PlayerInputHandler : MonoBehaviour
         sprintAction.performed += context => SprintValue = context.ReadValue<float>();
         sprintAction.canceled += context => SprintValue = 0f;  
         
-        attackCrossPunch.performed += context => CrossPunchTriggered = true;
-        attackCrossPunch.canceled += context => CrossPunchTriggered = false;   
+        //attackCrossPunch.performed += context => CrossPunchTriggered = true;
+       // attackCrossPunch.canceled += context => CrossPunchTriggered = false;   
         
-        attackLightJab.performed += context => LightJabTriggered = true;
-        attackLightJab.canceled += context => LightJabTriggered = false;   
+//attackLightJab.performed += context => LightJabTriggered = true;
+    //    attackLightJab.canceled += context => LightJabTriggered = false;   
     }
 
     private void OnEnable()
@@ -78,8 +78,8 @@ public class PlayerInputHandler : MonoBehaviour
         jumpAction.Enable();
         sprintAction.Enable();
         
-        attackCrossPunch.Enable();
-        attackLightJab.Enable();
+      //  attackCrossPunch.Enable();
+//attackLightJab.Enable();
     }
     private void OnDisable()
     {
@@ -87,7 +87,7 @@ public class PlayerInputHandler : MonoBehaviour
         jumpAction.Disable();
         sprintAction.Disable();
         
-        attackCrossPunch.Disable();
-        attackLightJab.Disable();
+//attackCrossPunch.Disable();
+      //  attackLightJab.Disable();
     }
 }

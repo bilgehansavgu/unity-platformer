@@ -33,7 +33,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "LightJab",
+                    "name": "AttackSquare",
                     "type": "Button",
                     "id": "6ef528f5-5829-4a3c-bffc-c8af94b63a7a",
                     "expectedControlType": "Button",
@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "CrossPunch",
+                    "name": "AttackTriangle",
                     "type": "Button",
                     "id": "6851ba92-e5b1-4a67-8156-b4de4bef4bee",
                     "expectedControlType": "Button",
@@ -110,7 +110,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "LightJab",
+                    "action": "AttackSquare",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -121,7 +121,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "CrossPunch",
+                    "action": "AttackTriangle",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
