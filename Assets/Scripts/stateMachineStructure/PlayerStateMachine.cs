@@ -7,7 +7,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     public void Start()
     {
-        SetState(GetComponent<IdleState>());
+        
     }
 
     public void SetState(IPlayerState state)
@@ -26,6 +26,10 @@ public class PlayerStateMachine : MonoBehaviour
         if (currentState != null)
         {
             currentState.UpdateState();
+        }
+        else
+        {
+            SetState(GetComponent<IdleState>());
         }
     }
 }

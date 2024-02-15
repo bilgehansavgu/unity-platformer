@@ -19,8 +19,8 @@ public class IdleState : MonoBehaviour, IPlayerState
 
     public void EnterState()
     {
-        animator.Play("idle");
         Debug.Log("IdleEnterState");
+        animator.Play("idle");
     }
     
 
