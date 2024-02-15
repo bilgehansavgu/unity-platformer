@@ -18,7 +18,6 @@ public class MovementState : MonoBehaviour, IPlayerState
         inputHandler = GetComponent<PlayerStateInputs>();
         animator = GetComponent<Animator>();
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-        
     }
 
     public void EnterState()
@@ -38,7 +37,8 @@ public class MovementState : MonoBehaviour, IPlayerState
         {
             FlipPlayer();
         }
-        else if (inputHandler.MoveInputValue.x == 0)
+        
+        if (inputHandler.MoveInputValue.x == 0)
         {
             stateMachine.SetState(GetComponent<IdleState>());
         }

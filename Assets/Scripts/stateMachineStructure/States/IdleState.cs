@@ -14,6 +14,7 @@ public class IdleState : MonoBehaviour, IPlayerState
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         inputHandler = GetComponent<PlayerStateInputs>();
+        stateMachine = GetComponent<PlayerStateMachine>();
     }
 
     public void EnterState()

@@ -7,10 +7,10 @@ public class JumpState : MonoBehaviour, IPlayerState
     public PlayerStateMachine stateMachine;
     public PlayerStateInputs inputHandler;
     
-    [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private float _maxMovementVelocity = 5f;
+    [SerializeField] private float jumpForce = 2f;
     
-    [SerializeField] private float groundCheckDistance = 1f;
+    [SerializeField] private float groundCheckDistance = 0.0001f;
     [SerializeField] private LayerMask groundLayer;
 
     private void Start()
@@ -23,24 +23,49 @@ public class JumpState : MonoBehaviour, IPlayerState
 
     public void EnterState()
     {
-        //animator.Play("");
-        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        animator.Play("jump_animation");
+        rb.AddForce(Vector2.up * 15, ForceMode2D.Impulse);
     }
 
     public void UpdateState()
     {
         if (IsGrounded())
         {
-            if (rb.velocity.x == 0)
+            stateMachine.SetState(GetComponent<LandingState>());
+        }
+        
+        if (rb.velocity.y <= 0)
+        {
+            rb.velocity += Vector2.up * (Physics2D.gravity.y * 4 * Time.deltaTime);
+        }
+        
+        // // if rising and space hold down
+        // else if (rb.velocity.y > 0 && !Input.GetButton("Jump"))
+        // {
+        //     rb.velocity += Vector2.up * (Physics2D.gravity.y * _jumpRiseVelDec * Time.deltaTime);
+        // }
+        
+        // if rising but space not hold down
+        else if (rb.velocity.y > 0)
+        {
+            rb.velocity += Vector2.up * (float)(Physics2D.gravity.y * 3 * Time.deltaTime);
+        }
+
+        if (inputHandler.MoveInputValue.x > 0)
+        {
+            if (rb.velocity.x < _maxMovementVelocity)
             {
-                stateMachine.SetState(GetComponent<IdleState>());
+                float speedDifference = Mathf.Abs(_maxMovementVelocity - rb.velocity.x);
+                rb.velocity += new Vector2(speedDifference, 0);
             }
-            else
+        } else if (inputHandler.MoveInputValue.x < 0)
+        {
+            if (rb.velocity.x > -_maxMovementVelocity)
             {
-                stateMachine.SetState(GetComponent<MovementState>());
+                float speedDifference = Mathf.Abs(_maxMovementVelocity + rb.velocity.x);
+                rb.velocity += new Vector2(-speedDifference, 0);
             }
         }
-        rb.velocity = new Vector2(inputHandler.MoveInputValue.x * moveSpeed, rb.velocity.y);
     }
     
     public void ExitState()
@@ -54,6 +79,6 @@ public class JumpState : MonoBehaviour, IPlayerState
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, groundLayer);
         
         // If the raycast hit something and it's not a trigger collider, consider the player grounded
-        return hit.collider != null && !hit.collider.isTrigger;
+        return hit.collider != null && !hit.collider.isTrigger && rb.velocity.y < 0;
     }
 }
