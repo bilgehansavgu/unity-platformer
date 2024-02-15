@@ -26,6 +26,8 @@ public class SquareAttackState : MonoBehaviour, IPlayerState
 
     public void EnterState()
     {
+        Debug.Log("SquareAttackState");
+
         if (IsGrounded())
         {
             animator.Play(groundedAttackAnimation);
@@ -37,8 +39,6 @@ public class SquareAttackState : MonoBehaviour, IPlayerState
         }
 
     }
-
-
     public void UpdateState()
     {
    
@@ -48,44 +48,14 @@ public class SquareAttackState : MonoBehaviour, IPlayerState
     {
         
     }
-    
+    public void OnAnimationFinished()
+    {
+        Debug.Log("Square Attack finised.");
+        stateMachine.SetState(GetComponent<IdleState>());
+    }
     public bool IsGrounded()
     {
-        // Perform a raycast downward to check for ground
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, groundLayer);
-        
-        // If the raycast hit something and it's not a trigger collider, consider the player grounded
         return hit.collider != null && !hit.collider.isTrigger;
-    }
-    
-    public float GetAnimationLength(string animationName)
-    {
-        AnimationClip clip = FindAnimationClip(animationName);
-
-        if (clip != null)
-        {
-            return clip.length;
-        }
-        else
-        {
-            Debug.LogWarning("Animation clip '" + animationName + "' not found.");
-            return 0f;
-        }
-    }
-
-    private AnimationClip FindAnimationClip(string animationName)
-    {
-        if (animator != null)
-        {
-            AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
-            foreach (AnimationClip clip in clips)
-            {
-                if (clip.name == animationName)
-                {
-                    return clip;
-                }
-            }
-        }
-        return null;
     }
 }

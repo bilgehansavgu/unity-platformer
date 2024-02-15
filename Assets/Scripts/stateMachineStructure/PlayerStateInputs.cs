@@ -28,6 +28,7 @@ public class PlayerStateInputs : MonoBehaviour
     public Vector2 MoveInputValue { get; private set; }
     public bool jumpTriggered = false;
     public bool attackSquareActionTriggered = false;
+    public bool attackTriangleActionTriggered = false;
     public bool inputDirection;
 
     private void Awake()
@@ -60,7 +61,10 @@ public class PlayerStateInputs : MonoBehaviour
         jumpAction.canceled += context => jumpTriggered = false;
 
         attackSquareAction.performed += context => attackSquareActionTriggered = true;
-        attackSquareAction.performed += context => attackSquareActionTriggered = false;
+        attackSquareAction.canceled += context => attackSquareActionTriggered = false;
+            
+        attackTriangleAction.performed += context => attackTriangleActionTriggered = true;
+        attackTriangleAction.canceled += context => attackTriangleActionTriggered = false;
     }
 
     private void OnEnable()

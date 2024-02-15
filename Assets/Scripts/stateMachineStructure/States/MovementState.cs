@@ -49,6 +49,14 @@ public class MovementState : MonoBehaviour, IPlayerState
         {
             stateMachine.SetState(GetComponent<JumpState>());
         }
+        if (inputHandler.attackSquareActionTriggered)
+        {
+            stateMachine.SetState(GetComponent<SquareAttackState>());
+        }
+        if (inputHandler.attackTriangleActionTriggered)
+        {
+            stateMachine.SetState(GetComponent<TriangleAttackState>());
+        }
     }
     public void ExitState()
     {

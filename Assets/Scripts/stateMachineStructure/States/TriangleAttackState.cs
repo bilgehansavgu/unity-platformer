@@ -20,10 +20,13 @@ public class TriangleAttackState : MonoBehaviour, IPlayerState
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         inputHandler = GetComponent<PlayerStateInputs>();
+        stateMachine = GetComponent<PlayerStateMachine>();
     }
 
     public void EnterState()
     {
+        Debug.Log("TriangleAttackState");
+
         if (IsGrounded())
         {
             // Perform grounded attack action
@@ -48,9 +51,13 @@ public class TriangleAttackState : MonoBehaviour, IPlayerState
 
     public void ExitState()
     {
-        stateMachine.SetState(GetComponent<MovementState>());
+        
     }
-    
+    public void OnAnimationFinished()
+    {
+        Debug.Log("Square Attack finised.");
+        stateMachine.SetState(GetComponent<IdleState>());
+    }
     public bool IsGrounded()
     {
         // Perform a raycast downward to check for ground

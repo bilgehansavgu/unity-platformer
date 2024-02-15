@@ -74,6 +74,14 @@ public class JumpState : MonoBehaviour, IPlayerState
                 rb.velocity += new Vector2(-speedDifference, 0);
             }
         }
+        if (inputHandler.attackSquareActionTriggered)
+        {
+            stateMachine.SetState(GetComponent<SquareAttackState>());
+        }
+        if (inputHandler.attackTriangleActionTriggered)
+        {
+            stateMachine.SetState(GetComponent<TriangleAttackState>());
+        }
     }
     
     public void ExitState()

@@ -20,7 +20,6 @@ public class IdleState : MonoBehaviour, IPlayerState
     public void EnterState()
     {
         animator.Play("idle");
-
         Debug.Log("IdleEnterState");
     }
     
@@ -40,6 +39,10 @@ public class IdleState : MonoBehaviour, IPlayerState
         if (inputHandler.attackSquareActionTriggered)
         {
             stateMachine.SetState(GetComponent<SquareAttackState>());
+        }
+        if (inputHandler.attackTriangleActionTriggered)
+        {
+            stateMachine.SetState(GetComponent<TriangleAttackState>());
         }
     }
 
