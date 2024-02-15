@@ -29,13 +29,15 @@ public class MovementState : MonoBehaviour, IPlayerState
     {
         rb.velocity = new Vector2(inputHandler.MoveInputValue.x * moveSpeed, rb.velocity.y);
         
-        if (inputHandler.MoveInputValue.x > 0 && !facingRight)
+        if (inputHandler.MoveInputValue.x > 0)
         {
-            FlipPlayer();
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            //FlipPlayer();
         }
-        else if (inputHandler.MoveInputValue.x < 0 && facingRight)
+        else if (inputHandler.MoveInputValue.x < 0)
         {
-            FlipPlayer();
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+            //FlipPlayer();
         }
         
         if (inputHandler.MoveInputValue.x == 0)

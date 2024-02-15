@@ -6,11 +6,16 @@ public class JumpState : MonoBehaviour, IPlayerState
     private Rigidbody2D rb;
     public PlayerStateMachine stateMachine;
     public PlayerStateInputs inputHandler;
-    
+    private bool facingRight = true;
+    private bool isGrounded = false;
+
+
     [SerializeField] private float _maxMovementVelocity = 5f;
-    [SerializeField] private float jumpForce = 2f;
-    
-    [SerializeField] private float groundCheckDistance = 0.0001f;
+
+    [SerializeField] private float jumpLoad = 3f;
+    [SerializeField] private float fallLoad = 4f;
+
+    [SerializeField] private float groundCheckDistance = 1f;
     [SerializeField] private LayerMask groundLayer;
 
     private void Start()
@@ -23,20 +28,21 @@ public class JumpState : MonoBehaviour, IPlayerState
 
     public void EnterState()
     {
+        isGrounded = false;
         animator.Play("jump_animation");
         rb.AddForce(Vector2.up * 15, ForceMode2D.Impulse);
     }
 
     public void UpdateState()
     {
-        if (IsGrounded())
+        if (isGrounded)
         {
             stateMachine.SetState(GetComponent<LandingState>());
         }
         
         if (rb.velocity.y <= 0)
         {
-            rb.velocity += Vector2.up * (Physics2D.gravity.y * 4 * Time.deltaTime);
+            rb.velocity += Vector2.up * (Physics2D.gravity.y * fallLoad * Time.deltaTime);
         }
         
         // // if rising and space hold down
@@ -48,11 +54,12 @@ public class JumpState : MonoBehaviour, IPlayerState
         // if rising but space not hold down
         else if (rb.velocity.y > 0)
         {
-            rb.velocity += Vector2.up * (float)(Physics2D.gravity.y * 3 * Time.deltaTime);
+            rb.velocity += Vector2.up * (float)(Physics2D.gravity.y * jumpLoad * Time.deltaTime);
         }
-
+  
         if (inputHandler.MoveInputValue.x > 0)
         {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
             if (rb.velocity.x < _maxMovementVelocity)
             {
                 float speedDifference = Mathf.Abs(_maxMovementVelocity - rb.velocity.x);
@@ -60,6 +67,7 @@ public class JumpState : MonoBehaviour, IPlayerState
             }
         } else if (inputHandler.MoveInputValue.x < 0)
         {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
             if (rb.velocity.x > -_maxMovementVelocity)
             {
                 float speedDifference = Mathf.Abs(_maxMovementVelocity + rb.velocity.x);
@@ -72,13 +80,22 @@ public class JumpState : MonoBehaviour, IPlayerState
     {
 
     }
-    
-    public bool IsGrounded()
+    private void FlipPlayer()
     {
-        // Perform a raycast downward to check for ground
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, groundLayer);
+        facingRight = !facingRight;
+
+        Vector3 newRotation = transform.eulerAngles;
         
-        // If the raycast hit something and it's not a trigger collider, consider the player grounded
-        return hit.collider != null && !hit.collider.isTrigger && rb.velocity.y < 0;
+        newRotation.y += 180f;
+        
+        transform.eulerAngles = newRotation;
+    }
+ 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Floor"))
+        {
+            isGrounded = true;
+        }
     }
 }
