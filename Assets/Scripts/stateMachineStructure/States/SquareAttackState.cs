@@ -17,6 +17,9 @@ public class SquareAttackState : MonoBehaviour, IPlayerState
     [SerializeField] private float attackWidth = 4f;
     [SerializeField] private float attackHeight = 2f;
     [SerializeField] private Collider2D attackCollider;
+    [SerializeField] private float knockbackForce = 10f;
+
+    
 
 
     private bool hasDealtDamage = false; // Flag to track if damage has been dealt
@@ -53,7 +56,18 @@ public class SquareAttackState : MonoBehaviour, IPlayerState
     {
         
     }
-
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Vector2 knockbackDirection = (other.transform.position - transform.position).normalized;
+            Rigidbody2D enemyRb = other.GetComponent<Rigidbody2D>();
+            if (enemyRb != null)
+            {
+                enemyRb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
+            }
+        }
+    }
     public void OnAnimationFinished()
     {
         Debug.Log("Square Attack finished.");
