@@ -135,6 +135,10 @@ namespace Core.CharacterController
         {
             if (!parent.IsMoving)
                 machine.ChangeState(PlayerController.StateID.Idle);
+            if (parent.Inputs.jumpTriggered)
+                machine.ChangeState(PlayerController.StateID.Jump);
+            if (parent.Inputs.attackSquareActionTriggered)
+                machine.ChangeState(PlayerController.StateID.SquareAttack);
         }
     }
     public class PlayerState_Jump : PlayerState_Base
