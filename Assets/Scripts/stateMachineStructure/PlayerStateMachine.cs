@@ -19,6 +19,7 @@ public class PlayerStateMachine : MonoBehaviour
 
         currentState = state;
         currentState.EnterState();
+        Debug.Log(currentState.ToString());
     }
 
     private void Update()
