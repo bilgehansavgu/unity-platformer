@@ -3,13 +3,13 @@ using Core.StateMachine;
 
 namespace Core.CharacterController
 {
-    public class PlayerState_Jump : PlayerState_Base
+    public class PlayerState_JumpRise : PlayerState_Base
     {
-        const string jumpClip = "jump_animation";
+        const string jumpClip = "JumpRise";
         private float _maxMovementVelocity = 5f;
         private float jumpLoad = 3f;
         private float fallLoad = 4f;
-        public PlayerState_Jump(PlayerController parent) : base(parent)
+        public PlayerState_JumpRise(PlayerController parent) : base(parent)
         {
         }
 
@@ -27,23 +27,6 @@ namespace Core.CharacterController
 
         protected override void Act(StateMachine<PlayerController.StateID> machine)
         {
-            if (parent.Rb2D.velocity.y <= 0)
-            {
-                parent.Rb2D.velocity += Vector2.up * (Physics2D.gravity.y * fallLoad * Time.deltaTime);
-            }
-
-            // // if rising and space hold down
-            // else if (rb.velocity.y > 0 && !Input.GetButton("Jump"))
-            // {
-            //     rb.velocity += Vector2.up * (Physics2D.gravity.y * _jumpRiseVelDec * Time.deltaTime);
-            // }
-
-            // if rising but space not hold down
-            else if (parent.Rb2D.velocity.y > 0)
-            {
-                parent.Rb2D.velocity += Vector2.up * (float)(Physics2D.gravity.y * jumpLoad * Time.deltaTime);
-            }
-
             if (parent.Inputs.MoveInputValue.x > 0)
             {
                 parent.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -65,11 +48,13 @@ namespace Core.CharacterController
         }
 
         protected override void Decide(StateMachine<PlayerController.StateID> machine)
-        {
+        {  
             if (parent.IsGrounded())
-                machine.ChangeState(PlayerController.StateID.Landing);
+                machine.ChangeState(PlayerController.StateID.Idle);
             if (parent.Inputs.attackSquareActionTriggered && parent.ReadyToAttack)
                 machine.ChangeState(PlayerController.StateID.SquareAttack);
+            if (parent.Rb2D.velocity.y <= 0)
+                machine.ChangeState(PlayerController.StateID.JumpStall);
             // Switch to fall state when maxHeight reached
         }
     }

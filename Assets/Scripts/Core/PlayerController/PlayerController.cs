@@ -14,6 +14,8 @@ namespace Core.CharacterController
         public float MovementSpeed;
         [Header("Ground Check")]
         [SerializeField] private float groundCheckDistance = 1f;
+        [SerializeField] private float fallCheckDistance = 3f;
+
         [SerializeField] private LayerMask groundLayer;
 
         public enum StateID
@@ -21,7 +23,8 @@ namespace Core.CharacterController
             Idle,
             Move,
             AnticipateJump,
-            Jump,
+            JumpRise,
+            JumpStall,
             Falling,
             Landing,
             SquareAttack
@@ -35,7 +38,8 @@ namespace Core.CharacterController
                 { StateID.Idle, new PlayerState_Idle(this) },
                 { StateID.Move, new PlayerState_Move(this) },
                 { StateID.AnticipateJump, new PlayerState_AnticipateJump(this) },
-                { StateID.Jump, new PlayerState_Jump(this) },
+                { StateID.JumpRise, new PlayerState_JumpRise(this) },
+                { StateID.JumpStall, new PlayerState_JumpStall(this) },
                 { StateID.Falling, new PlayerState_Falling(this) },
                 { StateID.Landing, new PlayerState_Landing(this) },
                 { StateID.SquareAttack, new PlayerState_SquareAttack(this) }
@@ -110,6 +114,11 @@ namespace Core.CharacterController
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, groundLayer);
             return hit.collider != null && !hit.collider.isTrigger;
+        }
+        public bool IsNearGround()
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, fallCheckDistance, groundLayer);
+            return hit.collider != null;
         }
         public void OnAnimationFinished(StateID stateToTrigger)
         {

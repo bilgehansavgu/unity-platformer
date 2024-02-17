@@ -4,7 +4,7 @@ namespace Core.CharacterController
 {
     public class PlayerState_Landing : PlayerState_Base
     {
-        const string landingClip = "landing_animation";
+        const string landingClip = "JumpLand";
         public PlayerState_Landing(PlayerController parent) : base(parent)
         {
         }
@@ -30,9 +30,7 @@ namespace Core.CharacterController
 
         public override void InvokeState(StateMachine<PlayerController.StateID> machine)
         {
-            if (parent.IsMoving)
-                machine.ChangeStateImmediate(PlayerController.StateID.Move);
-            else
+            if (parent.IsGrounded())
                 machine.ChangeStateImmediate(PlayerController.StateID.Idle);
         }
     }
