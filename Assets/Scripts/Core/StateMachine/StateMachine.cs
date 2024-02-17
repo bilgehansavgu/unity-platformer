@@ -7,6 +7,21 @@ namespace Core.StateMachine
     [System.Serializable]
     public class StateMachine<TStateID> where TStateID : Enum
     {
+        public StateMachine()
+        {
+            if (this.states != null)
+                this.states = null;
+            this.states = new Dictionary<TStateID, IState<TStateID>>();
+            this.anyState = null;
+        }
+        public StateMachine(Dictionary<TStateID, IState<TStateID>> states, TStateID initialState)
+        {
+            if (this.states != null)
+                this.states = null;
+            this.states = states;
+            this.anyState = null;
+            ChangeState(initialState);
+        }
         public StateMachine(Dictionary<TStateID, IState<TStateID>> states, AnyState<TStateID> anyState, TStateID initialState)
         {
             if (this.states != null)
@@ -16,13 +31,19 @@ namespace Core.StateMachine
             ChangeState(initialState);
         }
 
-        // State Database
+        // State Holding
         Dictionary<TStateID, IState<TStateID>> states;
         AnyState<TStateID> anyState;
+
         public void RegisterState(IState<TStateID> state)
         {
             states.Add(state.GetID(), state); 
         }
+        /// <summary>
+        /// Returns the according IState from dictionary.
+        /// </summary>
+        /// <param name="stateID"></param>
+        /// <returns></returns>
         public IState<TStateID> GetState(TStateID stateID)
         {
             return states[stateID];
@@ -30,11 +51,20 @@ namespace Core.StateMachine
 
         // Program
         [SerializeField] TStateID currentState;
+
+        /// <summary>
+        /// Runs the states. Call this in Update of a MonoBehaviour class.
+        /// </summary>
         public void Tick()
         {
             GetState(currentState)?.Tick(this);
-            anyState.Tick();
+            anyState?.Tick();
         }
+
+        /// <summary>
+        /// Changes the current state.
+        /// </summary>
+        /// <param name="nextState"></param>
         public void ChangeState(TStateID nextState)
         {
             Debug.Log("Exit: " + currentState);
@@ -43,64 +73,17 @@ namespace Core.StateMachine
             GetState(currentState)?.Enter(this);
             Debug.Log("Enter: " + nextState);
         }
+
+        /// <summary>
+        /// This does not call Exit() of current state.
+        /// Use ChangeState instead.
+        /// </summary>
+        /// <param name="nextState"></param>
         public void ChangeStateImmediate(TStateID nextState)
         {
             currentState = nextState;
             GetState(currentState)?.Enter(this);
             Debug.Log("Enter: " + nextState);
         }
-    }
-    public interface IState<TStateID> where TStateID : Enum
-    {
-        TStateID GetID();
-        void Enter(StateMachine<TStateID> machine);
-        void Exit(StateMachine<TStateID> machine);
-        void Tick(StateMachine<TStateID> machine);
-    }
-    public abstract class StateBase<TStateID> : IState<TStateID> where TStateID : Enum
-    {
-        public abstract TStateID GetID();
-        public abstract void Enter(StateMachine<TStateID> machine);
-        public abstract void Exit(StateMachine<TStateID> machine);
-        public void Tick(StateMachine<TStateID> machine)
-        {
-            Act(machine);
-            Decide(machine);
-        }
-        protected abstract void Act(StateMachine<TStateID> machine);
-        protected abstract void Decide(StateMachine<TStateID> machine);
-    }
-    public abstract class AnyState<TStateID> where TStateID : Enum
-    {
-        public AnyState(StateMachine<TStateID> machine)
-        {
-            this.machine = machine;
-        }
-
-        protected StateMachine<TStateID> machine;
-        protected List<Transition<TStateID>> transitions;
-
-        public void Tick()
-        {
-            if (transitions == null || transitions.Count == 0)
-                return;
-            for (int i = 0; i < transitions.Count; i++)
-            {
-                transitions[i].Check(machine);
-            }
-        }
-    }
-    public abstract class Transition<TStateID> where TStateID : Enum
-    {
-        protected abstract TStateID NextState();
-        public void Check(StateMachine<TStateID> machine)
-        {
-            if (Logic(machine))
-            {
-                Debug.Log(this + " true");
-                machine.ChangeState(NextState());
-            }
-        }
-        public abstract bool Logic(StateMachine<TStateID> machine);
     }
 }

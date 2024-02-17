@@ -19,7 +19,7 @@ public class PlayerStateInputs : MonoBehaviour
     [SerializeField] private string attackSquare = "AttackSquare";
     [SerializeField] private string attackTriangle = "AttackTriangle";
 
-    public InputAction moveAction ;
+    public InputAction moveAction;
     public InputAction jumpAction;
     public InputAction sprintAction;
     public InputAction attackSquareAction;
