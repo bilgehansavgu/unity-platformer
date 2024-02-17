@@ -18,10 +18,8 @@ public class SquareAttackState : MonoBehaviour, IPlayerState
     [SerializeField] private float attackHeight = 2f;
     [SerializeField] private Collider2D attackCollider;
     [SerializeField] private float knockbackForce = 10f;
-
     
-
-
+    public bool isAttacking = false; 
     private bool hasDealtDamage = false; // Flag to track if damage has been dealt
 
     private void Start()
@@ -34,16 +32,20 @@ public class SquareAttackState : MonoBehaviour, IPlayerState
 
     public void EnterState()
     {
-        Debug.Log("SquareAttackState");
-
-        if (IsGrounded())
+        if (!isAttacking)
         {
-            animator.Play(groundedAttackAnimation);
-        }
-        else
-        {
-            animator.Play(aerialAttackAnimation);
-            rb.AddForce(Vector2.down * 8, ForceMode2D.Impulse);
+            isAttacking = true;
+            Debug.Log("SquareAttackState");
+            
+            if (IsGrounded())
+            {
+                animator.Play(groundedAttackAnimation);
+            }
+            else
+            {
+                animator.Play(aerialAttackAnimation);
+                rb.AddForce(Vector2.down * 8, ForceMode2D.Impulse);
+            }
         }
     }
 
@@ -54,7 +56,8 @@ public class SquareAttackState : MonoBehaviour, IPlayerState
 
     public void ExitState()
     {
-        
+        attackCollider.enabled = false;
+        isAttacking = false;
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -71,7 +74,7 @@ public class SquareAttackState : MonoBehaviour, IPlayerState
     public void OnAnimationFinished()
     {
         Debug.Log("Square Attack finished.");
-        attackCollider.enabled = false;
+        isAttacking = false;
         stateMachine.SetState(GetComponent<IdleState>());
     }
 

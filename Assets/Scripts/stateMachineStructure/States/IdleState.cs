@@ -7,7 +7,8 @@ public class IdleState : MonoBehaviour, IPlayerState
     private Rigidbody2D rb;
     public PlayerStateInputs inputHandler;
     public PlayerStateMachine stateMachine;
-    
+    public SquareAttackState squareAttack;
+    public TransactionState transactionState;
 
     private void Start()
     {
@@ -15,34 +16,47 @@ public class IdleState : MonoBehaviour, IPlayerState
         animator = GetComponent<Animator>();
         inputHandler = GetComponent<PlayerStateInputs>();
         stateMachine = GetComponent<PlayerStateMachine>();
+        squareAttack = GetComponent<SquareAttackState>();
+        transactionState = GetComponent<TransactionState>();
     }
 
     public void EnterState()
     {
         Debug.Log("IdleEnterState");
-        animator.Play("idle");
+       // animator.Play("idle");
     }
-    
 
     public void UpdateState()
     {
         if (inputHandler.MoveInputValue.x != 0)
         {
-            stateMachine.SetState(GetComponent<MovementState>());
+            transactionState.targetState = GetComponent<MovementState>();
+            // Transition to transaction state first, then to movement state
+            stateMachine.TransitionToStateWithTransaction();
         }
 
         if (inputHandler.jumpTriggered)
         {
-            stateMachine.SetState(GetComponent<JumpState>());
+            transactionState.targetState = GetComponent<JumpState>();
+
+            // Transition to transaction state first, then to jump state
+            stateMachine.TransitionToStateWithTransaction();
         }
 
-        if (inputHandler.attackSquareActionTriggered)
+        if (inputHandler.attackSquareActionTriggered && !squareAttack.isAttacking)
         {
-            stateMachine.SetState(GetComponent<SquareAttackState>());
+            transactionState.targetState = GetComponent<SquareAttackState>();
+
+            // Transition to transaction state first, then to square attack state
+            stateMachine.TransitionToStateWithTransaction();
         }
+
         if (inputHandler.attackTriangleActionTriggered)
         {
-            stateMachine.SetState(GetComponent<TriangleAttackState>());
+            transactionState.targetState = GetComponent<TriangleAttackState>();
+
+            // Transition to transaction state first, then to triangle attack state
+            stateMachine.TransitionToStateWithTransaction();
         }
     }
 

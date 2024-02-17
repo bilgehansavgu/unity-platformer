@@ -11,6 +11,7 @@ public class MovementState : MonoBehaviour, IPlayerState
     [SerializeField] private float moveSpeed = 5f;
     public PlayerStateInputs inputHandler;
     public PlayerStateMachine stateMachine;
+    public TransactionState transactionState;
 
     private void Start()
     {
@@ -18,6 +19,8 @@ public class MovementState : MonoBehaviour, IPlayerState
         inputHandler = GetComponent<PlayerStateInputs>();
         animator = GetComponent<Animator>();
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        transactionState = GetComponent<TransactionState>();
+
     }
 
     public void EnterState()
@@ -42,20 +45,28 @@ public class MovementState : MonoBehaviour, IPlayerState
         
         if (inputHandler.MoveInputValue.x == 0)
         {
-            stateMachine.SetState(GetComponent<IdleState>());
+            transactionState.targetState = GetComponent<IdleState>();
+
+           // stateMachine.SetState(GetComponent<IdleState>());
+           stateMachine.TransitionToStateWithTransaction();
+
         }
 
         if (inputHandler.jumpTriggered)
         {
-            stateMachine.SetState(GetComponent<JumpState>());
+            transactionState.targetState = GetComponent<JumpState>();
+
+//            stateMachine.SetState(GetComponent<JumpState>());
+            stateMachine.TransitionToStateWithTransaction();
+
         }
         if (inputHandler.attackSquareActionTriggered)
         {
-            stateMachine.SetState(GetComponent<SquareAttackState>());
+            //stateMachine.SetState(GetComponent<SquareAttackState>());
         }
         if (inputHandler.attackTriangleActionTriggered)
         {
-            stateMachine.SetState(GetComponent<TriangleAttackState>());
+           // stateMachine.SetState(GetComponent<TriangleAttackState>());
         }
     }
     public void ExitState()
