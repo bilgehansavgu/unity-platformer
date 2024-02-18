@@ -58,6 +58,8 @@ namespace Core.CharacterController
                 machine.ChangeState(PlayerController.StateID.TriangleAttack);
             if (parent.IsGrounded())
                 machine.ChangeState(PlayerController.StateID.Landing);
+            if (parent.Inputs.dashTriggered)
+                machine.ChangeState(PlayerController.StateID.Dash);
         }
     }
 }

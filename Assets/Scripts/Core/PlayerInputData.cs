@@ -10,5 +10,6 @@ namespace Core
         public bool attackSquareActionTriggered;
         public bool attackTriangleActionTriggered;
         public bool inputDirection;
+        public bool dashTriggered;
     }
 }

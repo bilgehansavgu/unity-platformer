@@ -36,8 +36,6 @@ namespace Core.CharacterController
         {
             if (parent.IsGrounded())
                 machine.ChangeState(PlayerController.StateID.Idle);
-            else
-                machine.ChangeState(PlayerController.StateID.Falling);
         }
     }
 }

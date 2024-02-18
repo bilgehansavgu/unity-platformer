@@ -55,6 +55,8 @@ namespace Core.CharacterController
                 machine.ChangeState(PlayerController.StateID.TriangleAttack);
             if (parent.Rb2D.velocity.y <= 0.1)
                 machine.ChangeState(PlayerController.StateID.JumpStall);
+            if (parent.Inputs.dashTriggered)
+                machine.ChangeState(PlayerController.StateID.Dash);
         }
     }
 }

@@ -30,7 +30,8 @@ namespace Core.CharacterController
             Falling,
             Landing,
             SquareAttack,
-            TriangleAttack
+            TriangleAttack,
+            Dash
         }
 
         [SerializeField, Space] StateMachine<StateID> fsm;
@@ -46,7 +47,8 @@ namespace Core.CharacterController
                 { StateID.Falling, new PlayerState_Falling(this) },
                 { StateID.Landing, new PlayerState_Landing(this) },
                 { StateID.SquareAttack, new PlayerState_SquareAttack(this) },
-                { StateID.TriangleAttack, new PlayerState_TriangleAttack(this)}
+                { StateID.TriangleAttack, new PlayerState_TriangleAttack(this)},
+                { StateID.Dash, new PlayerState_Dash(this)}
             };
             fsm = new StateMachine<StateID>(states, StateID.Idle);
 
@@ -82,6 +84,7 @@ namespace Core.CharacterController
             inputs.jumpTriggered = inputHandler.jumpTriggered;
             inputs.attackSquareActionTriggered = inputHandler.attackSquareActionTriggered;
             inputs.attackTriangleActionTriggered = inputHandler.attackTriangleActionTriggered;
+            inputs.dashTriggered = inputHandler.dashTriggered;
 
             fsm.Tick();
             CountAttackCooldown();

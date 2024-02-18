@@ -18,26 +18,31 @@ namespace Core.CharacterController
         [SerializeField] private string sprint = "Sprint";
         [SerializeField] private string attackSquare = "AttackSquare";
         [SerializeField] private string attackTriangle = "AttackTriangle";
+        [SerializeField] private string dash = "Dash";
 
         public InputAction moveAction;
         public InputAction jumpAction;
-        public InputAction sprintAction;
         public InputAction attackSquareAction;
         public InputAction attackTriangleAction;
+        public InputAction dashAction;
+
 
         public Vector2 MoveInputValue;
         public bool jumpTriggered = false;
         public bool attackSquareActionTriggered = false;
         public bool attackTriangleActionTriggered = false;
         public bool inputDirection;
+        public bool dashTriggered = false;
+
 
         private void Awake()
         {
             moveAction = playerControls.FindActionMap(actionMapName).FindAction(move);
             jumpAction = playerControls.FindActionMap(actionMapName).FindAction(jump);
-            sprintAction = playerControls.FindActionMap(actionMapName).FindAction(sprint);
             attackSquareAction = playerControls.FindActionMap(actionMapName).FindAction(attackSquare);
             attackTriangleAction = playerControls.FindActionMap(actionMapName).FindAction(attackTriangle);
+            dashAction = playerControls.FindActionMap(actionMapName).FindAction(dash);
+
 
             SubscribeInputActions();
         }
@@ -60,24 +65,27 @@ namespace Core.CharacterController
 
             attackTriangleAction.performed += context => attackTriangleActionTriggered = true;
             attackTriangleAction.canceled += context => attackTriangleActionTriggered = false;
+            
+            dashAction.performed += context => dashTriggered = true;
+            dashAction.canceled += context => dashTriggered = false;
         }
 
         private void OnEnable()
         {
             moveAction.Enable();
             jumpAction.Enable();
-            sprintAction.Enable();
             attackSquareAction.Enable();
             attackTriangleAction.Enable();
+            dashAction.Enable();
         }
 
         private void OnDisable()
         {
             moveAction.Disable();
             jumpAction.Disable();
-            sprintAction.Disable();
             attackSquareAction.Disable();
             attackTriangleAction.Disable();
+            dashAction.Disable();
         }
     }
 }

@@ -3931,7 +3931,7 @@ MonoBehaviour:
   Rb2D: {fileID: 1655351686}
   MovementSpeed: 6
   groundCheckDistance: 0.55
-  fallCheckDistance: 1.5
+  fallCheckDistance: 7
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -3943,6 +3943,7 @@ MonoBehaviour:
     attackSquareActionTriggered: 0
     attackTriangleActionTriggered: 0
     inputDirection: 0
+    dashTriggered: 0
 --- !u!50 &1655351686
 Rigidbody2D:
   serializedVersion: 4
@@ -4024,6 +4025,7 @@ MonoBehaviour:
   sprint: Sprint
   attackSquare: AttackSquare
   attackTriangle: AttackTriangle
+  dash: Dash
   moveAction:
     m_Name: Move
     m_Type: 0
@@ -4069,11 +4071,21 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+  dashAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: b3a2e1a7-786a-4ded-9975-f7e0b5c4cc9e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   MoveInputValue: {x: 0, y: 0}
   jumpTriggered: 0
   attackSquareActionTriggered: 0
   attackTriangleActionTriggered: 0
   inputDirection: 0
+  dashTriggered: 0
 --- !u!1 &1674981827
 GameObject:
   m_ObjectHideFlags: 0
