@@ -52,12 +52,12 @@ namespace Core.CharacterController
 
         protected override void Decide(StateMachine<PlayerController.StateID> machine)
         {
+            if (parent.Inputs.attackSquareActionTriggered && parent.ReadyToAttack)
+                machine.ChangeState(PlayerController.StateID.SquareAttack);
             if (parent.IsGrounded())
                 machine.ChangeState(PlayerController.StateID.Idle);
             if (parent.IsNearGround())
                 machine.ChangeState(PlayerController.StateID.Landing);
-            if (parent.Inputs.attackSquareActionTriggered && parent.ReadyToAttack)
-                machine.ChangeState(PlayerController.StateID.SquareAttack);
         }
     }
 }

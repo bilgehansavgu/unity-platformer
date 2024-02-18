@@ -16,7 +16,7 @@ namespace Core.CharacterController
         public float MovementSpeed;
         [Header("Ground Check")]
         [SerializeField] private float groundCheckDistance = 1f;
-        [SerializeField] private float fallCheckDistance = 3f;
+        [SerializeField] private float fallCheckDistance = 1.5f;
 
         [SerializeField] private LayerMask groundLayer;
 
@@ -69,14 +69,16 @@ namespace Core.CharacterController
                 Animator = GetComponent<Animator>();
             if (Rb2D == null)
                 Rb2D = GetComponent<Rigidbody2D>();
+            if (inputHandler == null)
+                inputHandler = GetComponent<PlayerStateInputs>();
             SetupFSM();
         }
 
         private void Update()
         {
-            inputHandler.MoveInputValue = inputHandler.moveAction.ReadValue<Vector2>();
-            inputHandler.jumpTriggered = inputHandler.jumpAction.triggered;
-            inputHandler.attackSquareActionTriggered = inputHandler.attackSquareAction.triggered;
+            inputs.MoveInputValue = inputHandler.MoveInputValue;
+            inputs.jumpTriggered = inputHandler.jumpTriggered;
+            inputs.attackSquareActionTriggered = inputHandler.attackSquareActionTriggered;
             
             fsm.Tick();
             CountAttackCooldown();

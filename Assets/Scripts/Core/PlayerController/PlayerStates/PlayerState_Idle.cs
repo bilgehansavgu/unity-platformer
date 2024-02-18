@@ -4,7 +4,7 @@ namespace Core.CharacterController
 {
     public class PlayerState_Idle : PlayerState_Base
     {
-        const string idleClip = "Idle";
+        const string idleClip = "idle";
         public PlayerState_Idle(PlayerController parent) : base(parent)
         {
         }

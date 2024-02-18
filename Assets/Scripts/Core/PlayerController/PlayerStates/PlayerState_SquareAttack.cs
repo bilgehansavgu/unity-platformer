@@ -5,7 +5,7 @@ namespace Core.CharacterController
 {
     public class PlayerState_SquareAttack : PlayerState_Base
     {
-        const string attack = "ChainPunch";
+        const string attack = "chain_punch_R_animation";
         public PlayerState_SquareAttack(PlayerController parent) : base(parent)
         {
         }

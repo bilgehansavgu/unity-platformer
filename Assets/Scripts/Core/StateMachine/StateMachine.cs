@@ -75,8 +75,8 @@ namespace Core.StateMachine
         }
 
         /// <summary>
+        /// Do not use this unless it is absolutly needed, use ChangeState instead.
         /// This does not call Exit() of current state.
-        /// Use ChangeState instead.
         /// </summary>
         /// <param name="nextState"></param>
         public void ChangeStateImmediate(TStateID nextState)
