@@ -18,7 +18,7 @@ namespace Core.CharacterController
         public override void Enter(StateMachine<PlayerController.StateID> machine)
         {
             PlayClip(jumpClip);
-            parent.Rb2D.AddForce(Vector2.up * 2, ForceMode2D.Impulse);
+            parent.Rb2D.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
         }
 
         public override void Exit(StateMachine<PlayerController.StateID> machine)
@@ -49,13 +49,10 @@ namespace Core.CharacterController
 
         protected override void Decide(StateMachine<PlayerController.StateID> machine)
         {  
-            if (parent.IsGrounded())
-                machine.ChangeState(PlayerController.StateID.Idle);
             if (parent.Inputs.attackSquareActionTriggered && parent.ReadyToAttack)
                 machine.ChangeState(PlayerController.StateID.SquareAttack);
-            if (parent.Rb2D.velocity.y <= 0)
+            if (parent.Rb2D.velocity.y <= 0.1)
                 machine.ChangeState(PlayerController.StateID.JumpStall);
-            // Switch to fall state when maxHeight reached
         }
     }
 }

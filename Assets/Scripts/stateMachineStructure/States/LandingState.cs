@@ -13,7 +13,6 @@ public class LandingState : MonoBehaviour, IPlayerState
     [SerializeField] private float jumpForce = 2f;
 
     private bool isAnimationFinished = false;
-    
 
     private void Start()
     {
@@ -25,7 +24,7 @@ public class LandingState : MonoBehaviour, IPlayerState
 
     public void EnterState()
     {
-        animator.Play("landing_animation");
+        animator.Play("JumpLand");
     }
 
     public void UpdateState()

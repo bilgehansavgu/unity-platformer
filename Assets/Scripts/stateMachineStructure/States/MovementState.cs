@@ -23,7 +23,7 @@ public class MovementState : MonoBehaviour, IPlayerState
 
     public void EnterState()
     {
-        animator.Play("walk_R_animation");
+        animator.Play("Walk");
     }
 
     public void UpdateState()
@@ -45,7 +45,6 @@ public class MovementState : MonoBehaviour, IPlayerState
         {
             stateMachine.SetState(GetComponent<IdleState>());
         }
-
         if (inputOldHandler.jumpTriggered)
         {
             stateMachine.SetState(GetComponent<JumpState>());

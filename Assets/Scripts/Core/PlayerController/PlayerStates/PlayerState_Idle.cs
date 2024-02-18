@@ -4,7 +4,7 @@ namespace Core.CharacterController
 {
     public class PlayerState_Idle : PlayerState_Base
     {
-        const string idleClip = "idle";
+        const string idleClip = "Idle";
         public PlayerState_Idle(PlayerController parent) : base(parent)
         {
         }
@@ -24,7 +24,7 @@ namespace Core.CharacterController
         {
             if (parent.IsMoving)
                 machine.ChangeState(PlayerController.StateID.Move);
-            if (parent.Inputs.jumpTriggered)
+            if (parent.Inputs.jumpTriggered && parent.IsGrounded())
                 machine.ChangeState(PlayerController.StateID.JumpRise);
             if (parent.Inputs.attackSquareActionTriggered && parent.ReadyToAttack)
                 machine.ChangeState(PlayerController.StateID.SquareAttack);

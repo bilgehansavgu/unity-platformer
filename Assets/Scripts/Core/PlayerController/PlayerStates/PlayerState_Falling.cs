@@ -55,8 +55,6 @@ namespace Core.CharacterController
             if (parent.Inputs.attackSquareActionTriggered && parent.ReadyToAttack)
                 machine.ChangeState(PlayerController.StateID.SquareAttack);
             if (parent.IsGrounded())
-                machine.ChangeState(PlayerController.StateID.Idle);
-            if (parent.IsNearGround())
                 machine.ChangeState(PlayerController.StateID.Landing);
         }
     }

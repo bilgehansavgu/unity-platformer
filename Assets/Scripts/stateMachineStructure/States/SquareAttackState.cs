@@ -8,8 +8,8 @@ public class SquareAttackState : MonoBehaviour, IPlayerState
     public PlayerStateMachine stateMachine;
     [FormerlySerializedAs("inputHandler")] public PlayerStateInputs_old inputOldHandler;
 
-    private string groundedAttackAnimation = "chain_punch_R_animation";
-    private string aerialAttackAnimation = "jump_and_ground_slam_R_animation";
+    private string groundedAttackAnimation = "ChainPunch";
+    private string aerialAttackAnimation = "SlamPunch";
 
     [SerializeField] private float groundCheckDistance = 1f;
     [SerializeField] private LayerMask groundLayer;

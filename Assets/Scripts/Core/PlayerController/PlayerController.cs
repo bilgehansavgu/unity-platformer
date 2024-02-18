@@ -15,8 +15,8 @@ namespace Core.CharacterController
         public Rigidbody2D Rb2D;
         public float MovementSpeed;
         [Header("Ground Check")]
-        [SerializeField] private float groundCheckDistance = 1f;
-        [SerializeField] private float fallCheckDistance = 1.5f;
+        [SerializeField] private float groundCheckDistance = 0.55f;
+        [SerializeField] private float fallCheckDistance = 7f;
 
         [SerializeField] private LayerMask groundLayer;
 

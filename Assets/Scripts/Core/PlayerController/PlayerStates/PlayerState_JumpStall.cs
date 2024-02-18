@@ -35,7 +35,7 @@ namespace Core.CharacterController
                 machine.ChangeState(PlayerController.StateID.Idle);
             if (parent.Inputs.attackSquareActionTriggered && parent.ReadyToAttack)
                 machine.ChangeState(PlayerController.StateID.SquareAttack);
-            if (parent.Rb2D.velocity.y < 0.2f)
+            if (!parent.IsNearGround())
                 machine.ChangeState(PlayerController.StateID.Falling);
             // Switch to fall state when maxHeight reached
         }

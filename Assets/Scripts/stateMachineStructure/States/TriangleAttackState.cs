@@ -13,8 +13,8 @@ public class TriangleAttackState : MonoBehaviour, IPlayerState
     [SerializeField] private LayerMask groundLayer;
     
     // References to grounded and aerial attack animations
-    private string groundedAttackAnimation = "cross_punch_R_animation";
-    private string aerialAttackAnimation = "light_jab_animation";
+    private string groundedAttackAnimation = "CrossPunch";
+    private string aerialAttackAnimation = "LightJab";
 
     private void Start()
     {
