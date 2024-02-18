@@ -74,7 +74,6 @@ namespace Core.CharacterController
 
         private void Update()
         {
-            // Update the state machine using input values from PlayerStateInputs
             inputHandler.MoveInputValue = inputHandler.moveAction.ReadValue<Vector2>();
             inputHandler.jumpTriggered = inputHandler.jumpAction.triggered;
             inputHandler.attackSquareActionTriggered = inputHandler.attackSquareAction.triggered;

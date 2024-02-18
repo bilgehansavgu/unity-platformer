@@ -29,7 +29,7 @@ namespace Core.CharacterController
         public InputAction attackSquareAction;
         public InputAction attackTriangleAction;
 
-        public Vector2 MoveInputValue { get; private set; }
+        public Vector2 MoveInputValue;
         public bool jumpTriggered = false;
         public bool attackSquareActionTriggered = false;
         public bool attackTriangleActionTriggered = false;
