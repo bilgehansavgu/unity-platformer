@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class JumpState : MonoBehaviour, IPlayerState
 {
     private Animator animator;
     private Rigidbody2D rb;
     public PlayerStateMachine stateMachine;
-    public PlayerStateInputs inputHandler;
+    [FormerlySerializedAs("inputHandler")] public PlayerStateInputs_old inputOldHandler;
     private bool facingRight = true;
     private bool isGrounded = false;
 
@@ -23,7 +24,7 @@ public class JumpState : MonoBehaviour, IPlayerState
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         stateMachine = GetComponent<PlayerStateMachine>();
-        inputHandler = GetComponent<PlayerStateInputs>();
+        inputOldHandler = GetComponent<PlayerStateInputs_old>();
     }
 
     public void EnterState()
@@ -57,7 +58,7 @@ public class JumpState : MonoBehaviour, IPlayerState
             rb.velocity += Vector2.up * (float)(Physics2D.gravity.y * jumpLoad * Time.deltaTime);
         }
   
-        if (inputHandler.MoveInputValue.x > 0)
+        if (inputOldHandler.MoveInputValue.x > 0)
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
             if (rb.velocity.x < _maxMovementVelocity)
@@ -65,7 +66,7 @@ public class JumpState : MonoBehaviour, IPlayerState
                 float speedDifference = Mathf.Abs(_maxMovementVelocity - rb.velocity.x);
                 rb.velocity += new Vector2(speedDifference, 0);
             }
-        } else if (inputHandler.MoveInputValue.x < 0)
+        } else if (inputOldHandler.MoveInputValue.x < 0)
         {
             transform.rotation = Quaternion.Euler(0, 180, 0);
             if (rb.velocity.x > -_maxMovementVelocity)
@@ -74,11 +75,11 @@ public class JumpState : MonoBehaviour, IPlayerState
                 rb.velocity += new Vector2(-speedDifference, 0);
             }
         }
-        if (inputHandler.attackSquareActionTriggered)
+        if (inputOldHandler.attackSquareActionTriggered)
         {
             stateMachine.SetState(GetComponent<SquareAttackState>());
         }
-        if (inputHandler.attackTriangleActionTriggered)
+        if (inputOldHandler.attackTriangleActionTriggered)
         {
             stateMachine.SetState(GetComponent<TriangleAttackState>());
         }

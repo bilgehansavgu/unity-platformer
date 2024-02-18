@@ -8,6 +8,8 @@ namespace Core.CharacterController
     [RequireComponent(typeof(CapsuleCollider2D), typeof(Rigidbody2D))]
     public class PlayerController : MonoBehaviour
     {
+        public PlayerStateInputs inputHandler;
+
         [Header("References & Setup")]
         public Animator Animator;
         public Rigidbody2D Rb2D;
@@ -72,11 +74,14 @@ namespace Core.CharacterController
 
         private void Update()
         {
-            CacheInputs();
+            // Update the state machine using input values from PlayerStateInputs
+            inputHandler.MoveInputValue = inputHandler.moveAction.ReadValue<Vector2>();
+            inputHandler.jumpTriggered = inputHandler.jumpAction.triggered;
+            inputHandler.attackSquareActionTriggered = inputHandler.attackSquareAction.triggered;
+            
             fsm.Tick();
             CountAttackCooldown();
         }
-
         public bool IsMoving => Inputs.MoveInputValue.x != 0;
         public bool ReadyToAttack => attackCooldown <= 0;
 
@@ -100,16 +105,7 @@ namespace Core.CharacterController
         /// <summary>
         /// This method is temporary
         /// </summary>
-        private void CacheInputs()
-        {
-            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
-                inputs.MoveInputValue.x = Input.GetAxis("Horizontal");
-            else
-                inputs.MoveInputValue.x = 0;
-
-            inputs.jumpTriggered = Input.GetKey(KeyCode.Space);
-            inputs.attackSquareActionTriggered = Input.GetKey(KeyCode.C);
-        }
+      
         public bool IsGrounded()
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, groundLayer);

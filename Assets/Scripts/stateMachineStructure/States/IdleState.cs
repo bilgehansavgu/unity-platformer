@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class IdleState : MonoBehaviour, IPlayerState
 {
     private Animator animator;
     private Rigidbody2D rb;
-    public PlayerStateInputs inputHandler;
+    [FormerlySerializedAs("inputHandler")] public PlayerStateInputs_old inputOldHandler;
     public PlayerStateMachine stateMachine;
     
 
@@ -13,34 +14,34 @@ public class IdleState : MonoBehaviour, IPlayerState
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        inputHandler = GetComponent<PlayerStateInputs>();
+        inputOldHandler = GetComponent<PlayerStateInputs_old>();
         stateMachine = GetComponent<PlayerStateMachine>();
     }
 
     public void EnterState()
     {
         Debug.Log("IdleEnterState");
-        animator.Play("idle");
+        animator.Play("Idle");
     }
     
 
     public void UpdateState()
     {
-        if (inputHandler.MoveInputValue.x != 0)
+        if (inputOldHandler.MoveInputValue.x != 0)
         {
             stateMachine.SetState(GetComponent<MovementState>());
         }
 
-        if (inputHandler.jumpTriggered)
+        if (inputOldHandler.jumpTriggered)
         {
             stateMachine.SetState(GetComponent<JumpState>());
         }
 
-        if (inputHandler.attackSquareActionTriggered)
+        if (inputOldHandler.attackSquareActionTriggered)
         {
             stateMachine.SetState(GetComponent<SquareAttackState>());
         }
-        if (inputHandler.attackTriangleActionTriggered)
+        if (inputOldHandler.attackTriangleActionTriggered)
         {
             stateMachine.SetState(GetComponent<TriangleAttackState>());
         }

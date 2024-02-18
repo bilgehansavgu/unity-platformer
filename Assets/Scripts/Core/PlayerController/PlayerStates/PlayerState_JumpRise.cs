@@ -18,7 +18,7 @@ namespace Core.CharacterController
         public override void Enter(StateMachine<PlayerController.StateID> machine)
         {
             PlayClip(jumpClip);
-            parent.Rb2D.AddForce(Vector2.up * 15, ForceMode2D.Impulse);
+            parent.Rb2D.AddForce(Vector2.up * 2, ForceMode2D.Impulse);
         }
 
         public override void Exit(StateMachine<PlayerController.StateID> machine)
