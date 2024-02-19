@@ -27,7 +27,7 @@ namespace Core.CharacterController
 
         private void Move()
         {
-            parent.Rb2D.velocity = new Vector2(parent.Inputs.MoveInputValue.x * parent.MovementSpeed, parent.Rb2D.velocity.y);
+            parent.Rb2D.velocity = new Vector2(parent.Inputs.MoveInputValue.x * parent.config.MovementSpeed, parent.Rb2D.velocity.y);
         }
 
         protected override void Decide(StateMachine<PlayerController.StateID> machine)

@@ -8,21 +8,15 @@ namespace Core.CharacterController
     [RequireComponent(typeof(CapsuleCollider2D), typeof(Rigidbody2D))]
     public class PlayerController : MonoBehaviour, IHittable
     {
+        public PlayerConfig config;
         [Header("References & Setup")]
         public Animator Animator;
         public Rigidbody2D Rb2D;
-        public float MovementSpeed;
-        [Header("Ground Check")]
-        [SerializeField] private float groundCheckDistance = 0.55f;
-        [SerializeField] private float fallCheckDistance = 7f;
-
-        [SerializeField] private LayerMask groundLayer;
 
         public enum StateID
         {
             Idle,
             Move,
-            AnticipateJump,
             JumpRise,
             JumpStall,
             Falling,
@@ -41,7 +35,6 @@ namespace Core.CharacterController
             {
                 { StateID.Idle, new PlayerState_Idle(this) },
                 { StateID.Move, new PlayerState_Move(this) },
-                { StateID.AnticipateJump, new PlayerState_AnticipateJump(this) },
                 { StateID.JumpRise, new PlayerState_JumpRise(this) },
                 { StateID.JumpStall, new PlayerState_JumpStall(this) },
                 { StateID.Falling, new PlayerState_Falling(this) },
@@ -56,6 +49,11 @@ namespace Core.CharacterController
         public IInputProvider Inputs;
         private void Awake()
         {
+            if (config == null)
+            {
+                Debug.Log("Player config is missing. PlayerController is disabled");
+                this.enabled = false;
+            }
             GetReferences();
             SetupFSM();
         }
@@ -98,13 +96,13 @@ namespace Core.CharacterController
       
         public bool IsGrounded()
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, groundLayer);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, config.GroundCheckDistance, config.WhatIsGround);
             return hit.collider != null && !hit.collider.isTrigger;
         }
         public bool IsNearGround()
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, fallCheckDistance, groundLayer);
-            return hit.collider != null;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, config.FallCheckDistance, config.WhatIsGround);
+            return hit.collider == null;
         }
         public void InvokeState(StateID stateToTrigger)
         {
@@ -122,10 +120,5 @@ namespace Core.CharacterController
             else
                 fsm.ChangeState(StateID.GetHitAirbourne);
         }
-    }
-
-    public interface IHittable
-    {
-        void TakeHit(float hitForce);
     }
 }

@@ -9,7 +9,7 @@ namespace Core.CharacterController
         public PlayerState_TriangleAttack(PlayerController parent) : base(parent)
         {
         }
-        public override PlayerController.StateID GetID() => PlayerController.StateID.SquareAttack;
+        public override PlayerController.StateID GetID() => PlayerController.StateID.TriangleAttack;
 
         public override void Enter(StateMachine<PlayerController.StateID> machine)
         {

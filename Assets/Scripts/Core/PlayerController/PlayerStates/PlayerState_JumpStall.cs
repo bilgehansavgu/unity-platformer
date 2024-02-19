@@ -15,7 +15,7 @@ namespace Core.CharacterController
         {
         }
 
-        public override PlayerController.StateID GetID() => PlayerController.StateID.Move;
+        public override PlayerController.StateID GetID() => PlayerController.StateID.JumpStall;
 
         public override void Enter(StateMachine<PlayerController.StateID> machine)
         {

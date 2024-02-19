@@ -13,7 +13,7 @@ namespace Core.CharacterController
         {
         }
 
-        public override PlayerController.StateID GetID() => PlayerController.StateID.Move;
+        public override PlayerController.StateID GetID() => PlayerController.StateID.JumpRise;
 
         public override void Enter(StateMachine<PlayerController.StateID> machine)
         {
