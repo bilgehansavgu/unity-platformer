@@ -85,5 +85,9 @@ namespace Core.StateMachine
             GetState(currentState)?.Enter(this);
             Debug.Log("Enter: " + nextState);
         }
+        public bool CompareState(TStateID other)
+        {
+            return GetState(currentState) == GetState(other);
+        }
     }
 }

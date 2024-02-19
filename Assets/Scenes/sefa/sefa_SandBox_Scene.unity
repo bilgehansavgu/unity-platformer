@@ -375,7 +375,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3926,7 +3926,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2e6897d5612f5744be92aacd9a0e070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHandler: {fileID: 1655351688}
   Animator: {fileID: 1655351684}
   Rb2D: {fileID: 1655351686}
   MovementSpeed: 6
@@ -3937,13 +3936,7 @@ MonoBehaviour:
     m_Bits: 8
   fsm:
     currentState: 0
-  inputs:
-    MoveInputValue: {x: 0, y: 0}
-    jumpTriggered: 0
-    attackSquareActionTriggered: 0
-    attackTriangleActionTriggered: 0
-    inputDirection: 0
-    dashTriggered: 0
+  IsInvincible: 0
 --- !u!50 &1655351686
 Rigidbody2D:
   serializedVersion: 4
@@ -4044,15 +4037,6 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
-  sprintAction:
-    m_Name: Sprint
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: ea079cb6-6b01-4b1c-a045-a4b81afa1809
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
   attackSquareAction:
     m_Name: Attack Square
     m_Type: 0
@@ -4072,7 +4056,7 @@ MonoBehaviour:
     m_SingletonActionBindings: []
     m_Flags: 0
   dashAction:
-    m_Name: 
+    m_Name: Dash
     m_Type: 0
     m_ExpectedControlType: 
     m_Id: b3a2e1a7-786a-4ded-9975-f7e0b5c4cc9e
@@ -4080,12 +4064,6 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
-  MoveInputValue: {x: 0, y: 0}
-  jumpTriggered: 0
-  attackSquareActionTriggered: 0
-  attackTriangleActionTriggered: 0
-  inputDirection: 0
-  dashTriggered: 0
 --- !u!1 &1674981827
 GameObject:
   m_ObjectHideFlags: 0

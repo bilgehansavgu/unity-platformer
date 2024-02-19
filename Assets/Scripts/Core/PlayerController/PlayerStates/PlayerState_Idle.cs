@@ -24,11 +24,11 @@ namespace Core.CharacterController
         {
             if (parent.IsMoving)
                 machine.ChangeState(PlayerController.StateID.Move);
-            if (parent.Inputs.jumpTriggered && parent.IsGrounded())
+            if (parent.Inputs.JumpTriggered && parent.IsGrounded())
                 machine.ChangeState(PlayerController.StateID.JumpRise);
-            if (parent.Inputs.attackSquareActionTriggered && parent.ReadyToAttack)
+            if (parent.Inputs.AttackSquareActionTriggered && parent.ReadyToAttack)
                 machine.ChangeState(PlayerController.StateID.SquareAttack);
-            if (parent.Inputs.attackTriangleActionTriggered && parent.ReadyToAttack)
+            if (parent.Inputs.AttackTriangleActionTriggered && parent.ReadyToAttack)
                 machine.ChangeState(PlayerController.StateID.TriangleAttack);
 
            

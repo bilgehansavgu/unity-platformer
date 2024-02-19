@@ -49,13 +49,13 @@ namespace Core.CharacterController
 
         protected override void Decide(StateMachine<PlayerController.StateID> machine)
         {  
-            if (parent.Inputs.attackSquareActionTriggered && parent.ReadyToAttack)
+            if (parent.Inputs.AttackSquareActionTriggered && parent.ReadyToAttack)
                 machine.ChangeState(PlayerController.StateID.SquareAttack);
-            if (parent.Inputs.attackTriangleActionTriggered && parent.ReadyToAttack)
+            if (parent.Inputs.AttackTriangleActionTriggered && parent.ReadyToAttack)
                 machine.ChangeState(PlayerController.StateID.TriangleAttack);
-            if (parent.Rb2D.velocity.y <= 0.1)
+            if (Mathf.Abs(parent.Rb2D.velocity.y) < 0.1)
                 machine.ChangeState(PlayerController.StateID.JumpStall);
-            if (parent.Inputs.dashTriggered)
+            if (parent.Inputs.DashTriggered)
                 machine.ChangeState(PlayerController.StateID.Dash);
         }
     }
