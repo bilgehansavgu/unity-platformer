@@ -5,7 +5,7 @@ namespace Core.CharacterController
 {
     public class PlayerState_SquareAttack : PlayerState_Base
     {
-        const string attack = "chain_punch_R_animation";
+        const string attack = "ChainPunch";
         public PlayerState_SquareAttack(PlayerController parent) : base(parent)
         {
         }
@@ -22,8 +22,6 @@ namespace Core.CharacterController
             parent.Rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
             parent.SetAttackCooldown(0.7f);
         }
-
-
 
         protected override void Act(StateMachine<PlayerController.StateID> machine)
         {

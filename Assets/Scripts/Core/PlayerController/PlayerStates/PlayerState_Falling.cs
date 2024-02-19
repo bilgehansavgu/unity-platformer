@@ -5,7 +5,7 @@ namespace Core.CharacterController
 {
     public class PlayerState_Falling : PlayerState_Base
     {
-        const string fallClip = "jump_animation";
+        const string fallClip = "JumpFall";
         private float _maxMovementVelocity = 5f;
         private float fallLoad = 4f;
         public PlayerState_Falling(PlayerController parent) : base(parent)
@@ -52,10 +52,14 @@ namespace Core.CharacterController
 
         protected override void Decide(StateMachine<PlayerController.StateID> machine)
         {
+            if (parent.Inputs.AttackSquareActionTriggered && parent.ReadyToAttack)
+                machine.ChangeState(PlayerController.StateID.SquareAttack);
+            if (parent.Inputs.AttackTriangleActionTriggered && parent.ReadyToAttack)
+                machine.ChangeState(PlayerController.StateID.TriangleAttack);
             if (parent.IsGrounded())
                 machine.ChangeState(PlayerController.StateID.Landing);
-            if (parent.Inputs.attackSquareActionTriggered && parent.ReadyToAttack)
-                machine.ChangeState(PlayerController.StateID.SquareAttack);
+            if (parent.Inputs.DashTriggered)
+                machine.ChangeState(PlayerController.StateID.Dash);
         }
     }
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class MovementState : MonoBehaviour, IPlayerState
 {
@@ -9,51 +10,50 @@ public class MovementState : MonoBehaviour, IPlayerState
     private bool facingRight = true;
 
     [SerializeField] private float moveSpeed = 5f;
-    public PlayerStateInputs inputHandler;
+    [FormerlySerializedAs("inputHandler")] public PlayerStateInputs_old inputOldHandler;
     public PlayerStateMachine stateMachine;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        inputHandler = GetComponent<PlayerStateInputs>();
+        inputOldHandler = GetComponent<PlayerStateInputs_old>();
         animator = GetComponent<Animator>();
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     public void EnterState()
     {
-        animator.Play("walk_R_animation");
+        animator.Play("Walk");
     }
 
     public void UpdateState()
     {
-        rb.velocity = new Vector2(inputHandler.MoveInputValue.x * moveSpeed, rb.velocity.y);
+        rb.velocity = new Vector2(inputOldHandler.MoveInputValue.x * moveSpeed, rb.velocity.y);
         
-        if (inputHandler.MoveInputValue.x > 0)
+        if (inputOldHandler.MoveInputValue.x > 0)
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
             //FlipPlayer();
         }
-        else if (inputHandler.MoveInputValue.x < 0)
+        else if (inputOldHandler.MoveInputValue.x < 0)
         {
             transform.rotation = Quaternion.Euler(0, 180, 0);
             //FlipPlayer();
         }
         
-        if (inputHandler.MoveInputValue.x == 0)
+        if (inputOldHandler.MoveInputValue.x == 0)
         {
             stateMachine.SetState(GetComponent<IdleState>());
         }
-
-        if (inputHandler.jumpTriggered)
+        if (inputOldHandler.jumpTriggered)
         {
             stateMachine.SetState(GetComponent<JumpState>());
         }
-        if (inputHandler.attackSquareActionTriggered)
+        if (inputOldHandler.attackSquareActionTriggered)
         {
             stateMachine.SetState(GetComponent<SquareAttackState>());
         }
-        if (inputHandler.attackTriangleActionTriggered)
+        if (inputOldHandler.attackTriangleActionTriggered)
         {
             stateMachine.SetState(GetComponent<TriangleAttackState>());
         }

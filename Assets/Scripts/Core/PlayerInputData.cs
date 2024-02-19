@@ -6,9 +6,10 @@ namespace Core
     public struct PlayerInputData
     {
         public Vector2 MoveInputValue;
-        public bool jumpTriggered;
-        public bool attackSquareActionTriggered;
-        public bool attackTriangleActionTriggered;
-        public bool inputDirection;
+        public bool JumpTriggered;
+        public bool AttackSquareActionTriggered;
+        public bool AttackTriangleActionTriggered;
+        public bool InputDirection;
+        public bool DashTriggered;
     }
 }

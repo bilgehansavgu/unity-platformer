@@ -4,7 +4,7 @@ namespace Core.CharacterController
 {
     public class PlayerState_Idle : PlayerState_Base
     {
-        const string idleClip = "idle";
+        const string idleClip = "Idle";
         public PlayerState_Idle(PlayerController parent) : base(parent)
         {
         }
@@ -24,12 +24,14 @@ namespace Core.CharacterController
         {
             if (parent.IsMoving)
                 machine.ChangeState(PlayerController.StateID.Move);
-            if (parent.Inputs.jumpTriggered)
-                machine.ChangeState(PlayerController.StateID.Jump);
-            if (parent.Inputs.attackSquareActionTriggered && parent.ReadyToAttack)
+            if (parent.Inputs.JumpTriggered && parent.IsGrounded())
+                machine.ChangeState(PlayerController.StateID.JumpRise);
+            if (parent.Inputs.AttackSquareActionTriggered && parent.ReadyToAttack)
                 machine.ChangeState(PlayerController.StateID.SquareAttack);
-            if (!parent.IsGrounded() && !parent.Inputs.jumpTriggered)
-                machine.ChangeState(PlayerController.StateID.Falling);
+            if (parent.Inputs.AttackTriangleActionTriggered && parent.ReadyToAttack)
+                machine.ChangeState(PlayerController.StateID.TriangleAttack);
+
+           
         }
     }
 }

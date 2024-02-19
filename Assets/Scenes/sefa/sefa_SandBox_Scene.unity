@@ -375,7 +375,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2430,50 +2430,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
---- !u!1 &783459829
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 783459831}
-  - component: {fileID: 783459832}
-  m_Layer: 0
-  m_Name: PlayerInputHandler
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &783459831
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 783459829}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &783459832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 783459829}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5735c9a5ce1f83d498c9f26a9f71df23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &785689663
 GameObject:
   m_ObjectHideFlags: 0
@@ -3306,7 +3262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateMachine: {fileID: 1310306686}
-  inputHandler: {fileID: 1310306687}
+  inputOldHandler: {fileID: 1310306687}
   _maxMovementVelocity: 5
   jumpForce: 2
 --- !u!114 &1310306680
@@ -3321,7 +3277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc7772e8035f43fc97e666f3e1d80de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHandler: {fileID: 1310306687}
+  inputOldHandler: {fileID: 1310306687}
   stateMachine: {fileID: 1310306686}
 --- !u!114 &1310306681
 MonoBehaviour:
@@ -3335,7 +3291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b71aba96979d4346b6fe6204440d117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHandler: {fileID: 1310306687}
+  inputOldHandler: {fileID: 1310306687}
   stateMachine: {fileID: 1310306686}
   groundCheckDistance: 1
   groundLayer:
@@ -3354,7 +3310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateMachine: {fileID: 1310306686}
-  inputHandler: {fileID: 1310306687}
+  inputOldHandler: {fileID: 1310306687}
   groundCheckDistance: 1
   groundLayer:
     serializedVersion: 2
@@ -3392,7 +3348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateMachine: {fileID: 1310306686}
-  inputHandler: {fileID: 1310306687}
+  inputOldHandler: {fileID: 1310306687}
   _maxMovementVelocity: 5
   jumpLoad: 3
   fallLoad: 4
@@ -3413,7 +3369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  inputHandler: {fileID: 1310306687}
+  inputOldHandler: {fileID: 1310306687}
   stateMachine: {fileID: 1310306686}
 --- !u!114 &1310306686
 MonoBehaviour:
@@ -3860,6 +3816,7 @@ GameObject:
   - component: {fileID: 1655351682}
   - component: {fileID: 1655351684}
   - component: {fileID: 1655351685}
+  - component: {fileID: 1655351688}
   - component: {fileID: 1655351686}
   - component: {fileID: 1655351687}
   m_Layer: 0
@@ -3930,7 +3887,7 @@ Transform:
   m_GameObject: {fileID: 1655351680}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.066, y: -0.891, z: 0}
+  m_LocalPosition: {x: 0.16, y: -0.891, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3946,7 +3903,7 @@ Animator:
   m_GameObject: {fileID: 1655351680}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4aa5b76fbe2d145eaab76ae52b8eb9a6, type: 2}
+  m_Controller: {fileID: 9100000, guid: 06e0fe5102f37ad4388d4c8da57ae7dd, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3969,21 +3926,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2e6897d5612f5744be92aacd9a0e070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Animator: {fileID: 0}
-  Rb2D: {fileID: 0}
+  Animator: {fileID: 1655351684}
+  Rb2D: {fileID: 1655351686}
   MovementSpeed: 6
-  groundCheckDistance: 1
+  groundCheckDistance: 0.55
+  fallCheckDistance: 7
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
   fsm:
     currentState: 0
-  inputs:
-    MoveInputValue: {x: 0, y: 0}
-    jumpTriggered: 0
-    attackSquareActionTriggered: 0
-    attackTriangleActionTriggered: 0
-    inputDirection: 0
+  IsInvincible: 0
 --- !u!50 &1655351686
 Rigidbody2D:
   serializedVersion: 4
@@ -4046,6 +3999,71 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.5, y: 1}
   m_Direction: 0
+--- !u!114 &1655351688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655351680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0db6eb7b721497aaf5f58ca2aa04fdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerControls: {fileID: -944628639613478452, guid: 2b09de59b239e114d9bf4bf081c1d9ff, type: 3}
+  actionMapName: Player
+  move: Move
+  jump: Jump
+  sprint: Sprint
+  attackSquare: AttackSquare
+  attackTriangle: AttackTriangle
+  dash: Dash
+  moveAction:
+    m_Name: Move
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 56c3a271-78ce-44e1-9b1a-b785bd545a62
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  jumpAction:
+    m_Name: Jump
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: ff734085-bf8d-47c4-816c-8025e7c189e8
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  attackSquareAction:
+    m_Name: Attack Square
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: b5055500-b632-4319-97c4-0bc9af4ccb56
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  attackTriangleAction:
+    m_Name: Attack Triangle
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: c72cf73f-68e0-4da0-b500-7ffc85496860
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  dashAction:
+    m_Name: Dash
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: b3a2e1a7-786a-4ded-9975-f7e0b5c4cc9e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!1 &1674981827
 GameObject:
   m_ObjectHideFlags: 0
@@ -12698,6 +12716,16 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: -2, y: -2, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 2
+      m_TileSpriteIndex: 2
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: 5, y: -2, z: 0}
     second:
       serializedVersion: 2
@@ -12713,6 +12741,36 @@ Tilemap:
       serializedVersion: 2
       m_TileIndex: 1
       m_TileSpriteIndex: 1
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: -3, y: -1, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 2
+      m_TileSpriteIndex: 2
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: -5, y: 0, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 2
+      m_TileSpriteIndex: 2
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: -4, y: 0, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 2
+      m_TileSpriteIndex: 2
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -13234,7 +13292,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 84e4d402a4c6841cbbd289c18c793422, type: 2}
   - m_RefCount: 20
     m_Data: {fileID: 11400000, guid: b94638c561d3b48a8bea2a3feaa6ac48, type: 2}
-  - m_RefCount: 3
+  - m_RefCount: 7
     m_Data: {fileID: 11400000, guid: 080c384c21da043659ce1151163963b4, type: 2}
   - m_RefCount: 0
     m_Data: {fileID: 0}
@@ -13251,7 +13309,7 @@ Tilemap:
     m_Data: {fileID: -1792873260, guid: 8bafba8f4459043d884a601c5794850e, type: 3}
   - m_RefCount: 20
     m_Data: {fileID: -188504409, guid: 8bafba8f4459043d884a601c5794850e, type: 3}
-  - m_RefCount: 3
+  - m_RefCount: 7
     m_Data: {fileID: 1914267546, guid: 8bafba8f4459043d884a601c5794850e, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
@@ -13264,7 +13322,7 @@ Tilemap:
   - m_RefCount: 2
     m_Data: {fileID: 1773473202, guid: 8bafba8f4459043d884a601c5794850e, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 89
+  - m_RefCount: 93
     m_Data:
       e00: 1
       e01: 0
@@ -13283,7 +13341,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 89
+  - m_RefCount: 93
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -13499,6 +13557,22 @@ CompositeCollider2D:
         Y: 20000000
       - X: -40000000
         Y: 20000000
+    - - X: -30000000
+        Y: 10000000
+      - X: -50000000
+        Y: 10000000
+      - X: -50000000
+        Y: 0
+      - X: -30000000
+        Y: 0
+    - - X: -20000000
+        Y: 0
+      - X: -30000000
+        Y: 0
+      - X: -30000000
+        Y: -10000000
+      - X: -20000000
+        Y: -10000000
     - - X: 90000000
         Y: -20000000
       - X: 70000000
@@ -13508,6 +13582,14 @@ CompositeCollider2D:
       - X: 50000000
         Y: -10000000
       - X: 50000000
+        Y: -20000000
+      - X: -10000000
+        Y: -20000000
+      - X: -10000000
+        Y: -10000000
+      - X: -20000000
+        Y: -10000000
+      - X: -20000000
         Y: -20000000
       - X: -90000000
         Y: -20000000
@@ -13561,12 +13643,24 @@ CompositeCollider2D:
       - {x: -4.000029, y: 3}
       - {x: -8, y: 2.999971}
       - {x: -7.9999704, y: 2}
+    - - {x: -3.0000293, y: 0}
+      - {x: -3.0000293, y: 1}
+      - {x: -5, y: 0.99997073}
+      - {x: -4.999971, y: 0}
+    - - {x: -2.0000293, y: -1}
+      - {x: -2.0000293, y: 0}
+      - {x: -3, y: -0.000029300001}
+      - {x: -2.999971, y: -1}
     - - {x: 8.99997, y: -4}
       - {x: 8.99997, y: -2}
       - {x: 7, y: -1.9999707}
       - {x: 6.9999704, y: -1}
       - {x: 5, y: -1.0000293}
       - {x: 4.9999704, y: -2}
+      - {x: -1, y: -1.9999707}
+      - {x: -1.0000293, y: -1}
+      - {x: -2, y: -1.0000293}
+      - {x: -2.0000293, y: -2}
       - {x: -9, y: -2.0000293}
       - {x: -8.99997, y: -4}
   m_VertexDistance: 0.0005
@@ -13970,7 +14064,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b71aba96979d4346b6fe6204440d117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHandler: {fileID: 2072058099}
+  inputOldHandler: {fileID: 2072058099}
   stateMachine: {fileID: 2072058098}
   groundCheckDistance: 1
   groundLayer:
@@ -13989,7 +14083,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateMachine: {fileID: 2072058098}
-  inputHandler: {fileID: 2072058099}
+  inputOldHandler: {fileID: 2072058099}
   groundCheckDistance: 1
   groundLayer:
     serializedVersion: 2
@@ -14027,7 +14121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateMachine: {fileID: 2072058098}
-  inputHandler: {fileID: 2072058099}
+  inputOldHandler: {fileID: 2072058099}
   _maxMovementVelocity: 5
   jumpLoad: 3
   fallLoad: 4
@@ -14048,7 +14142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  inputHandler: {fileID: 2072058099}
+  inputOldHandler: {fileID: 2072058099}
   stateMachine: {fileID: 2072058098}
 --- !u!114 &2072058098
 MonoBehaviour:
@@ -14142,7 +14236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc7772e8035f43fc97e666f3e1d80de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHandler: {fileID: 2072058099}
+  inputOldHandler: {fileID: 2072058099}
   stateMachine: {fileID: 2072058098}
 --- !u!114 &2072058101
 MonoBehaviour:
@@ -14157,7 +14251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateMachine: {fileID: 2072058098}
-  inputHandler: {fileID: 2072058099}
+  inputOldHandler: {fileID: 2072058099}
   _maxMovementVelocity: 5
   jumpForce: 2
 --- !u!114 &2072058102
@@ -14283,6 +14377,5 @@ SceneRoots:
   - {fileID: 753559273}
   - {fileID: 3026378}
   - {fileID: 1143439460}
-  - {fileID: 783459831}
   - {fileID: 1310306694}
   - {fileID: 1655351683}

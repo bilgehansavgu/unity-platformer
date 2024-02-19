@@ -1,25 +1,26 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class TriangleAttackState : MonoBehaviour, IPlayerState
 {
 
     private Animator animator;
     private Rigidbody2D rb;
-    public PlayerStateInputs inputHandler;
+    [FormerlySerializedAs("inputHandler")] public PlayerStateInputs_old inputOldHandler;
     public PlayerStateMachine stateMachine;
     
     [SerializeField] private float groundCheckDistance = 1f; // Distance to check for ground
     [SerializeField] private LayerMask groundLayer;
     
     // References to grounded and aerial attack animations
-    private string groundedAttackAnimation = "cross_punch_R_animation";
-    private string aerialAttackAnimation = "light_jab_animation";
+    private string groundedAttackAnimation = "CrossPunch";
+    private string aerialAttackAnimation = "LightJab";
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        inputHandler = GetComponent<PlayerStateInputs>();
+        inputOldHandler = GetComponent<PlayerStateInputs_old>();
         stateMachine = GetComponent<PlayerStateMachine>();
     }
 

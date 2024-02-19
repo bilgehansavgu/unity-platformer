@@ -6,14 +6,16 @@ using Core.StateMachine;
 namespace Core.CharacterController
 {
     [RequireComponent(typeof(CapsuleCollider2D), typeof(Rigidbody2D))]
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviour, IHittable
     {
         [Header("References & Setup")]
         public Animator Animator;
         public Rigidbody2D Rb2D;
         public float MovementSpeed;
         [Header("Ground Check")]
-        [SerializeField] private float groundCheckDistance = 1f;
+        [SerializeField] private float groundCheckDistance = 0.55f;
+        [SerializeField] private float fallCheckDistance = 7f;
+
         [SerializeField] private LayerMask groundLayer;
 
         public enum StateID
@@ -21,10 +23,15 @@ namespace Core.CharacterController
             Idle,
             Move,
             AnticipateJump,
-            Jump,
+            JumpRise,
+            JumpStall,
             Falling,
             Landing,
-            SquareAttack
+            SquareAttack,
+            TriangleAttack,
+            Dash,
+            GetHit,
+            GetHitAirbourne
         }
 
         [SerializeField, Space] StateMachine<StateID> fsm;
@@ -35,40 +42,36 @@ namespace Core.CharacterController
                 { StateID.Idle, new PlayerState_Idle(this) },
                 { StateID.Move, new PlayerState_Move(this) },
                 { StateID.AnticipateJump, new PlayerState_AnticipateJump(this) },
-                { StateID.Jump, new PlayerState_Jump(this) },
+                { StateID.JumpRise, new PlayerState_JumpRise(this) },
+                { StateID.JumpStall, new PlayerState_JumpStall(this) },
                 { StateID.Falling, new PlayerState_Falling(this) },
                 { StateID.Landing, new PlayerState_Landing(this) },
-                { StateID.SquareAttack, new PlayerState_SquareAttack(this) }
+                { StateID.SquareAttack, new PlayerState_SquareAttack(this) },
+                { StateID.TriangleAttack, new PlayerState_TriangleAttack(this)},
+                { StateID.Dash, new PlayerState_Dash(this)}
             };
             fsm = new StateMachine<StateID>(states, StateID.Idle);
-
-
-            // This is an alternative way to initialize fsm. It looks cleaner but it's easier to make a mistake.
-            //fsm = new StateMachine<StateID>();
-            //fsm.RegisterState(new PlayerState_Idle(this));
-            //fsm.RegisterState(new PlayerState_Move(this));
-            //fsm.RegisterState(new PlayerState_AnticipateJump(this));
-            //fsm.RegisterState(new PlayerState_Jump(this));
-            //fsm.RegisterState(new PlayerState_Falling(this));
-            //fsm.RegisterState(new PlayerState_Landing(this));
-            //fsm.RegisterState(new PlayerState_SquareAttack(this));
-            //fsm.ChangeState(StateID.Idle);
         }
 
-        public PlayerInputData Inputs => inputs;
-        [SerializeField] PlayerInputData inputs;
+        public IInputProvider Inputs;
         private void Awake()
+        {
+            GetReferences();
+            SetupFSM();
+        }
+
+        private void GetReferences()
         {
             if (Animator == null)
                 Animator = GetComponent<Animator>();
             if (Rb2D == null)
                 Rb2D = GetComponent<Rigidbody2D>();
-            SetupFSM();
+            if (Inputs == null)
+                Inputs = GetComponent<IInputProvider>();
         }
 
         private void Update()
         {
-            CacheInputs();
             fsm.Tick();
             CountAttackCooldown();
         }
@@ -92,28 +95,37 @@ namespace Core.CharacterController
             attackCooldown = cooldown;
         }
         #endregion
-
-        /// <summary>
-        /// This method is temporary
-        /// </summary>
-        private void CacheInputs()
-        {
-            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
-                inputs.MoveInputValue.x = Input.GetAxis("Horizontal");
-            else
-                inputs.MoveInputValue.x = 0;
-
-            inputs.jumpTriggered = Input.GetKey(KeyCode.Space);
-            inputs.attackSquareActionTriggered = Input.GetKey(KeyCode.C);
-        }
+      
         public bool IsGrounded()
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, groundLayer);
             return hit.collider != null && !hit.collider.isTrigger;
         }
-        public void OnAnimationFinished(StateID stateToTrigger)
+        public bool IsNearGround()
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, fallCheckDistance, groundLayer);
+            return hit.collider != null;
+        }
+        public void InvokeState(StateID stateToTrigger)
         {
             fsm.GetState(stateToTrigger).InvokeState(fsm);
         }
+
+        public bool IsInvincible;
+        public void TakeHit(float hitForce)
+        {
+            if (IsInvincible)
+                return;
+
+            if (IsGrounded())
+                fsm.ChangeState(StateID.GetHit);
+            else
+                fsm.ChangeState(StateID.GetHitAirbourne);
+        }
+    }
+
+    public interface IHittable
+    {
+        void TakeHit(float hitForce);
     }
 }

@@ -1,14 +1,15 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SquareAttackState : MonoBehaviour, IPlayerState
 {
     private Animator animator;
     private Rigidbody2D rb;
     public PlayerStateMachine stateMachine;
-    public PlayerStateInputs inputHandler;
+    [FormerlySerializedAs("inputHandler")] public PlayerStateInputs_old inputOldHandler;
 
-    private string groundedAttackAnimation = "chain_punch_R_animation";
-    private string aerialAttackAnimation = "jump_and_ground_slam_R_animation";
+    private string groundedAttackAnimation = "ChainPunch";
+    private string aerialAttackAnimation = "SlamPunch";
 
     [SerializeField] private float groundCheckDistance = 1f;
     [SerializeField] private LayerMask groundLayer;
@@ -29,7 +30,7 @@ public class SquareAttackState : MonoBehaviour, IPlayerState
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         stateMachine = GetComponent<PlayerStateMachine>();
-        inputHandler = GetComponent<PlayerStateInputs>();
+        inputOldHandler = GetComponent<PlayerStateInputs_old>();
     }
 
     public void EnterState()
