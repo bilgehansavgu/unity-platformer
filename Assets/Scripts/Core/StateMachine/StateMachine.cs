@@ -67,11 +67,13 @@ namespace Core.StateMachine
         /// <param name="nextState"></param>
         public void ChangeState(TStateID nextState)
         {
-            Debug.Log("Exit: " + currentState);
+            if (showExitStateDebug)
+                Debug.Log("Exit: " + currentState);
             GetState(currentState)?.Exit(this);
             currentState = nextState;
             GetState(currentState)?.Enter(this);
-            Debug.Log("Enter: " + nextState);
+            if (showEnterStateDebug)
+                Debug.Log("Enter: " + nextState);
         }
 
         /// <summary>
@@ -85,5 +87,12 @@ namespace Core.StateMachine
             GetState(currentState)?.Enter(this);
             Debug.Log("Enter: " + nextState);
         }
+        public bool CompareState(TStateID other)
+        {
+            return GetState(currentState) == GetState(other);
+        }
+
+        [SerializeField] bool showEnterStateDebug;
+        [SerializeField] bool showExitStateDebug;
     }
 }

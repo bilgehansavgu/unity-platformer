@@ -42,6 +42,11 @@ namespace Core.StateMachine
         /// </summary>
         /// <param name="machine"></param>
         protected abstract void Decide(StateMachine<TStateID> machine);
+
+        /// <summary>
+        /// State onTrigger
+        /// </summary>
+        /// <param name="machine"></param>
         public virtual void InvokeState(StateMachine<TStateID> machine)
         {
             // This should remain empty if state doesn't have

@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 namespace Core.CharacterController
 {
-    public class PlayerStateInputs : MonoBehaviour
+    public class PlayerStateInputs : MonoBehaviour, IInputProvider
     {
         [Header("Input Action Asset")] [SerializeField]
         private InputActionAsset playerControls;
@@ -27,13 +27,24 @@ namespace Core.CharacterController
         public InputAction dashAction;
 
 
-        public Vector2 MoveInputValue;
-        public bool jumpTriggered = false;
-        public bool attackSquareActionTriggered = false;
-        public bool attackTriangleActionTriggered = false;
-        public bool inputDirection;
-        public bool dashTriggered = false;
+        private Vector2 moveInputValue;
+        private bool jumpTriggered = false;
+        private bool attackSquareActionTriggered = false;
+        private bool attackTriangleActionTriggered = false;
+        private bool inputDirection;
+        private bool dashTriggered = false;
 
+        public Vector2 MoveInputValue => moveInputValue;
+
+        public bool JumpTriggered => jumpTriggered;
+
+        public bool AttackSquareActionTriggered => attackSquareActionTriggered;
+
+        public bool AttackTriangleActionTriggered => attackTriangleActionTriggered;
+
+        public bool InputDirection => inputDirection;
+
+        public bool DashTriggered => dashTriggered;
 
         private void Awake()
         {
@@ -43,19 +54,18 @@ namespace Core.CharacterController
             attackTriangleAction = playerControls.FindActionMap(actionMapName).FindAction(attackTriangle);
             dashAction = playerControls.FindActionMap(actionMapName).FindAction(dash);
 
-
             SubscribeInputActions();
         }
 
         private void Update()
         {
-            inputDirection = MoveInputValue.x > 0;
+            inputDirection = moveInputValue.x > 0;
         }
 
         void SubscribeInputActions()
         {
-            moveAction.performed += context => { MoveInputValue = context.ReadValue<Vector2>(); };
-            moveAction.canceled += context => { MoveInputValue = Vector2.zero; };
+            moveAction.performed += context => { moveInputValue = context.ReadValue<Vector2>(); };
+            moveAction.canceled += context => { moveInputValue = Vector2.zero; };
 
             jumpAction.performed += context => jumpTriggered = true;
             jumpAction.canceled += context => jumpTriggered = false;
@@ -87,5 +97,14 @@ namespace Core.CharacterController
             attackTriangleAction.Disable();
             dashAction.Disable();
         }
+    }
+    public interface IInputProvider
+    {
+        public Vector2 MoveInputValue { get; }
+        public bool JumpTriggered { get; }
+        public bool AttackSquareActionTriggered { get; }
+        public bool AttackTriangleActionTriggered { get; }
+        public bool InputDirection { get; }
+        public bool DashTriggered { get; }
     }
 }

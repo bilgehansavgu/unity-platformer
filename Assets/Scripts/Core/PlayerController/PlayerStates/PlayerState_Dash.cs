@@ -20,6 +20,7 @@ namespace Core.CharacterController
 
         public override void Enter(StateMachine<PlayerController.StateID> machine)
         {
+            parent.IsInvincible = true;
             PlayClip(dashClip);
     
             if (parent.Inputs.MoveInputValue.x >= 0)
@@ -36,6 +37,7 @@ namespace Core.CharacterController
 
         public override void Exit(StateMachine<PlayerController.StateID> machine)
         {
+            parent.IsInvincible = false;
         }
 
         protected override void Act(StateMachine<PlayerController.StateID> machine)

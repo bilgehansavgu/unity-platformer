@@ -23,8 +23,6 @@ namespace Core.CharacterController
             parent.SetAttackCooldown(0.7f);
         }
 
-
-
         protected override void Act(StateMachine<PlayerController.StateID> machine)
         {
         }
@@ -36,6 +34,8 @@ namespace Core.CharacterController
         {
             if (parent.IsGrounded())
                 machine.ChangeState(PlayerController.StateID.Idle);
+            else
+                machine.ChangeState(PlayerController.StateID.Falling);
         }
     }
 }
