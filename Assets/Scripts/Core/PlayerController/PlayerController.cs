@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Core.StateMachine;
@@ -17,7 +16,6 @@ namespace Core.CharacterController
         {
             Idle,
             Move,
-            AnticipateJump,
             Jump,
             Falling,
             Landing,
@@ -77,7 +75,7 @@ namespace Core.CharacterController
         public bool ReadyToAttack => attackCooldown <= 0;
 
         #region Attack Cooldown
-        float attackCooldown = 0;
+        float attackCooldown;
         private void CountAttackCooldown()
         {
             if (attackCooldown > 0)
@@ -115,17 +113,16 @@ namespace Core.CharacterController
                 return;
 
             if (IsGrounded())
-                fsm.ChangeState(StateID.GetHit);
-            else
+                fsm.ChangeState(StateID.GetHit); 
                 fsm.ChangeState(StateID.GetHitAirbourne);
         }
         
-        private float GetAirSprite(int totalFramesInAnimation)
+        public float GetAirSprite(int totalFramesInAnimation)
         {
             return Map(Rb2D.velocity.y, 11f, -11f, 0, totalFramesInAnimation-1) ;
         }
         
-        public float Map(float value, float fromSource, float toSource, float fromTarget, float toTarget)
+        private float Map(float value, float fromSource, float toSource, float fromTarget, float toTarget)
         {
             return (value - fromSource) / (toSource - fromSource) * (toTarget - fromTarget) + fromTarget;
         }

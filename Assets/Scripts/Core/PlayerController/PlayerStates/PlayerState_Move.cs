@@ -27,7 +27,14 @@ namespace Core.CharacterController
 
         private void Move()
         {
-            parent.Rb2D.velocity = new Vector2(parent.Inputs.MoveInputValue.x * parent.config.MovementSpeed, parent.Rb2D.velocity.y);
+            if (parent.Inputs.MoveInputValue.x > 0)
+            {
+                WalkRight();
+            }
+            if (parent.Inputs.MoveInputValue.x < 0)
+            {
+                WalkLeft();
+            }
         }
 
         protected override void Decide(StateMachine<PlayerController.StateID> machine)
@@ -40,6 +47,24 @@ namespace Core.CharacterController
                 machine.ChangeState(PlayerController.StateID.SquareAttack);
             if (parent.Inputs.AttackTriangleActionTriggered && parent.ReadyToAttack)
                 machine.ChangeState(PlayerController.StateID.TriangleAttack);
+        }
+
+        private void WalkRight()
+        {
+            if (parent.Rb2D.velocity.x < parent.config.MovementSpeed)
+            {
+                float speedDifference = Mathf.Abs(parent.config.MovementSpeed - parent.Rb2D.velocity.x);
+                parent.Rb2D.velocity += new Vector2(parent.Inputs.MoveInputValue.x * speedDifference, 0);
+            }
+        }
+
+        private void WalkLeft()
+        {
+            if (parent.Rb2D.velocity.x > -parent.config.MovementSpeed)
+            {
+                float speedDifference = Mathf.Abs(parent.config.MovementSpeed + parent.Rb2D.velocity.x);
+                parent.Rb2D.velocity += new Vector2(-speedDifference, 0);
+            }
         }
     }
 }
