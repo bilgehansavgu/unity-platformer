@@ -15,6 +15,12 @@ namespace Core.CharacterController
         {
             parent.Animator.Play(clipName);
         }
+
+        protected void PlayClip(string clipName, float index, int totalFramesInAnimation)
+        {
+            parent.Animator.Play(clipName, 0, (1f / totalFramesInAnimation) * index);
+        }
+        
         protected void HandleSpriteDirection()
         {
             if (parent.Inputs.MoveInputValue.x > 0)
