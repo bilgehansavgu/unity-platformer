@@ -7,8 +7,8 @@ namespace Core.CharacterController
 {
     public class PlayerState_Jump : PlayerState_Base
     {
-        const string jumpClip = "jump_animation";
-        private const string fallClip = "fall_animation";
+        const string jumpClip = "Jump";
+        private const string fallClip = "JumpFall";
         private float _maxMovementVelocity = 5f;
         private float _jumpVelocity = 2f;
         private float jumpLoad = 3f;
@@ -42,7 +42,7 @@ namespace Core.CharacterController
 
         protected override void Act(StateMachine<PlayerController.StateID> machine)
         {
-            if (parent.Inputs.jumpTriggered && _jumpCount > 0)
+            if (parent.Inputs.JumpTriggered && _jumpCount > 0)
             {
                 parent.Rb2D.velocity += new Vector2(0, _jumpVelocity);
                 _jumpCount--;
@@ -109,11 +109,11 @@ namespace Core.CharacterController
 
         protected override void Decide(StateMachine<PlayerController.StateID> machine)
         {  
-            if (parent.Inputs.attackSquareActionTriggered && parent.ReadyToAttack)
+            if (parent.Inputs.AttackSquareActionTriggered && parent.ReadyToAttack)
                 machine.ChangeState(PlayerController.StateID.SquareAttack);
-            if (parent.Inputs.attackTriangleActionTriggered && parent.ReadyToAttack)
+            if (parent.Inputs.AttackTriangleActionTriggered && parent.ReadyToAttack)
                 machine.ChangeState(PlayerController.StateID.TriangleAttack);
-            if (parent.Inputs.dashTriggered)
+            if (parent.Inputs.DashTriggered)
                 machine.ChangeState(PlayerController.StateID.Dash);
             if (parent.IsGrounded() && parent.Rb2D.velocity.y < 0)
                 machine.ChangeState(PlayerController.StateID.Landing);
