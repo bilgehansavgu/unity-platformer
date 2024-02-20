@@ -1,5 +1,5 @@
 {
-    "name": "PlayerMoves",
+    "name": "PlayerMoves2",
     "maps": [
         {
             "name": "Player",
@@ -63,6 +63,15 @@
                     "name": "Sprint",
                     "type": "Button",
                     "id": "e6a7201e-b7a3-4cb2-80d9-bd4f85f1832b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Dash",
+                    "type": "Button",
+                    "id": "82d8142e-8aa5-42ac-a9cc-e2e0be31d86b",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -342,6 +351,28 @@
                     "processors": "",
                     "groups": "Joystick",
                     "action": "Moveyedek",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4ad063a0-d1fa-4085-95c1-4e803b38e6f2",
+                    "path": "<Keyboard>/rightShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "69e433f3-a9c9-402f-b2b9-a640f14ac641",
+                    "path": "<DualShockGamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

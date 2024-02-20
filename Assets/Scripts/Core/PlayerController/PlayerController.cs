@@ -112,9 +112,10 @@ namespace Core.CharacterController
             if (IsInvincible)
                 return;
 
-            if (IsGrounded())
-                fsm.ChangeState(StateID.GetHit); 
-                fsm.ChangeState(StateID.GetHitAirbourne);
+            //if (IsGrounded())
+            //    fsm.ChangeState(StateID.GetHit);
+            //else
+            //    fsm.ChangeState(StateID.GetHitAirbourne);
         }
         
         public float GetAirSprite(int totalFramesInAnimation)
