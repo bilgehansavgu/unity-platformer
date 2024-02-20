@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Core.StateMachine;
+using UnityEngine.UIElements;
 
 namespace Core.CharacterController
 {
@@ -23,7 +24,10 @@ namespace Core.CharacterController
             TriangleAttack,
             Dash,
             GetHit,
-            GetHitAirbourne
+            GetHitAirbourne,
+            WallSlide,
+            WallJump,
+            WallHangIdle
         }
 
         [SerializeField, Space] StateMachine<StateID> fsm;
@@ -38,7 +42,9 @@ namespace Core.CharacterController
                 { StateID.Landing, new PlayerState_Landing(this) },
                 { StateID.SquareAttack, new PlayerState_SquareAttack(this) },
                 { StateID.TriangleAttack, new PlayerState_TriangleAttack(this)},
-                { StateID.Dash, new PlayerState_Dash(this)}
+                { StateID.Dash, new PlayerState_Dash(this)},
+                { StateID.WallSlide, new PlayerState_WallSlide(this)},
+                { StateID.WallHangIdle, new PlayerState_WallHangIdle(this)}
             };
             fsm = new StateMachine<StateID>(states, StateID.Idle);
         }
@@ -125,6 +131,13 @@ namespace Core.CharacterController
         private float Map(float value, float fromSource, float toSource, float fromTarget, float toTarget)
         {
             return (value - fromSource) / (toSource - fromSource) * (toTarget - fromTarget) + fromTarget;
+        }
+        [SerializeField] private Transform wallCheck;
+        [SerializeField] private LayerMask wallLayer;
+        public bool IsWalled()
+        {
+            RaycastHit2D hit = Physics2D.Raycast(wallCheck.position, Vector2.left, 0.5f, wallLayer);
+            return hit.collider == null;
         }
     }
 }
