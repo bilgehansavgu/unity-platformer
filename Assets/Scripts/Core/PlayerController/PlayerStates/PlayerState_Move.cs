@@ -5,7 +5,7 @@ namespace Core.CharacterController
 {
     public class PlayerState_Move : PlayerState_Base
     {
-        const string walkClip = "Walk";
+        const string walkClip = "Run";
         public PlayerState_Move(PlayerController parent) : base(parent)
         {
         }

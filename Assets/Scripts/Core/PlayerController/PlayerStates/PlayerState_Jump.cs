@@ -111,7 +111,7 @@ namespace Core.CharacterController
                 machine.ChangeState(PlayerController.StateID.Dash);
             if (parent.IsGrounded() && parent.Rb2D.velocity.y < 0)
                 machine.ChangeState(PlayerController.StateID.Landing);
-            if (!parent.IsWalled() && parent.Rb2D.position.y > 5f)
+            if (!parent.IsWalled() && parent.Rb2D.position.y > 0.5f)
                 machine.ChangeState(PlayerController.StateID.WallHangIdle);
         }
     }

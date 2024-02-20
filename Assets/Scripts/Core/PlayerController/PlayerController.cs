@@ -12,6 +12,9 @@ namespace Core.CharacterController
         [Header("References & Setup")]
         public Animator Animator;
         public Rigidbody2D Rb2D;
+        
+        [SerializeField] private Transform wallCheck;
+        [SerializeField] private LayerMask wallLayer;
 
         public enum StateID
         {
@@ -132,11 +135,11 @@ namespace Core.CharacterController
         {
             return (value - fromSource) / (toSource - fromSource) * (toTarget - fromTarget) + fromTarget;
         }
-        [SerializeField] private Transform wallCheck;
-        [SerializeField] private LayerMask wallLayer;
+
         public bool IsWalled()
         {
-            RaycastHit2D hit = Physics2D.Raycast(wallCheck.position, Vector2.left, 0.5f, wallLayer);
+            Debug.Log("wall");
+            RaycastHit2D hit = Physics2D.Raycast(Vector2.right, wallCheck.position, 0.3f, wallLayer);
             return hit.collider == null;
         }
     }
