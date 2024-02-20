@@ -3263,10 +3263,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c61443979dde4de09df8912fd22d1736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  rb: {fileID: 0}
   stateMachine: {fileID: 1310306686}
   inputOldHandler: {fileID: 1310306687}
   _maxMovementVelocity: 5
   jumpForce: 2
+  isAnimationFinished: 0
 --- !u!114 &1310306680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3279,6 +3282,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc7772e8035f43fc97e666f3e1d80de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  rb: {fileID: 0}
   inputOldHandler: {fileID: 1310306687}
   stateMachine: {fileID: 1310306686}
 --- !u!114 &1310306681
@@ -3293,12 +3298,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b71aba96979d4346b6fe6204440d117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  rb: {fileID: 0}
   inputOldHandler: {fileID: 1310306687}
   stateMachine: {fileID: 1310306686}
   groundCheckDistance: 1
   groundLayer:
-    serializedVersion: 2
     m_Bits: 8
+  groundedAttackAnimation: CrossPunch
+  aerialAttackAnimation: LightJab
 --- !u!114 &1310306682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3311,19 +3319,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb96fa4e98c6711419fa0711428413aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  rb: {fileID: 0}
   stateMachine: {fileID: 1310306686}
   inputOldHandler: {fileID: 1310306687}
+  groundedAttackAnimation: ChainPunch
+  aerialAttackAnimation: SlamPunch
   groundCheckDistance: 1
   groundLayer:
-    serializedVersion: 2
     m_Bits: 8
   enemyLayer:
-    serializedVersion: 2
     m_Bits: 64
   attackWidth: 1
   attackHeight: 1
   attackCollider: {fileID: 785689664}
   knockbackForce: 10
+  hasDealtDamage: 0
 --- !u!114 &1310306683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3336,6 +3347,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2f1b91f361258a4b82836745ab57260, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  rb: {fileID: 0}
   jumpForce: 10
 --- !u!114 &1310306684
 MonoBehaviour:
@@ -3349,14 +3362,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08e59180dec0c4c468a59f0643579e29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  rb: {fileID: 0}
   stateMachine: {fileID: 1310306686}
   inputOldHandler: {fileID: 1310306687}
+  facingRight: 1
+  isGrounded: 0
   _maxMovementVelocity: 5
   jumpLoad: 3
   fallLoad: 4
   groundCheckDistance: 1
   groundLayer:
-    serializedVersion: 2
     m_Bits: 8
 --- !u!114 &1310306685
 MonoBehaviour:
@@ -3370,6 +3386,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 347edd069d2ce9f43bb31b2c21fc271b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  rb: {fileID: 0}
+  facingRight: 1
   moveSpeed: 5
   inputOldHandler: {fileID: 1310306687}
   stateMachine: {fileID: 1310306686}
@@ -3449,6 +3468,7 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+  <MoveInputValue>k__BackingField: {x: 0, y: 0}
   jumpTriggered: 0
   attackSquareActionTriggered: 0
   attackTriangleActionTriggered: 0
@@ -3933,8 +3953,8 @@ MonoBehaviour:
   Rb2D: {fileID: 1655351686}
   fsm:
     currentState: 0
-    showEnterStateDebug: 0
-    showExitStateDebug: 0
+    showEnterStateDebug: 1
+    showExitStateDebug: 1
   IsInvincible: 0
 --- !u!50 &1655351686
 Rigidbody2D:
@@ -14207,12 +14227,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b71aba96979d4346b6fe6204440d117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  rb: {fileID: 0}
   inputOldHandler: {fileID: 2072058099}
   stateMachine: {fileID: 2072058098}
   groundCheckDistance: 1
   groundLayer:
-    serializedVersion: 2
     m_Bits: 8
+  groundedAttackAnimation: CrossPunch
+  aerialAttackAnimation: LightJab
 --- !u!114 &2072058094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14225,19 +14248,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb96fa4e98c6711419fa0711428413aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  rb: {fileID: 0}
   stateMachine: {fileID: 2072058098}
   inputOldHandler: {fileID: 2072058099}
+  groundedAttackAnimation: ChainPunch
+  aerialAttackAnimation: SlamPunch
   groundCheckDistance: 1
   groundLayer:
-    serializedVersion: 2
     m_Bits: 8
   enemyLayer:
-    serializedVersion: 2
     m_Bits: 64
   attackWidth: 1
   attackHeight: 1
   attackCollider: {fileID: 2110577664}
   knockbackForce: 10
+  hasDealtDamage: 0
 --- !u!114 &2072058095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14250,6 +14276,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2f1b91f361258a4b82836745ab57260, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  rb: {fileID: 0}
   jumpForce: 10
 --- !u!114 &2072058096
 MonoBehaviour:
@@ -14263,14 +14291,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08e59180dec0c4c468a59f0643579e29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  rb: {fileID: 0}
   stateMachine: {fileID: 2072058098}
   inputOldHandler: {fileID: 2072058099}
+  facingRight: 1
+  isGrounded: 0
   _maxMovementVelocity: 5
   jumpLoad: 3
   fallLoad: 4
   groundCheckDistance: 1
   groundLayer:
-    serializedVersion: 2
     m_Bits: 8
 --- !u!114 &2072058097
 MonoBehaviour:
@@ -14284,6 +14315,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 347edd069d2ce9f43bb31b2c21fc271b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  rb: {fileID: 0}
+  facingRight: 1
   moveSpeed: 5
   inputOldHandler: {fileID: 2072058099}
   stateMachine: {fileID: 2072058098}
@@ -14363,6 +14397,7 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+  <MoveInputValue>k__BackingField: {x: 0, y: 0}
   jumpTriggered: 0
   attackSquareActionTriggered: 0
   attackTriangleActionTriggered: 0
@@ -14379,6 +14414,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc7772e8035f43fc97e666f3e1d80de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  rb: {fileID: 0}
   inputOldHandler: {fileID: 2072058099}
   stateMachine: {fileID: 2072058098}
 --- !u!114 &2072058101
@@ -14393,10 +14430,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c61443979dde4de09df8912fd22d1736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  rb: {fileID: 0}
   stateMachine: {fileID: 2072058098}
   inputOldHandler: {fileID: 2072058099}
   _maxMovementVelocity: 5
   jumpForce: 2
+  isAnimationFinished: 0
 --- !u!114 &2072058102
 MonoBehaviour:
   m_ObjectHideFlags: 0

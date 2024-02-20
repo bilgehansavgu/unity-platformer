@@ -1,6 +1,6 @@
-﻿using Core.StateMachine;
+﻿using Platformer.Core.FSM;
 
-namespace Core.CharacterController
+namespace Platformer.Core.CharacterController
 {
     public class PlayerState_Idle : PlayerState_Base
     {
@@ -11,24 +11,31 @@ namespace Core.CharacterController
 
         public override PlayerController.StateID GetID() => PlayerController.StateID.Idle;
 
-        public override void Enter(StateMachine<PlayerController.StateID> machine) => PlayClip(idleClip);
+        public override void Enter(StateMachine<PlayerController.StateID> machine)
+        {
+            PlayClip(idleClip);
+        }
 
         public override void Exit(StateMachine<PlayerController.StateID> machine)
         {
         }
         protected override void Act(StateMachine<PlayerController.StateID> machine)
         {
+            if (parent.Rb2D.velocity.x != 0)
+            {
+                
+            }
         }
 
         protected override void Decide(StateMachine<PlayerController.StateID> machine)
         {
             if (parent.IsMoving)
                 machine.ChangeState(PlayerController.StateID.Move);
-            if (parent.Inputs.JumpTriggered && parent.IsGrounded())
+            else if (parent.Inputs.JumpTriggered && parent.IsGrounded())
                 machine.ChangeState(PlayerController.StateID.Jump);
-            if (parent.Inputs.AttackSquareActionTriggered && parent.ReadyToAttack)
+            else if (parent.Inputs.AttackSquareActionTriggered)
                 machine.ChangeState(PlayerController.StateID.SquareAttack);
-            if (parent.Inputs.AttackTriangleActionTriggered && parent.ReadyToAttack)
+            else if (parent.Inputs.AttackTriangleActionTriggered)
                 machine.ChangeState(PlayerController.StateID.TriangleAttack);
         }
     }

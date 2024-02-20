@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.StateMachine
+namespace Platformer.Core.FSM
 {
     /// <summary>
     /// Used by StateMachine do not inherit this.
@@ -9,9 +9,10 @@ namespace Core.StateMachine
     public interface IState<TStateID> where TStateID : Enum
     {
         TStateID GetID();
-        void Enter(StateMachine<TStateID> machine);
-        void Exit(StateMachine<TStateID> machine);
+        void InvokeEnter(StateMachine<TStateID> machine);
+        void InvokeExit(StateMachine<TStateID> machine);
         void Tick(StateMachine<TStateID> machine);
-        void InvokeState(StateMachine<TStateID> machine);
+        void InvokeStateTrigger(StateMachine<TStateID> machine);
+        bool IsReady();
     }
 }

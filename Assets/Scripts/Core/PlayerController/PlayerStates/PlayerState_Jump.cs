@@ -1,9 +1,9 @@
 ﻿using System;
 using UnityEngine;
-using Core.StateMachine;
+using Platformer.Core.FSM;
 using UnityEngine.Animations;
 
-namespace Core.CharacterController
+namespace Platformer.Core.CharacterController
 {
     public class PlayerState_Jump : PlayerState_Base
     {
@@ -22,7 +22,6 @@ namespace Core.CharacterController
         private int _jumpCount;
         public PlayerState_Jump(PlayerController parent) : base(parent)
         {
-            
         }
 
         public override PlayerController.StateID GetID() => PlayerController.StateID.Move;
@@ -35,8 +34,8 @@ namespace Core.CharacterController
 
         public override void Exit(StateMachine<PlayerController.StateID> machine)
         {
-            Debug.Log("Max Speed: " + maxSpeed);
-            Debug.Log("Min Speed: " + minSpeed);
+            //Debug.Log("Max Speed: " + maxSpeed);
+            //Debug.Log("Min Speed: " + minSpeed);
         }
 
         protected override void Act(StateMachine<PlayerController.StateID> machine)
@@ -64,7 +63,7 @@ namespace Core.CharacterController
                     parent.Rb2D.velocity += new Vector2(-speedDifference, 0);
                 }
             }
-            
+
             if (parent.Rb2D.velocity.y <= 0)
             {
                 parent.Rb2D.velocity += Vector2.up * (Physics2D.gravity.y * fallLoad * Time.deltaTime);
@@ -93,7 +92,7 @@ namespace Core.CharacterController
             }
             
             //9.35
-            Debug.Log(parent.GetAirSprite(9));
+            //Debug.Log(parent.GetAirSprite(9));
             
             if (parent.Rb2D.velocity.y < -13)
                 PlayClip(fallClip);
@@ -108,13 +107,13 @@ namespace Core.CharacterController
 
         protected override void Decide(StateMachine<PlayerController.StateID> machine)
         {  
-            if (parent.Inputs.AttackSquareActionTriggered && parent.ReadyToAttack)
+            if (parent.Inputs.AttackSquareActionTriggered)
                 machine.ChangeState(PlayerController.StateID.SquareAttack);
-            if (parent.Inputs.AttackTriangleActionTriggered && parent.ReadyToAttack)
+            else if (parent.Inputs.AttackTriangleActionTriggered)
                 machine.ChangeState(PlayerController.StateID.TriangleAttack);
-            if (parent.Inputs.DashTriggered)
+            else if (parent.Inputs.DashTriggered)
                 machine.ChangeState(PlayerController.StateID.Dash);
-            if (parent.IsGrounded() && parent.Rb2D.velocity.y < 0)
+            else if (parent.IsGrounded() && parent.Rb2D.velocity.y < 0)
                 machine.ChangeState(PlayerController.StateID.Landing);
         }
     }

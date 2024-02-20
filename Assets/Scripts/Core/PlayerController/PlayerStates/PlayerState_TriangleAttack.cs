@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
-using Core.StateMachine;
+using Platformer.Core.FSM;
 
-namespace Core.CharacterController
+namespace Platformer.Core.CharacterController
 {
     public class PlayerState_TriangleAttack : PlayerState_Base
     {
         const string attack = "CrossPunch";
         public PlayerState_TriangleAttack(PlayerController parent) : base(parent)
         {
+            SetCooldown(parent.config.AttackCooldown);
         }
         public override PlayerController.StateID GetID() => PlayerController.StateID.TriangleAttack;
 
@@ -20,7 +21,6 @@ namespace Core.CharacterController
         public override void Exit(StateMachine<PlayerController.StateID> machine)
         {
             parent.Rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
-            parent.SetAttackCooldown(0.7f);
         }
 
 
@@ -32,7 +32,7 @@ namespace Core.CharacterController
         {
         }
 
-        public override void InvokeState(StateMachine<PlayerController.StateID> machine)
+        public override void InvokeStateTrigger(StateMachine<PlayerController.StateID> machine)
         {
             if (parent.IsGrounded())
                 machine.ChangeState(PlayerController.StateID.Idle);

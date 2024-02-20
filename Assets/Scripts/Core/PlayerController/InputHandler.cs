@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Core.CharacterController
+namespace Platformer.Core
 {
-    public class PlayerStateInputs : MonoBehaviour, IInputProvider
+    public class InputHandler : MonoBehaviour, IInputProvider
     {
         [Header("Input Action Asset")] [SerializeField]
         private InputActionAsset playerControls;

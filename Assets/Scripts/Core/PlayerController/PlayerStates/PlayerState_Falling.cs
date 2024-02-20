@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using Core.StateMachine;
+using Platformer.Core.FSM;
 
-namespace Core.CharacterController
+namespace Platformer.Core.CharacterController
 {
     public class PlayerState_Falling : PlayerState_Base
     {
@@ -52,13 +52,13 @@ namespace Core.CharacterController
 
         protected override void Decide(StateMachine<PlayerController.StateID> machine)
         {
-            if (parent.Inputs.AttackSquareActionTriggered && parent.ReadyToAttack)
+            if (parent.Inputs.AttackSquareActionTriggered)
                 machine.ChangeState(PlayerController.StateID.SquareAttack);
-            if (parent.Inputs.AttackTriangleActionTriggered && parent.ReadyToAttack)
+            else if (parent.Inputs.AttackTriangleActionTriggered)
                 machine.ChangeState(PlayerController.StateID.TriangleAttack);
-            if (parent.IsGrounded())
+            else if (parent.IsGrounded())
                 machine.ChangeState(PlayerController.StateID.Landing);
-            if (parent.Inputs.DashTriggered)
+            else if (parent.Inputs.DashTriggered)
                 machine.ChangeState(PlayerController.StateID.Dash);
         }
     }

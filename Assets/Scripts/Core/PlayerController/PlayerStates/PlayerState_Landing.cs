@@ -1,6 +1,6 @@
-﻿using Core.StateMachine;
+﻿using Platformer.Core.FSM;
 
-namespace Core.CharacterController
+namespace Platformer.Core.CharacterController
 {
     public class PlayerState_Landing : PlayerState_Base
     {
@@ -17,7 +17,6 @@ namespace Core.CharacterController
 
         public override void Exit(StateMachine<PlayerController.StateID> machine)
         {
-
         }
 
 
@@ -30,7 +29,7 @@ namespace Core.CharacterController
                 machine.ChangeState(PlayerController.StateID.Idle);
         }
 
-        public override void InvokeState(StateMachine<PlayerController.StateID> machine)
+        public override void InvokeStateTrigger(StateMachine<PlayerController.StateID> machine)
         {
         }
     }

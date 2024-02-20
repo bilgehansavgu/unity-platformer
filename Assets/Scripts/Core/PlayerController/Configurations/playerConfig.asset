@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: playerConfig
   m_EditorClassIdentifier: 
   movementSpeed: 6
-  airbourneMoveSpeed: 4
+  groundModifier: 1
+  airbourneModifier: 0.6
+  dashForce: 14
+  dashCooldown: 1.5
   hitForce: 4
+  attackCooldown: 1.5
   chargeMultiplier: 1
   fallLoad: 4
   jumpLoad: 6

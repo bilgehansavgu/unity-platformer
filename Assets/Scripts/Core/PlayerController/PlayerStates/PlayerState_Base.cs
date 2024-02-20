@@ -1,7 +1,7 @@
-﻿using Core.StateMachine;
+﻿using Platformer.Core.FSM;
 using UnityEngine;
 
-namespace Core.CharacterController
+namespace Platformer.Core.CharacterController
 {
     public abstract class PlayerState_Base : StateBase<PlayerController.StateID>
     {
@@ -11,6 +11,7 @@ namespace Core.CharacterController
         {
             this.parent = parent;
         }
+
         protected void PlayClip(string clipName)
         {
             parent.Animator.Play(clipName);
@@ -21,11 +22,11 @@ namespace Core.CharacterController
             parent.Animator.Play(clipName, 0, (1f / totalFramesInAnimation) * index);
         }
         
-        protected void HandleSpriteDirection()
+        protected void HandleSpriteDirection(float xAxis)
         {
-            if (parent.Inputs.MoveInputValue.x > 0)
+            if (xAxis > 0)
                 parent.transform.rotation = Quaternion.Euler(0, 0, 0);
-            if (parent.Inputs.MoveInputValue.x < 0)
+            else if (xAxis < 0)
                 parent.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
     }

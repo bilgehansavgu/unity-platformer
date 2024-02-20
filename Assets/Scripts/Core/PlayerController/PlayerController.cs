@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Core.StateMachine;
+using Platformer.Core.FSM;
+using Platformer.Tween.Timer;
 
-namespace Core.CharacterController
+namespace Platformer.Core.CharacterController
 {
     [RequireComponent(typeof(CapsuleCollider2D), typeof(Rigidbody2D))]
     public class PlayerController : MonoBehaviour, IHittable
@@ -68,28 +69,9 @@ namespace Core.CharacterController
         private void Update()
         {
             fsm.Tick();
-            CountAttackCooldown();
         }
 
         public bool IsMoving => Inputs.MoveInputValue.x != 0;
-        public bool ReadyToAttack => attackCooldown <= 0;
-
-        #region Attack Cooldown
-        float attackCooldown;
-        private void CountAttackCooldown()
-        {
-            if (attackCooldown > 0)
-                attackCooldown -= Time.deltaTime;
-            else
-            {
-                attackCooldown = 0;
-            }
-        }
-        public void SetAttackCooldown(float cooldown)
-        {
-            attackCooldown = cooldown;
-        }
-        #endregion
       
         public bool IsGrounded()
         {
@@ -103,7 +85,7 @@ namespace Core.CharacterController
         }
         public void InvokeState(StateID stateToTrigger)
         {
-            fsm.GetState(stateToTrigger).InvokeState(fsm);
+            fsm.GetState(stateToTrigger).InvokeStateTrigger(fsm);
         }
 
         public bool IsInvincible;

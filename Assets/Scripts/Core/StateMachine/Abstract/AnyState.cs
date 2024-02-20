@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Core.StateMachine
+namespace Platformer.Core.FSM
 {
     /// <summary>
     /// Contains transitions from any state like death or taking damage

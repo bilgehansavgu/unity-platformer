@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using Core.StateMachine;
+using Platformer.Core.FSM;
 
-namespace Core.CharacterController
+namespace Platformer.Core.CharacterController
 {
     public class PlayerState_Dash : PlayerState_Base
     {
@@ -9,6 +9,7 @@ namespace Core.CharacterController
 
         public PlayerState_Dash(PlayerController parent) : base(parent)
         {
+            SetCooldown(parent.config.AttackCooldown);
         }
 
         public override PlayerController.StateID GetID() => PlayerController.StateID.Dash;
@@ -18,12 +19,12 @@ namespace Core.CharacterController
             parent.IsInvincible = true;
             PlayClip(dashClip);
     
-            if (parent.Inputs.MoveInputValue.x >= 0)
+            if (parent.Rb2D.velocity.x >= 0)
             {
                 parent.transform.rotation = Quaternion.Euler(0, 0, 0);
                 parent.Rb2D.AddForce(Vector2.right * parent.config.DashForce , ForceMode2D.Impulse);
             }
-            else if (parent.Inputs.MoveInputValue.x < 0)
+            else if (parent.Rb2D.velocity.y < 0)
             {
                 parent.transform.rotation = Quaternion.Euler(0, 180, 0);
                 parent.Rb2D.AddForce(Vector2.left * parent.config.DashForce, ForceMode2D.Impulse);
@@ -37,7 +38,6 @@ namespace Core.CharacterController
 
         protected override void Act(StateMachine<PlayerController.StateID> machine)
         {
-     
             
         }
 
@@ -45,7 +45,7 @@ namespace Core.CharacterController
         {  
  
         }
-        public override void InvokeState(StateMachine<PlayerController.StateID> machine)
+        public override void InvokeStateTrigger(StateMachine<PlayerController.StateID> machine)
         {
             if (parent.IsGrounded())
                 machine.ChangeState(PlayerController.StateID.Idle);

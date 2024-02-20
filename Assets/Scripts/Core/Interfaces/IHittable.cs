@@ -1,4 +1,4 @@
-﻿namespace Core.CharacterController
+﻿namespace Platformer.Core
 {
     public interface IHittable
     {

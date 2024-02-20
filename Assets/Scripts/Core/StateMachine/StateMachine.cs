@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Core.StateMachine
+namespace Platformer.Core.FSM
 {
     [System.Serializable]
     public class StateMachine<TStateID> where TStateID : Enum
@@ -67,11 +67,16 @@ namespace Core.StateMachine
         /// <param name="nextState"></param>
         public void ChangeState(TStateID nextState)
         {
+            if (!GetState(nextState).IsReady())
+            {
+                Debug.Log("State is not Ready: " + nextState);
+                return;
+            }
             if (showExitStateDebug)
                 Debug.Log("Exit: " + currentState);
-            GetState(currentState)?.Exit(this);
+            GetState(currentState)?.InvokeExit(this);
             currentState = nextState;
-            GetState(currentState)?.Enter(this);
+            GetState(currentState)?.InvokeEnter(this);
             if (showEnterStateDebug)
                 Debug.Log("Enter: " + nextState);
         }
@@ -84,7 +89,7 @@ namespace Core.StateMachine
         public void ChangeStateImmediate(TStateID nextState)
         {
             currentState = nextState;
-            GetState(currentState)?.Enter(this);
+            GetState(currentState)?.InvokeEnter(this);
             Debug.Log("Enter: " + nextState);
         }
         public bool CompareState(TStateID other)
