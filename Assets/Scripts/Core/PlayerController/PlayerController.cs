@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Platformer.Core.FSM;
 using Platformer.Tween.Timer;
+using UnityEngine.Rendering.VirtualTexturing;
 
 namespace Platformer.Core.CharacterController
 {
@@ -75,9 +76,10 @@ namespace Platformer.Core.CharacterController
       
         public bool IsGrounded()
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, config.GroundCheckDistance, config.WhatIsGround);
+            RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.2f, Vector2.down, config.GroundCheckDistance, config.WhatIsGround);
             return hit.collider != null && !hit.collider.isTrigger;
         }
+
         public bool IsNearGround()
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, config.FallCheckDistance, config.WhatIsGround);
@@ -108,6 +110,15 @@ namespace Platformer.Core.CharacterController
         private float Map(float value, float fromSource, float toSource, float fromTarget, float toTarget)
         {
             return (value - fromSource) / (toSource - fromSource) * (toTarget - fromTarget) + fromTarget;
+        }
+        public bool ShowGroundCheckSphere;
+        private void OnDrawGizmos()
+        {
+            if (ShowGroundCheckSphere)
+            {
+                Gizmos.color = Color.blue;
+                Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - config.GroundCheckDistance, transform.position.z), 0.2f);
+            }
         }
     }
 }

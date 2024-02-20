@@ -9,6 +9,7 @@ namespace Platformer
         [SerializeField] float movementSpeed = 10f;
         [SerializeField] float groundModifier = 1f;
         [SerializeField] float airbourneModifier = 0.6f;
+        [SerializeField] float groundedFriction = 1f;
         [Header("Dashing")]
         [SerializeField] float dashForce = 14f;
         [SerializeField] float dashCooldown = 1f;
@@ -32,7 +33,8 @@ namespace Platformer
     
         public float MovementSpeed => movementSpeed;
         public float GroundModifier => groundModifier;
-        public float AirbourneModifier => airbourneModifier;    
+        public float AirbourneModifier => airbourneModifier;
+        public float GroundedFriction => groundedFriction;
         public float DashForce => dashForce;
         public float DashCooldown => dashCooldown;
         public float HitForce => hitForce;

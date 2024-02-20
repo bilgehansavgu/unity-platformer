@@ -1,4 +1,5 @@
 ﻿using Platformer.Core.FSM;
+using UnityEngine;
 
 namespace Platformer.Core.CharacterController
 {
@@ -21,9 +22,15 @@ namespace Platformer.Core.CharacterController
         }
         protected override void Act(StateMachine<PlayerController.StateID> machine)
         {
-            if (parent.Rb2D.velocity.x != 0)
+            // Friction
+            if (Mathf.Abs(parent.Rb2D.velocity.x) > 0)
             {
-                
+                parent.Rb2D.velocity += -parent.config.GroundedFriction * Time.deltaTime * new Vector2(parent.Rb2D.velocity.x, 0);
+            }
+            // if there is too little movement stop completely
+            if (Mathf.Abs(parent.Rb2D.velocity.x) < 0.1)
+            {
+                parent.Rb2D.velocity = Vector2.zero;
             }
         }
 
@@ -31,6 +38,8 @@ namespace Platformer.Core.CharacterController
         {
             if (parent.IsMoving)
                 machine.ChangeState(PlayerController.StateID.Move);
+            else if (!parent.IsGrounded())
+                machine.ChangeState(PlayerController.StateID.Falling);
             else if (parent.Inputs.JumpTriggered && parent.IsGrounded())
                 machine.ChangeState(PlayerController.StateID.Jump);
             else if (parent.Inputs.AttackSquareActionTriggered)
