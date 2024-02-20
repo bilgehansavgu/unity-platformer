@@ -117,9 +117,9 @@ namespace Core.CharacterController
                 fsm.ChangeState(StateID.GetHitAirbourne);
         }
         
-        public float GetAirSprite(int totalFramesInAnimation)
+        public float GetAirSprite(int totalFramesInAnimation) // (11,-11 are paramaters to tune. Not fixed!
         {
-            return Map(Rb2D.velocity.y, 11f, -11f, 0, totalFramesInAnimation-1) ;
+            return Map(Rb2D.velocity.y, 12f, -11f, 0, totalFramesInAnimation-1) ;
         }
         
         private float Map(float value, float fromSource, float toSource, float fromTarget, float toTarget)

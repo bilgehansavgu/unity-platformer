@@ -10,7 +10,7 @@ namespace Core.CharacterController
         const string jumpClip = "Jump";
         private const string fallClip = "JumpFall";
         private float _maxMovementVelocity = 5f;
-        private float _jumpVelocity = 2f;
+        private float _jumpVelocity = 15f;
         private float jumpLoad = 3f;
         private float fallLoad = 4f;
         
@@ -20,6 +20,7 @@ namespace Core.CharacterController
         private float _maxFallSpeed = -15f;
 
         private int _jumpCount;
+        private bool _prevJumpInput;
         public PlayerState_Jump(PlayerController parent) : base(parent)
         {
             
@@ -29,8 +30,9 @@ namespace Core.CharacterController
 
         public override void Enter(StateMachine<PlayerController.StateID> machine)
         {
-            parent.Rb2D.velocity += new Vector2(0,12);
-            _jumpCount = 2;
+            parent.Rb2D.velocity += new Vector2(0,_jumpVelocity);
+            _jumpCount = 1;
+            _prevJumpInput = true;
         }
 
         public override void Exit(StateMachine<PlayerController.StateID> machine)
@@ -41,11 +43,12 @@ namespace Core.CharacterController
 
         protected override void Act(StateMachine<PlayerController.StateID> machine)
         {
-            if (parent.Inputs.JumpTriggered && _jumpCount > 0)
+            if (parent.Inputs.JumpTriggered && _prevJumpInput == false && _jumpCount > 0)
             {
                 parent.Rb2D.velocity += new Vector2(0, _jumpVelocity);
                 _jumpCount--;
             }
+
             if (parent.Inputs.MoveInputValue.x > 0)
             {
                 parent.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -65,35 +68,21 @@ namespace Core.CharacterController
                 }
             }
             
+            
+            
             if (parent.Rb2D.velocity.y <= 0)
             {
                 parent.Rb2D.velocity += Vector2.up * (Physics2D.gravity.y * fallLoad * Time.deltaTime);
             }
-        
-            // // // if rising and space hold down
-            // else if (parent.Rb2D.velocity.y > 0 && !Input.GetButton("Jump"))
-            // {
-            //     parent.Rb2D.velocity += Vector2.up * (Physics2D.gravity.y * fallLoad * 0.5f * Time.deltaTime);
-            // }
-        
+            else if (parent.Rb2D.velocity.y <= 0 && parent.Inputs.JumpTriggered)
+            {
+                parent.Rb2D.velocity += Vector2.up * (Physics2D.gravity.y * fallLoad * 0.5f * Time.deltaTime);
+            }
             // if rising but space not hold down
             else if (parent.Rb2D.velocity.y > 0)
             {
                 parent.Rb2D.velocity += Vector2.up * (float)(Physics2D.gravity.y * jumpLoad * Time.deltaTime);
             }
-
-            
-            if (parent.Rb2D.velocity.y > maxSpeed)
-            {
-                maxSpeed = parent.Rb2D.velocity.y;
-            }
-            if (parent.Rb2D.velocity.y < minSpeed)
-            {
-                minSpeed = parent.Rb2D.velocity.y;
-            }
-            
-            //9.35
-            Debug.Log(parent.GetAirSprite(9));
             
             if (parent.Rb2D.velocity.y < -13)
                 PlayClip(fallClip);
@@ -104,6 +93,8 @@ namespace Core.CharacterController
             
             if (parent.Rb2D.velocity.y < _maxFallSpeed)
                 parent.Rb2D.velocity += new Vector2(0, Mathf.Abs(parent.Rb2D.velocity.y - _maxFallSpeed));
+            
+            _prevJumpInput = parent.Inputs.JumpTriggered;
         }
 
         protected override void Decide(StateMachine<PlayerController.StateID> machine)
@@ -114,7 +105,7 @@ namespace Core.CharacterController
                 machine.ChangeState(PlayerController.StateID.TriangleAttack);
             if (parent.Inputs.DashTriggered)
                 machine.ChangeState(PlayerController.StateID.Dash);
-            if (parent.IsGrounded() && parent.Rb2D.velocity.y < 0)
+            if (parent.IsGrounded() && parent.Rb2D.velocity.y <= 0)
                 machine.ChangeState(PlayerController.StateID.Landing);
         }
     }
