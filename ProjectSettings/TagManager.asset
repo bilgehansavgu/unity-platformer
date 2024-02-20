@@ -6,14 +6,15 @@ TagManager:
   tags:
   - Floor
   - Wall
+  - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Floor
   - Water
   - UI
-  - 
+  - Enemy
   - 
   - 
   - 
