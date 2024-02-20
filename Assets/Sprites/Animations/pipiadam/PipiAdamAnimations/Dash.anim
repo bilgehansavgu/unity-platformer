@@ -83,9 +83,9 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.42
-    functionName: OnAnimationFinished
+    functionName: InvokeState
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 9
+    intParameter: 8
     messageOptions: 0

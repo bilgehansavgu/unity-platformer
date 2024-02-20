@@ -24,7 +24,6 @@ namespace Core.CharacterController
         {
             if (parent.IsMoving)
                 machine.ChangeState(PlayerController.StateID.Move);
-
             if (parent.Inputs.JumpTriggered && parent.IsGrounded())
                 machine.ChangeState(PlayerController.StateID.Jump);
             if (parent.Inputs.AttackSquareActionTriggered && parent.ReadyToAttack)

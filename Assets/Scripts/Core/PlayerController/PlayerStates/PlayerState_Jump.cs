@@ -7,8 +7,8 @@ namespace Core.CharacterController
 {
     public class PlayerState_Jump : PlayerState_Base
     {
-        const string jumpClip = "jump_animation";
-        private const string fallClip = "fall_animation";
+        const string jumpClip = "Jump";
+        private const string fallClip = "JumpFall";
         private float _maxMovementVelocity = 5f;
         private float _jumpVelocity = 2f;
         private float jumpLoad = 3f;

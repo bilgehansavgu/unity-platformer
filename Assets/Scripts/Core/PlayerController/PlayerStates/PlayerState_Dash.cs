@@ -48,8 +48,13 @@ namespace Core.CharacterController
 
         protected override void Decide(StateMachine<PlayerController.StateID> machine)
         {  
-            // Check if the player is still grounded
+ 
+        }
+        public override void InvokeState(StateMachine<PlayerController.StateID> machine)
+        {
             if (parent.IsGrounded())
+                machine.ChangeState(PlayerController.StateID.Idle);
+            else
                 machine.ChangeState(PlayerController.StateID.Falling);
         }
     }
