@@ -119,5 +119,15 @@ namespace Core.CharacterController
             else
                 fsm.ChangeState(StateID.GetHitAirbourne);
         }
+        
+        private float GetAirSprite(int totalFramesInAnimation)
+        {
+            return Map(Rb2D.velocity.y, 11f, -11f, 0, totalFramesInAnimation-1) ;
+        }
+        
+        public float Map(float value, float fromSource, float toSource, float fromTarget, float toTarget)
+        {
+            return (value - fromSource) / (toSource - fromSource) * (toTarget - fromTarget) + fromTarget;
+        }
     }
 }

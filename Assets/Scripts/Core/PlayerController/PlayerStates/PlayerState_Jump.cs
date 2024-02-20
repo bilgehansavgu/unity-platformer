@@ -31,7 +31,6 @@ namespace Core.CharacterController
         {
             parent.Rb2D.velocity += new Vector2(0,12);
             _jumpCount = 2;
-            //double mappedValue = Map(inputValue, minSource, maxSource, minTarget, maxTarget);
         }
 
         public override void Exit(StateMachine<PlayerController.StateID> machine)
@@ -94,13 +93,13 @@ namespace Core.CharacterController
             }
             
             //9.35
-            Debug.Log(GetAirSprite(9));
+            Debug.Log(parent.GetAirSprite(9));
             
             if (parent.Rb2D.velocity.y < -13)
                 PlayClip(fallClip);
             else
             {
-                PlayClip(jumpClip, GetAirSprite(9), 9);
+                PlayClip(jumpClip, parent.GetAirSprite(9), 9);
             }
             
             if (parent.Rb2D.velocity.y < _maxFallSpeed)
@@ -117,17 +116,6 @@ namespace Core.CharacterController
                 machine.ChangeState(PlayerController.StateID.Dash);
             if (parent.IsGrounded() && parent.Rb2D.velocity.y < 0)
                 machine.ChangeState(PlayerController.StateID.Landing);
-        }
-        
-        private float GetAirSprite(int totalFramesInAnimation)
-        {
-            return Map(parent.Rb2D.velocity.y, 11f, -11f, 0, totalFramesInAnimation-1) ;
-        }
-        public float Map(float value, float fromSource, float toSource, float fromTarget, float toTarget)
-        {
-            return (value - fromSource) / (toSource - fromSource) * (toTarget - fromTarget) + fromTarget;
-            //Mathf.Clamp(parent.Rb2D.velocity.y);
-            //double mappedValue = Map(inputValue, minSource, maxSource, minTarget, maxTarget);
         }
     }
 }

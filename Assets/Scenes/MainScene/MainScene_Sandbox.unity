@@ -3928,16 +3928,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2e6897d5612f5744be92aacd9a0e070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: 055d489e759428e4197fe64d6d60f139, type: 2}
   Animator: {fileID: 1655351684}
   Rb2D: {fileID: 1655351686}
-  MovementSpeed: 6
-  groundCheckDistance: 0.55
-  fallCheckDistance: 7
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
   fsm:
     currentState: 0
+    showEnterStateDebug: 0
+    showExitStateDebug: 0
   IsInvincible: 0
 --- !u!50 &1655351686
 Rigidbody2D:
