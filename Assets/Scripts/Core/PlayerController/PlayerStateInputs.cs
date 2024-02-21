@@ -60,6 +60,7 @@ namespace Core.CharacterController
         private void Update()
         {
             inputDirection = moveInputValue.x > 0;
+            //jumpTimer -= Time.deltaTime;
         }
 
         void SubscribeInputActions()

@@ -195,7 +195,7 @@ Transform:
   m_GameObject: {fileID: 274844388}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.35, y: 0.01, z: 0}
+  m_LocalPosition: {x: 0.48, y: 0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -645,7 +645,7 @@ GameObject:
   - component: {fileID: 691014718}
   - component: {fileID: 691014717}
   - component: {fileID: 691014719}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wall
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -3967,10 +3967,11 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 128
+  wallCheckDistance: 1
   fsm:
     currentState: 0
-    showEnterStateDebug: 0
-    showExitStateDebug: 0
+    showEnterStateDebug: 1
+    showExitStateDebug: 1
   IsInvincible: 0
 --- !u!50 &1655351686
 Rigidbody2D:

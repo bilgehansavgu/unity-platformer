@@ -15,6 +15,8 @@ namespace Core.CharacterController
         
         [SerializeField] private Transform wallCheck;
         [SerializeField] private LayerMask wallLayer;
+        private float w = 2f;
+        public float wallCheckDistance = 5f;
 
         public enum StateID
         {
@@ -47,7 +49,9 @@ namespace Core.CharacterController
                 { StateID.TriangleAttack, new PlayerState_TriangleAttack(this)},
                 { StateID.Dash, new PlayerState_Dash(this)},
                 { StateID.WallSlide, new PlayerState_WallSlide(this)},
-                { StateID.WallHangIdle, new PlayerState_WallHangIdle(this)}
+                { StateID.WallHangIdle, new PlayerState_WallHangIdle(this)},
+                { StateID.WallJump, new PlayerState_WallHangIdle(this)}
+
             };
             fsm = new StateMachine<StateID>(states, StateID.Idle);
         }
@@ -137,11 +141,28 @@ namespace Core.CharacterController
             return (value - fromSource) / (toSource - fromSource) * (toTarget - fromTarget) + fromTarget;
         }
 
+
         public bool IsWalled()
         {
-            Debug.Log("wall");
-            RaycastHit2D hit = Physics2D.Raycast(Vector2.right, wallCheck.position, 0.3f, wallLayer);
-            return hit.collider == null;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, wallCheckDistance, wallLayer);
+            Debug.DrawLine(transform.position, transform.position + Vector3.left * wallCheckDistance, Color.blue);
+
+            if (hit.collider != null)
+            {
+                Debug.Log("Wall Collided with: " + hit.collider.name);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        // This method is called by Unity when drawing gizmos in the Scene view
+        void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(transform.position, wallCheck.position);
         }
     }
 }
