@@ -11,6 +11,7 @@ namespace Core.CharacterController
     {
         public PlayerConfig config;
         [Header("References & Setup")]
+        public SpriteRenderer SpriteRenderer;
         public Animator Animator;
         public Rigidbody2D Rb2D;
         public ParticleSystem Dust;
@@ -60,6 +61,8 @@ namespace Core.CharacterController
 
         private void GetReferences()
         {
+            if (SpriteRenderer == null)
+                SpriteRenderer = GetComponent<SpriteRenderer>();
             if (Animator == null)
                 Animator = GetComponent<Animator>();
             if (Rb2D == null)

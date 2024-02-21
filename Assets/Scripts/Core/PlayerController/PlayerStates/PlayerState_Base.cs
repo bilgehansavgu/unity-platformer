@@ -24,12 +24,15 @@ namespace Core.CharacterController
         
         protected void HandleSpriteDirection(float xAxis)
         {
-            if (xAxis == 0f)
-                return;
-            else if (xAxis > 0f)
-                parent.transform.localScale = new Vector3(1, 1, 1);
-            else if (xAxis < 0f)
-                parent.transform.localScale = new Vector3(-1, 1, 1);
+            if (xAxis != 0f)
+                parent.SpriteRenderer.flipX = xAxis < 0f;
+
+            //if (xAxis == 0f)
+            //    return;
+            //else if (xAxis > 0f)
+            //    parent.transform.localScale = new Vector3(1, 1, 1);
+            //else if (xAxis < 0f)
+            //    parent.transform.localScale = new Vector3(-1, 1, 1);
         }
     }
 }

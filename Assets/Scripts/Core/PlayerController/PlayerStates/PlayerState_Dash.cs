@@ -16,31 +16,33 @@ namespace Core.CharacterController
 
         public override void Enter(StateMachine<PlayerController.StateID> machine)
         {
+            // Rigidbody Condition
             parent.IsInvincible = true;
+            parent.Rb2D.constraints = RigidbodyConstraints2D.FreezePositionY;
+            parent.Rb2D.freezeRotation = true;
+            // FX
             PlayClip(dashClip);
             parent.Dust?.Emit(20);
             parent.Dust?.Play();
-            parent.Rb2D.gravityScale = 0f;
-            HandleSpriteDirection(parent.Rb2D.velocity.x);
-            parent.Rb2D.constraints = RigidbodyConstraints2D.FreezePositionY;
-            parent.Rb2D.freezeRotation = true;
 
-            if (parent.transform.localScale.x > 0)
-            {
-                parent.Rb2D.AddForce(Vector2.right * parent.config.DashForce , ForceMode2D.Impulse);
-            }
-            else if (parent.transform.localScale.x < 0)
-            {
-                parent.Rb2D.AddForce(Vector2.left * parent.config.DashForce, ForceMode2D.Impulse);
-            }
+            // Dashing
+            Vector2 dashVector;
+
+            if (parent.SpriteRenderer.flipX)
+                dashVector = Vector2.left;
+            else
+                dashVector = Vector2.right;
+
+            parent.Rb2D.AddForce(dashVector * parent.config.DashForce, ForceMode2D.Impulse);
         }
 
         public override void Exit(StateMachine<PlayerController.StateID> machine)
         {
-            parent.Dust?.Stop();
-            parent.Rb2D.gravityScale = 1f;
+            // Rigidbody Condition
             parent.IsInvincible = false;
             parent.Rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+            // FX
+            parent.Dust?.Stop();
         }
 
         protected override void Act(StateMachine<PlayerController.StateID> machine)
@@ -49,8 +51,8 @@ namespace Core.CharacterController
         }
 
         protected override void Decide(StateMachine<PlayerController.StateID> machine)
-        {  
- 
+        {
+            
         }
         public override void InvokeStateTrigger(StateMachine<PlayerController.StateID> machine)
         {
