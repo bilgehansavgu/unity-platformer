@@ -50,7 +50,7 @@ namespace Core.CharacterController
                 { StateID.Dash, new PlayerState_Dash(this)},
                 { StateID.WallSlide, new PlayerState_WallSlide(this)},
                 { StateID.WallHangIdle, new PlayerState_WallHangIdle(this)},
-                { StateID.WallJump, new PlayerState_WallHangIdle(this)}
+                { StateID.WallJump, new PlayerState_WallJump(this)}
 
             };
             fsm = new StateMachine<StateID>(states, StateID.Idle);
@@ -145,24 +145,8 @@ namespace Core.CharacterController
         public bool IsWalled()
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, wallCheckDistance, wallLayer);
-            Debug.DrawLine(transform.position, transform.position + Vector3.left * wallCheckDistance, Color.blue);
+            return hit.collider != null;
 
-            if (hit.collider != null)
-            {
-                Debug.Log("Wall Collided with: " + hit.collider.name);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        // This method is called by Unity when drawing gizmos in the Scene view
-        void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(transform.position, wallCheck.position);
         }
     }
 }
