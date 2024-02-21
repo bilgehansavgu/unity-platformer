@@ -32,7 +32,8 @@ namespace Core.CharacterController
             GetHitAirbourne,
             WallSlide,
             WallJump,
-            WallHangIdle
+            WallHangIdle,
+            Ledge
         }
 
         [SerializeField, Space] StateMachine<StateID> fsm;
@@ -50,7 +51,8 @@ namespace Core.CharacterController
                 { StateID.Dash, new PlayerState_Dash(this)},
                 { StateID.WallSlide, new PlayerState_WallSlide(this)},
                 { StateID.WallHangIdle, new PlayerState_WallHangIdle(this)},
-                { StateID.WallJump, new PlayerState_WallJump(this)}
+                { StateID.WallJump, new PlayerState_WallJump(this)},
+                { StateID.Ledge, new PlayerState_Ledge(this)}
             };
             fsm = new StateMachine<StateID>(states, StateID.Idle);
         }
@@ -141,7 +143,7 @@ namespace Core.CharacterController
         }
 
 
-        public bool IsWalled()gi
+        public bool IsWalled()
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, wallCheckDistance, wallLayer);
             return hit.collider != null;
