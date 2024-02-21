@@ -151,7 +151,9 @@ AnimatorStateMachine:
     m_Position: {x: 470, y: 280, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7296401031921817819}
+
     m_Position: {x: -190, y: 430, z: 0}
+
   - serializedVersion: 1
     m_State: {fileID: 997091013046393115}
     m_Position: {x: -190, y: 330, z: 0}
@@ -159,6 +161,7 @@ AnimatorStateMachine:
     m_State: {fileID: -2475928981619260233}
     m_Position: {x: -190, y: 380, z: 0}
   - serializedVersion: 1
+
     m_State: {fileID: 584707831323680707}
     m_Position: {x: -460, y: 230, z: 0}
   - serializedVersion: 1
@@ -170,6 +173,7 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: 1911465560190641067}
     m_Position: {x: -460, y: 380, z: 0}
+
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -306,6 +310,7 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
+
 --- !u!1102 &584707831323680707
 AnimatorState:
   serializedVersion: 6
@@ -358,6 +363,7 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+
 --- !u!1102 &997091013046393115
 AnimatorState:
   serializedVersion: 6
@@ -509,6 +515,32 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 14e7cb42d68d5d944bb8a64531a10087, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &6452843314764151796
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: run_animation
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 5b225fa3ac1a7df4bbf06506e14ef955, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
