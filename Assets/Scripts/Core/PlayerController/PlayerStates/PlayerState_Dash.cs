@@ -21,7 +21,7 @@ namespace Platformer.Core.CharacterController
             parent.Dust?.Emit(20);
             parent.Dust?.Play();
             parent.Rb2D.gravityScale = 0f;
-            HandleSpriteDirection(parent.Rb2D.velocity.x * 100f);
+            HandleSpriteDirection(parent.Rb2D.velocity.x);
             parent.Rb2D.constraints = RigidbodyConstraints2D.FreezePositionY;
             parent.Rb2D.freezeRotation = true;
 

@@ -26,11 +26,10 @@ namespace Platformer.Core.CharacterController
         {
             if (xAxis == 0f)
                 return;
-            else
-            {
-                int scale = (int)Mathf.Clamp(xAxis, -1, 1);
-                parent.transform.localScale = new Vector3(scale, 1, 1);
-            }
+            else if (xAxis > 0f)
+                parent.transform.localScale = new Vector3(1, 1, 1);
+            else if (xAxis < 0f)
+                parent.transform.localScale = new Vector3(-1, 1, 1);
         }
     }
 }

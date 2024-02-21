@@ -77,7 +77,7 @@ namespace Platformer.Core.CharacterController
       
         public bool IsGrounded()
         {
-            RaycastHit2D hit = Physics2D.BoxCast(transform.position, new Vector2(0.3f, 0.3f), 0, Vector2.down, config.GroundCheckDistance, config.WhatIsGround);
+            RaycastHit2D hit = Physics2D.BoxCast(transform.position, new Vector2(0.2f, 0.2f), 0, Vector2.down, config.GroundCheckDistance, config.WhatIsGround);
             return hit.collider != null && !hit.collider.isTrigger;
         }
 
@@ -118,7 +118,7 @@ namespace Platformer.Core.CharacterController
             if (ShowGroundCheckSphere)
             {
                 Gizmos.color = Color.blue;
-                Gizmos.DrawCube(new Vector3(transform.position.x, transform.position.y - config.GroundCheckDistance, transform.position.z), new Vector3(0.3f, 0.3f, 0.3f));
+                Gizmos.DrawCube(new Vector3(transform.position.x, transform.position.y - config.GroundCheckDistance, transform.position.z), new Vector3(0.2f, 0.2f, 0.2f));
             }
         }
     }
