@@ -6,7 +6,11 @@ namespace Core.CharacterController
     public class PlayerState_Ledge : PlayerState_Base
     {
         const string ledgeClip = "LedgeClimb";
-
+        public Transform ledgeCheck;
+        private bool isTouchingWall;
+        private bool canClimbLedge = false;
+        private bool ledgeDetected;
+        
         public PlayerState_Ledge(PlayerController parent) : base(parent)
         {
         }
@@ -31,5 +35,6 @@ namespace Core.CharacterController
         { 
             
         }
+
     }
 }
