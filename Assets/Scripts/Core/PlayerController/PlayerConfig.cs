@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Platformer
+namespace Core
 {
     [CreateAssetMenu(fileName = "playerConfig", menuName = "Player/Configuration")]
     public class PlayerConfig : ScriptableObject

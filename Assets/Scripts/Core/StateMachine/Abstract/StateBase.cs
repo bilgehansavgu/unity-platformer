@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Platformer.Core.FSM
+namespace Core.FSM
 {
     /// <summary>
     /// Base class for states.

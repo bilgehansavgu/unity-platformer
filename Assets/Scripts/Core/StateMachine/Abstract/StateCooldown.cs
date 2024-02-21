@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Platformer.Core.FSM
+namespace Core.FSM
 {
     public class StateCooldown
     {

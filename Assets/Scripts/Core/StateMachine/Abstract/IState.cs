@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Platformer.Core.FSM
+namespace Core.FSM
 {
     /// <summary>
     /// Used by StateMachine do not inherit this.

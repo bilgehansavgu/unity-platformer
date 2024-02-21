@@ -1,9 +1,9 @@
 ﻿using System;
 using UnityEngine;
-using Platformer.Core.FSM;
+using Core.FSM;
 using UnityEngine.Animations;
 
-namespace Platformer.Core.CharacterController
+namespace Core.CharacterController
 {
     public class PlayerState_Jump : PlayerState_Base
     {

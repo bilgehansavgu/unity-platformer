@@ -1,7 +1,7 @@
-﻿using Platformer.Core.FSM;
+﻿using Core.FSM;
 using UnityEngine;
 
-namespace Platformer.Core.CharacterController
+namespace Core.CharacterController
 {
     public class PlayerState_Idle : PlayerState_Base
     {

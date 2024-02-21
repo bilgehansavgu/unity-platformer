@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Platformer.Tween.Timer
+namespace Tween.Timer
 {
     /// <summary>
     /// Simple cooldown waits until given treshold has reached

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using Platformer.Core.FSM;
+using Core.FSM;
 
-namespace Platformer.Core.CharacterController
+namespace Core.CharacterController
 {
     public class PlayerState_TriangleAttack : PlayerState_Base
     {

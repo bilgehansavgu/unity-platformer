@@ -1,4 +1,4 @@
-﻿namespace Platformer.Tween.Timer
+﻿namespace Tween.Timer
 {
     /// <summary>
     /// Limits the fire rate with given rpm.

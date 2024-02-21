@@ -1,4 +1,4 @@
-﻿namespace Platformer.Core
+﻿namespace Core
 {
     public interface IHittable
     {

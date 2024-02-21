@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Platformer.Core
+namespace Core
 {
     [System.Serializable]
     public struct PlayerInputData

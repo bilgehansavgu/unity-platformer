@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Platformer.Core.FSM
+namespace Core.FSM
 {
     /// <summary>
     /// Base class for transitions used by AnyState.

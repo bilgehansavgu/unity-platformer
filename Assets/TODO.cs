@@ -9,6 +9,5 @@ public class TODO
      * TODO Charge buttonu => Basılı tutulduğu sürece playerın her aksiyonuna çarpan kazandıran bir buton
      * TODO UI yerine oynanabilir platformlar eklemek
      * TODO Başlangıç lobisinde inGame seçim yapma
-     * TODO ScriptableObject olarak playerMovementConfig'i;
      */
 }

@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Platformer.Core.FSM;
-using Platformer.Tween.Timer;
+using Core.FSM;
+using Tween.Timer;
 using UnityEngine.Rendering.VirtualTexturing;
 
-namespace Platformer.Core.CharacterController
+namespace Core.CharacterController
 {
     [RequireComponent(typeof(CapsuleCollider2D), typeof(Rigidbody2D))]
     public class PlayerController : MonoBehaviour, IHittable

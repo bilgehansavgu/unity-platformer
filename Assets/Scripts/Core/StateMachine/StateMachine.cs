@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Platformer.Core.FSM
+namespace Core.FSM
 {
     [System.Serializable]
     public class StateMachine<TStateID> where TStateID : Enum
