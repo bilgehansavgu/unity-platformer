@@ -172,7 +172,7 @@
                 {
                     "name": "",
                     "id": "46c92938-d2db-46d7-830b-950a28b44ada",
-                    "path": "<Keyboard>/shift",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",

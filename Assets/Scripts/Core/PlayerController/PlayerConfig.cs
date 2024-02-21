@@ -7,6 +7,7 @@ public class PlayerConfig : ScriptableObject
 {
     [Header("Movement")]
     [SerializeField] float movementSpeed = 10f;
+    [SerializeField] float landingSpeed = 8f; //to slow down the landing
     [SerializeField] float airbourneMoveSpeed = 4f;
     
     [SerializeField] float dashForce = 14f;
@@ -28,6 +29,8 @@ public class PlayerConfig : ScriptableObject
     [SerializeField] LayerMask whatIsWall;
 
     public float MovementSpeed => movementSpeed;
+    
+    public float LandingSpeed => landingSpeed;
     public float AirbourneMoveSpeed => airbourneMoveSpeed;
     public float HitForce => hitForce;
     public float ChargeMultiplier => chargeMultiplier;

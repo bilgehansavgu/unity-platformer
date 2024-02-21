@@ -50,7 +50,11 @@ namespace Core.CharacterController
                 { StateID.Dash, new PlayerState_Dash(this)},
                 { StateID.WallSlide, new PlayerState_WallSlide(this)},
                 { StateID.WallHangIdle, new PlayerState_WallHangIdle(this)},
+<<<<<<< HEAD
                 { StateID.WallJump, new PlayerState_WallHangIdle(this)}
+=======
+                { StateID.WallJump, new PlayerState_WallJump(this)}
+>>>>>>> main
 
             };
             fsm = new StateMachine<StateID>(states, StateID.Idle);
@@ -125,14 +129,15 @@ namespace Core.CharacterController
             if (IsInvincible)
                 return;
 
-            if (IsGrounded())
-                fsm.ChangeState(StateID.GetHit); 
-                fsm.ChangeState(StateID.GetHitAirbourne);
+            //if (IsGrounded())
+            //    fsm.ChangeState(StateID.GetHit);
+            //else
+            //    fsm.ChangeState(StateID.GetHitAirbourne);
         }
         
-        public float GetAirSprite(int totalFramesInAnimation)
+        public float GetAirSprite(int totalFramesInAnimation) // (11,-11 are paramaters to tune. Not fixed!
         {
-            return Map(Rb2D.velocity.y, 11f, -11f, 0, totalFramesInAnimation-1) ;
+            return Map(Rb2D.velocity.y, 12f, -11f, 0, totalFramesInAnimation-1) ;
         }
         
         private float Map(float value, float fromSource, float toSource, float fromTarget, float toTarget)
@@ -144,6 +149,7 @@ namespace Core.CharacterController
         public bool IsWalled()
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, wallCheckDistance, wallLayer);
+<<<<<<< HEAD
             Debug.DrawLine(transform.position, transform.position + Vector3.left * wallCheckDistance, Color.blue);
 
             if (hit.collider != null)
@@ -162,6 +168,10 @@ namespace Core.CharacterController
         {
             Gizmos.color = Color.red;
             Gizmos.DrawLine(transform.position, wallCheck.position);
+=======
+            return hit.collider != null;
+
+>>>>>>> main
         }
     }
 }

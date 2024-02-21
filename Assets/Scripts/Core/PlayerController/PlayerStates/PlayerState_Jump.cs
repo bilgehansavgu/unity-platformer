@@ -71,11 +71,14 @@ namespace Core.CharacterController
             }
             
             
+            // if rising and no space input
             
             if (parent.Rb2D.velocity.y <= 0)
             {
                 parent.Rb2D.velocity += Vector2.up * (Physics2D.gravity.y * fallLoad * Time.deltaTime);
             }
+            // if rising but space hold down
+
             else if (parent.Rb2D.velocity.y <= 0 && parent.Inputs.JumpTriggered)
             {
                 parent.Rb2D.velocity += Vector2.up * (Physics2D.gravity.y * fallLoad * 0.5f * Time.deltaTime);
@@ -109,7 +112,7 @@ namespace Core.CharacterController
                 machine.ChangeState(PlayerController.StateID.TriangleAttack);
             if (parent.Inputs.DashTriggered)
                 machine.ChangeState(PlayerController.StateID.Dash);
-            if (parent.IsGrounded() && parent.Rb2D.velocity.y < 0)
+            if (parent.IsGrounded() && parent.Rb2D.velocity.y <= 0)
                 machine.ChangeState(PlayerController.StateID.Landing);
         }
     }
