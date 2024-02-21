@@ -24,12 +24,8 @@ namespace Core.CharacterController
         public PlayerState_WallJump(PlayerController parent) : base(parent)
         {
         }
-
-<<<<<<< HEAD
-        public override PlayerController.StateID GetID() => PlayerController.StateID.WallSlide;
-=======
+        
         public override PlayerController.StateID GetID() => PlayerController.StateID.WallJump;
->>>>>>> main
 
         public override void Enter(StateMachine<PlayerController.StateID> machine)
         {
@@ -103,12 +99,8 @@ namespace Core.CharacterController
 
         protected override void Decide(StateMachine<PlayerController.StateID> machine)
         {  
-<<<<<<< HEAD
-        
-=======
             if (parent.IsGrounded() && parent.Rb2D.velocity.y <= 0)
                 machine.ChangeState(PlayerController.StateID.Landing);
->>>>>>> main
         }
     }
 }
