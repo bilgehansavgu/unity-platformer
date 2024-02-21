@@ -10,12 +10,12 @@ namespace Core.CharacterController
         const string jumpClip = "Jump";
         private const string fallClip = "JumpFall";
         private float _maxMovementVelocity = 5f;
-        private float _jumpVelocity = 2f;
+        private float _jumpVelocity = 10f;
         private float jumpLoad = 3f;
         private float fallLoad = 4f;
         
         private float maxSpeed = 5f;
-        private float minSpeed = 50f;
+        private float minSpeed = 1f;
         
         private float _maxFallSpeed = -15f;
 
@@ -35,17 +35,12 @@ namespace Core.CharacterController
 
         public override void Exit(StateMachine<PlayerController.StateID> machine)
         {
-            Debug.Log("Max Speed: " + maxSpeed);
-            Debug.Log("Min Speed: " + minSpeed);
+  
         }
 
         protected override void Act(StateMachine<PlayerController.StateID> machine)
         {
-            if (parent.Inputs.JumpTriggered && _jumpCount > 0)
-            {
-                parent.Rb2D.velocity += new Vector2(0, _jumpVelocity);
-                _jumpCount--;
-            }
+            
             if (parent.Inputs.MoveInputValue.x > 0)
             {
                 parent.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -77,7 +72,7 @@ namespace Core.CharacterController
             // }
         
             // if rising but space not hold down
-            else if (parent.Rb2D.velocity.y > 0)
+            else if (parent.Rb2D.velocity.y > 0 && parent.Rb2D.velocity.y > maxSpeed)
             {
                 parent.Rb2D.velocity += Vector2.up * (float)(Physics2D.gravity.y * jumpLoad * Time.deltaTime);
             }
@@ -116,6 +111,8 @@ namespace Core.CharacterController
                 machine.ChangeState(PlayerController.StateID.Dash);
             if (parent.IsGrounded() && parent.Rb2D.velocity.y < 0)
                 machine.ChangeState(PlayerController.StateID.Landing);
+            if (!parent.IsWalled() && parent.Rb2D.position.y > 0.5f)
+                machine.ChangeState(PlayerController.StateID.WallHangIdle);
         }
     }
 }

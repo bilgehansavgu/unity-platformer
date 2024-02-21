@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 63bf29fb68a33e64191eaa90ecefd406
+guid: 2335faf7537735844bc7246a5fa45e8c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -44,7 +44,7 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 17
+  spriteExtrude: 1
   spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: wallhang_fall_0
+      name: run_0.3_0
       rect:
         serializedVersion: 2
         x: 0
@@ -131,20 +131,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.49404475, y: 0.35111797}
+      pivot: {x: 0.63, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ee83dcbbf35d08f46914621b92fbecd0
-      internalID: 1336400270
+      spriteID: a79e1b89475db354ebd54cc17e27999c
+      internalID: -1711952233
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wallhang_fall_1
+      name: run_0.3_1
       rect:
         serializedVersion: 2
         x: 32
@@ -152,20 +152,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5000001, y: 0.36302853}
+      pivot: {x: 0.63, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 089758d3a8736ec42a3f7dab48404dca
-      internalID: 188079396
+      spriteID: 8112e5e1643862c4db2de2025957d396
+      internalID: -2087802870
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wallhang_fall_2
+      name: run_0.3_2
       rect:
         serializedVersion: 2
         x: 64
@@ -173,20 +173,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.49404502, y: 0.36302853}
+      pivot: {x: 0.63, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a63618dabe805a648a3ff86d551d0b63
-      internalID: 119525356
+      spriteID: ef0f9ce692ce2aa46b90f2b1b5a04ae0
+      internalID: -1491010070
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wallhang_fall_3
+      name: run_0.3_3
       rect:
         serializedVersion: 2
         x: 96
@@ -194,20 +194,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.49404478, y: 0.8334961}
+      pivot: {x: 0.63, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 11d8f578364edde40b8da62b65c455db
-      internalID: -1123630136
+      spriteID: 9150a00a527b2594ba38e61308452481
+      internalID: 1366382159
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wallhang_fall_4
+      name: run_0.3_4
       rect:
         serializedVersion: 2
         x: 128
@@ -215,20 +215,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.49404478, y: 0.8275408}
+      pivot: {x: 0.63, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 91865033cfd3eb4478202556944ecaa4
-      internalID: -1574673613
+      spriteID: 84c6f9501a7746b488a3b40e96ccf80b
+      internalID: 1282729136
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wallhang_fall_5
+      name: run_0.3_5
       rect:
         serializedVersion: 2
         x: 160
@@ -236,20 +236,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5000005, y: 0.30347568}
+      pivot: {x: 0.63, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f9f45a9342d76b243ae905c3e2555164
-      internalID: -482546842
+      spriteID: 13c8746a2099b8e40ab6c0509fab17d0
+      internalID: -327015474
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wallhang_fall_6
+      name: run_0.3_6
       rect:
         serializedVersion: 2
         x: 192
@@ -257,20 +257,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5000005, y: 0.2856098}
+      pivot: {x: 0.63, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8ef1789386c201b41a7f74f73d231e44
-      internalID: 868894686
+      spriteID: 67ee328e23a26c541946829c9c4d624f
+      internalID: 667068192
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wallhang_fall_7
+      name: run_0.3_7
       rect:
         serializedVersion: 2
         x: 224
@@ -278,77 +278,14 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5059557, y: 0.2617887}
+      pivot: {x: 0.63, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 73fa3746d9f03b94cbc6dc2dd20df304
-      internalID: -189064745
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: wallhang_fall_8
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.50000095, y: 0.26774397}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 026457fc011f03741a294cd7cdf8cfa2
-      internalID: 293441089
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: wallhang_fall_9
-      rect:
-        serializedVersion: 2
-        x: 288
-        y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.50000095, y: 0.61315054}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2640921fe2f71614aa7f4ed0a7b22ac4
-      internalID: -723180820
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: wallhang_fall_10
-      rect:
-        serializedVersion: 2
-        x: 320
-        y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.3808944}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6b2635c5c7067744488a4c49daaeab28
-      internalID: -1183565589
+      spriteID: 6ec3e729c7c322a4e9e960701629861b
+      internalID: 50794949
       vertices: []
       indices: 
       edges: []
@@ -364,17 +301,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      wallhang_fall_0: 1336400270
-      wallhang_fall_1: 188079396
-      wallhang_fall_10: -1183565589
-      wallhang_fall_2: 119525356
-      wallhang_fall_3: -1123630136
-      wallhang_fall_4: -1574673613
-      wallhang_fall_5: -482546842
-      wallhang_fall_6: 868894686
-      wallhang_fall_7: -189064745
-      wallhang_fall_8: 293441089
-      wallhang_fall_9: -723180820
+      run_0.3_0: -1711952233
+      run_0.3_1: -2087802870
+      run_0.3_2: -1491010070
+      run_0.3_3: 1366382159
+      run_0.3_4: 1282729136
+      run_0.3_5: -327015474
+      run_0.3_6: 667068192
+      run_0.3_7: 50794949
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
