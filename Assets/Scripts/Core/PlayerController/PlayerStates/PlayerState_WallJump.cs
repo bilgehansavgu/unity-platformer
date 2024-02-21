@@ -1,13 +1,12 @@
-﻿using System;
 using UnityEngine;
 using Core.StateMachine;
-using UnityEngine.Animations;
 
 namespace Core.CharacterController
 {
-    public class PlayerState_Jump : PlayerState_Base
+    public class PlayerState_WallJump : PlayerState_Base
     {
-        const string jumpClip = "Jump";
+        const string wallJumpClip = "Jump";
+
         private const string fallClip = "JumpFall";
         private float _maxMovementVelocity = 5f;
         private float _jumpVelocity = 15f;
@@ -21,15 +20,16 @@ namespace Core.CharacterController
 
         private int _jumpCount;
         private bool _prevJumpInput;
-        public PlayerState_Jump(PlayerController parent) : base(parent)
+        
+        public PlayerState_WallJump(PlayerController parent) : base(parent)
         {
-            
         }
 
-        public override PlayerController.StateID GetID() => PlayerController.StateID.Move;
+        public override PlayerController.StateID GetID() => PlayerController.StateID.WallSlide;
 
         public override void Enter(StateMachine<PlayerController.StateID> machine)
         {
+            PlayClip(wallJumpClip);
             parent.Rb2D.velocity += new Vector2(0,_jumpVelocity);
             _jumpCount = 1;
             _prevJumpInput = true;
@@ -37,13 +37,11 @@ namespace Core.CharacterController
 
         public override void Exit(StateMachine<PlayerController.StateID> machine)
         {
-            Debug.Log("Max Speed: " + maxSpeed);
-            Debug.Log("Min Speed: " + minSpeed);
         }
 
         protected override void Act(StateMachine<PlayerController.StateID> machine)
         {
-            //
+      //
             if (parent.Inputs.JumpTriggered && _prevJumpInput == false && _jumpCount > 0)
             {
                 // yükselirken ayrı düşerken ayrı double jump forceları eklenecek
@@ -90,7 +88,7 @@ namespace Core.CharacterController
                 PlayClip(fallClip);
             else
             {
-                PlayClip(jumpClip, parent.GetAirSprite(9), 9);
+                PlayClip(wallJumpClip, parent.GetAirSprite(9), 9);
             }
             
             if (parent.Rb2D.velocity.y < _maxFallSpeed)
@@ -98,19 +96,10 @@ namespace Core.CharacterController
             
             _prevJumpInput = parent.Inputs.JumpTriggered;
         }
-        
+
         protected override void Decide(StateMachine<PlayerController.StateID> machine)
         {  
-            if (parent.IsWalled())
-                machine.ChangeState(PlayerController.StateID.WallHangIdle);
-            if (parent.Inputs.AttackSquareActionTriggered && parent.ReadyToAttack)
-                machine.ChangeState(PlayerController.StateID.SquareAttack);
-            if (parent.Inputs.AttackTriangleActionTriggered && parent.ReadyToAttack)
-                machine.ChangeState(PlayerController.StateID.TriangleAttack);
-            if (parent.Inputs.DashTriggered)
-                machine.ChangeState(PlayerController.StateID.Dash);
-            if (parent.IsGrounded() && parent.Rb2D.velocity.y < 0)
-                machine.ChangeState(PlayerController.StateID.Landing);
+        
         }
     }
 }

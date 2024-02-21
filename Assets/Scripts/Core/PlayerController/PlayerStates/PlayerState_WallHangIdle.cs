@@ -37,7 +37,7 @@ namespace Core.CharacterController
             if (parent.Inputs.DashTriggered)
                 machine.ChangeState(PlayerController.StateID.WallSlide);
             if (parent.Inputs.JumpTriggered)
-                machine.ChangeState(PlayerController.StateID.Jump);
+                machine.ChangeState(PlayerController.StateID.WallJump);
         }
         public override void InvokeState(StateMachine<PlayerController.StateID> machine)
         {

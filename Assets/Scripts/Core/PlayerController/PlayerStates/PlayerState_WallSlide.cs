@@ -39,7 +39,7 @@ namespace Core.CharacterController
             if (parent.IsGrounded())
                 machine.ChangeState(PlayerController.StateID.Idle);
             if (parent.Inputs.JumpTriggered)
-                machine.ChangeState(PlayerController.StateID.Jump);
+                machine.ChangeState(PlayerController.StateID.WallJump);
         }
     }
 }
