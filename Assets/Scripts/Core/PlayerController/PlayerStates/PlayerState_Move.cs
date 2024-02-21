@@ -15,10 +15,12 @@ namespace Platformer.Core.CharacterController
         public override void Enter(StateMachine<PlayerController.StateID> machine)
         {
             PlayClip(walkClip);
+            parent.Dust?.Play();
         }
 
         public override void Exit(StateMachine<PlayerController.StateID> machine)
         {
+            parent.Dust?.Stop();
         }
 
         protected override void Act(StateMachine<PlayerController.StateID> machine)
@@ -34,6 +36,10 @@ namespace Platformer.Core.CharacterController
                 machine.ChangeState(PlayerController.StateID.Idle);
             else if (parent.Inputs.JumpTriggered)
                 machine.ChangeState(PlayerController.StateID.Jump);
+            else if (parent.Inputs.DashTriggered)
+                machine.ChangeState(PlayerController.StateID.Dash);
+            else if (!parent.IsGrounded())
+                machine.ChangeState(PlayerController.StateID.Falling);
             else if (parent.Inputs.AttackSquareActionTriggered)
                 machine.ChangeState(PlayerController.StateID.SquareAttack);
             else if (parent.Inputs.AttackTriangleActionTriggered)

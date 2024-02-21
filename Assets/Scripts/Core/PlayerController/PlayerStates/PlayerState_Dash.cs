@@ -9,7 +9,7 @@ namespace Platformer.Core.CharacterController
 
         public PlayerState_Dash(PlayerController parent) : base(parent)
         {
-            SetCooldown(parent.config.AttackCooldown);
+            SetCooldown(parent.config.DashCooldown);
         }
 
         public override PlayerController.StateID GetID() => PlayerController.StateID.Dash;
@@ -18,22 +18,29 @@ namespace Platformer.Core.CharacterController
         {
             parent.IsInvincible = true;
             PlayClip(dashClip);
-    
-            if (parent.Rb2D.velocity.x >= 0)
+            parent.Dust?.Emit(20);
+            parent.Dust?.Play();
+            parent.Rb2D.gravityScale = 0f;
+            HandleSpriteDirection(parent.Rb2D.velocity.x * 100f);
+            parent.Rb2D.constraints = RigidbodyConstraints2D.FreezePositionY;
+            parent.Rb2D.freezeRotation = true;
+
+            if (parent.transform.localScale.x > 0)
             {
-                parent.transform.rotation = Quaternion.Euler(0, 0, 0);
                 parent.Rb2D.AddForce(Vector2.right * parent.config.DashForce , ForceMode2D.Impulse);
             }
-            else if (parent.Rb2D.velocity.y < 0)
+            else if (parent.transform.localScale.x < 0)
             {
-                parent.transform.rotation = Quaternion.Euler(0, 180, 0);
                 parent.Rb2D.AddForce(Vector2.left * parent.config.DashForce, ForceMode2D.Impulse);
             }
         }
 
         public override void Exit(StateMachine<PlayerController.StateID> machine)
         {
+            parent.Dust?.Stop();
+            parent.Rb2D.gravityScale = 1f;
             parent.IsInvincible = false;
+            parent.Rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
 
         protected override void Act(StateMachine<PlayerController.StateID> machine)

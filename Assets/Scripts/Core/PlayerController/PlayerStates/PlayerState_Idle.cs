@@ -22,6 +22,7 @@ namespace Platformer.Core.CharacterController
         }
         protected override void Act(StateMachine<PlayerController.StateID> machine)
         {
+            parent.Rb2D.velocity += (Time.deltaTime * parent.config.GroundedForce * Vector2.down );
             // Friction
             if (Mathf.Abs(parent.Rb2D.velocity.x) > 0)
             {
@@ -36,10 +37,12 @@ namespace Platformer.Core.CharacterController
 
         protected override void Decide(StateMachine<PlayerController.StateID> machine)
         {
+            if (!parent.IsGrounded())
+                machine.ChangeState(PlayerController.StateID.Falling);
             if (parent.IsMoving)
                 machine.ChangeState(PlayerController.StateID.Move);
-            else if (!parent.IsGrounded())
-                machine.ChangeState(PlayerController.StateID.Falling);
+            else if (parent.Inputs.DashTriggered)
+                machine.ChangeState(PlayerController.StateID.Dash);
             else if (parent.Inputs.JumpTriggered && parent.IsGrounded())
                 machine.ChangeState(PlayerController.StateID.Jump);
             else if (parent.Inputs.AttackSquareActionTriggered)

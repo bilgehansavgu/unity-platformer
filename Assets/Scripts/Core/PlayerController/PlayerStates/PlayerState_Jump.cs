@@ -30,6 +30,7 @@ namespace Platformer.Core.CharacterController
         {
             parent.Rb2D.velocity += new Vector2(0,12);
             _jumpCount = 2;
+            parent.Dust?.Emit(25);
         }
 
         public override void Exit(StateMachine<PlayerController.StateID> machine)
@@ -45,9 +46,9 @@ namespace Platformer.Core.CharacterController
                 parent.Rb2D.velocity += new Vector2(0, _jumpVelocity);
                 _jumpCount--;
             }
+            HandleSpriteDirection(parent.Inputs.MoveInputValue.x);
             if (parent.Inputs.MoveInputValue.x > 0)
             {
-                parent.transform.rotation = Quaternion.Euler(0, 0, 0);
                 if (parent.Rb2D.velocity.x < _maxMovementVelocity)
                 {
                     float speedDifference = Mathf.Abs(_maxMovementVelocity - parent.Rb2D.velocity.x);
@@ -56,7 +57,6 @@ namespace Platformer.Core.CharacterController
             }
             else if (parent.Inputs.MoveInputValue.x < 0)
             {
-                parent.transform.rotation = Quaternion.Euler(0, 180, 0);
                 if (parent.Rb2D.velocity.x > -_maxMovementVelocity)
                 {
                     float speedDifference = Mathf.Abs(_maxMovementVelocity + parent.Rb2D.velocity.x);

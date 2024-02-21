@@ -16,12 +16,13 @@ MonoBehaviour:
   groundModifier: 1
   airbourneModifier: 0.6
   groundedFriction: 6
-  dashForce: 14
-  dashCooldown: 1.5
+  dashForce: 15
+  dashCooldown: 0.2
   hitForce: 4
   attackCooldown: 1.5
   chargeMultiplier: 1
-  fallLoad: 4
+  groundedForce: 10.58
+  fallLoad: 1
   jumpLoad: 6
   groundCheckDistance: 0.48
   fallCheckDistance: 1

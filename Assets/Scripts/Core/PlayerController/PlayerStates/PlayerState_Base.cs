@@ -24,10 +24,13 @@ namespace Platformer.Core.CharacterController
         
         protected void HandleSpriteDirection(float xAxis)
         {
-            if (xAxis > 0)
-                parent.transform.rotation = Quaternion.Euler(0, 0, 0);
-            else if (xAxis < 0)
-                parent.transform.rotation = Quaternion.Euler(0, 180, 0);
+            if (xAxis == 0f)
+                return;
+            else
+            {
+                int scale = (int)Mathf.Clamp(xAxis, -1, 1);
+                parent.transform.localScale = new Vector3(scale, 1, 1);
+            }
         }
     }
 }

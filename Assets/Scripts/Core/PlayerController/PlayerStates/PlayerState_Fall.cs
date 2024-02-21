@@ -3,12 +3,12 @@ using Platformer.Core.FSM;
 
 namespace Platformer.Core.CharacterController
 {
-    public class PlayerState_Falling : PlayerState_Base
+    public class PlayerState_Fall : PlayerState_Base
     {
         const string fallClip = "JumpFall";
         private float _maxMovementVelocity = 5f;
         private float fallLoad = 4f;
-        public PlayerState_Falling(PlayerController parent) : base(parent)
+        public PlayerState_Fall(PlayerController parent) : base(parent)
         {
         }
 
@@ -30,9 +30,9 @@ namespace Platformer.Core.CharacterController
             {
                 parent.Rb2D.velocity += Vector2.up * (Physics2D.gravity.y * fallLoad * Time.deltaTime);
             }
+            HandleSpriteDirection(parent.Inputs.MoveInputValue.x);
             if (parent.Inputs.MoveInputValue.x > 0)
             {
-                parent.transform.rotation = Quaternion.Euler(0, 0, 0);
                 if (parent.Rb2D.velocity.x < _maxMovementVelocity)
                 {
                     float speedDifference = Mathf.Abs(_maxMovementVelocity - parent.Rb2D.velocity.x);
@@ -41,7 +41,6 @@ namespace Platformer.Core.CharacterController
             }
             else if (parent.Inputs.MoveInputValue.x < 0)
             {
-                parent.transform.rotation = Quaternion.Euler(0, 180, 0);
                 if (parent.Rb2D.velocity.x > -_maxMovementVelocity)
                 {
                     float speedDifference = Mathf.Abs(_maxMovementVelocity + parent.Rb2D.velocity.x);
@@ -52,12 +51,12 @@ namespace Platformer.Core.CharacterController
 
         protected override void Decide(StateMachine<PlayerController.StateID> machine)
         {
-            if (parent.Inputs.AttackSquareActionTriggered)
+            if (parent.IsNearGround())
+                machine.ChangeState(PlayerController.StateID.Landing);
+            else if (parent.Inputs.AttackSquareActionTriggered)
                 machine.ChangeState(PlayerController.StateID.SquareAttack);
             else if (parent.Inputs.AttackTriangleActionTriggered)
                 machine.ChangeState(PlayerController.StateID.TriangleAttack);
-            else if (parent.IsGrounded())
-                machine.ChangeState(PlayerController.StateID.Landing);
             else if (parent.Inputs.DashTriggered)
                 machine.ChangeState(PlayerController.StateID.Dash);
         }

@@ -1,4 +1,5 @@
 ﻿using Platformer.Core.FSM;
+using UnityEngine;
 
 namespace Platformer.Core.CharacterController
 {
@@ -17,6 +18,7 @@ namespace Platformer.Core.CharacterController
 
         public override void Exit(StateMachine<PlayerController.StateID> machine)
         {
+            parent.Dust?.Emit(25);
         }
 
 

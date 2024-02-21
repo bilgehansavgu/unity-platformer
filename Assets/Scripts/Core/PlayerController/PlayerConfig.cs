@@ -18,8 +18,9 @@ namespace Platformer
         [SerializeField] float hitForce = 4f;
         [SerializeField] float attackCooldown = 1f;
         [SerializeField] float chargeMultiplier = 1f;
-        
+
         [Header("Gravity values")]
+        [SerializeField] float groundedForce = 1f;
         [SerializeField] float fallLoad = 4f;
         [SerializeField] float jumpLoad = 6f;
         
@@ -40,6 +41,7 @@ namespace Platformer
         public float HitForce => hitForce;
         public float AttackCooldown => attackCooldown;
         public float ChargeMultiplier => chargeMultiplier;
+        public float GroundedForce => groundedForce;
         public float FallLoad => fallLoad;
         public float JumpLoad => jumpLoad;
         public float GroundCheckDistance => groundCheckDistance;

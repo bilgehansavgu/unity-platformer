@@ -13,6 +13,7 @@ namespace Platformer.Core.CharacterController
         [Header("References & Setup")]
         public Animator Animator;
         public Rigidbody2D Rb2D;
+        public ParticleSystem Dust;
 
         public enum StateID
         {
@@ -36,7 +37,7 @@ namespace Platformer.Core.CharacterController
                 { StateID.Idle, new PlayerState_Idle(this) },
                 { StateID.Move, new PlayerState_Move(this) },
                 { StateID.Jump, new PlayerState_Jump(this) },
-                { StateID.Falling, new PlayerState_Falling(this) },
+                { StateID.Falling, new PlayerState_Fall(this) },
                 { StateID.Landing, new PlayerState_Landing(this) },
                 { StateID.SquareAttack, new PlayerState_SquareAttack(this) },
                 { StateID.TriangleAttack, new PlayerState_TriangleAttack(this)},
@@ -76,14 +77,14 @@ namespace Platformer.Core.CharacterController
       
         public bool IsGrounded()
         {
-            RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.2f, Vector2.down, config.GroundCheckDistance, config.WhatIsGround);
+            RaycastHit2D hit = Physics2D.BoxCast(transform.position, new Vector2(0.3f, 0.3f), 0, Vector2.down, config.GroundCheckDistance, config.WhatIsGround);
             return hit.collider != null && !hit.collider.isTrigger;
         }
 
         public bool IsNearGround()
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, config.FallCheckDistance, config.WhatIsGround);
-            return hit.collider == null;
+            return hit.collider != null && !hit.collider.isTrigger;
         }
         public void InvokeState(StateID stateToTrigger)
         {
@@ -117,7 +118,7 @@ namespace Platformer.Core.CharacterController
             if (ShowGroundCheckSphere)
             {
                 Gizmos.color = Color.blue;
-                Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - config.GroundCheckDistance, transform.position.z), 0.2f);
+                Gizmos.DrawCube(new Vector3(transform.position.x, transform.position.y - config.GroundCheckDistance, transform.position.z), new Vector3(0.3f, 0.3f, 0.3f));
             }
         }
     }
