@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
-using Core.StateMachine;
 
-namespace Core.CharacterController
-{
     public class PlayerState_WallHangIdle : PlayerState_Base
     {
         const string wallHangClip = "WallHangIdle";
@@ -23,9 +20,9 @@ namespace Core.CharacterController
 
         protected override void Act(StateMachine<PlayerController.StateID> machine)
         {
-            if (parent.Rb2D.velocity.y < 0)
+            if (parent.Rb.velocity.y < 0)
             {
-                parent.Rb2D.velocity += Vector2.up * (float)(-Physics2D.gravity.y  * Time.deltaTime);
+                parent.Rb.velocity += Vector2.up * (float)(-Physics2D.gravity.y  * Time.deltaTime);
 
             }
         }
@@ -45,4 +42,3 @@ namespace Core.CharacterController
 
         }
     }
-}

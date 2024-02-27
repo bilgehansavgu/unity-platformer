@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
-using Core.StateMachine;
 
-namespace Core.CharacterController
-{
     public class PlayerState_WallSlide : PlayerState_Base
     {
         const string wallSlideClip = "WallHangFall";
@@ -28,7 +25,7 @@ namespace Core.CharacterController
 
         protected override void Act(StateMachine<PlayerController.StateID> machine)
         {
-            parent.Rb2D.velocity += Vector2.up * (float)(-Physics2D.gravity.y/8  * Time.deltaTime);
+            parent.Rb.velocity += Vector2.up * (float)(-Physics2D.gravity.y/8  * Time.deltaTime);
 
         }
 
@@ -42,4 +39,3 @@ namespace Core.CharacterController
                 machine.ChangeState(PlayerController.StateID.WallJump);
         }
     }
-}

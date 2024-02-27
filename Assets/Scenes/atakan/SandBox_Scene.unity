@@ -3962,7 +3962,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 055d489e759428e4197fe64d6d60f139, type: 2}
   Animator: {fileID: 1655351684}
-  Rb2D: {fileID: 1655351686}
+  Rb: {fileID: 0}
   wallCheck: {fileID: 274844389}
   wallLayer:
     serializedVersion: 2

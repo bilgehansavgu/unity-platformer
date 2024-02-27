@@ -50,7 +50,7 @@ public class SquareAttackState : MonoBehaviour, IPlayerState
 
     public void UpdateState()
     {
-        CheckForEnemyCollision();
+
     }
 
     public void ExitState()
@@ -80,17 +80,5 @@ public class SquareAttackState : MonoBehaviour, IPlayerState
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, groundLayer);
         return hit.collider != null && !hit.collider.isTrigger;
-    }
-    private void CheckForEnemyCollision()
-    {
-        RaycastHit2D[] hits = Physics2D.BoxCastAll(transform.position, new Vector2(attackWidth, attackHeight), 0, Vector2.zero, 0, enemyLayer);
-        foreach (RaycastHit2D hit in hits)
-        {
-            EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
-            if (enemyHealth != null)
-            {
-                enemyHealth.TakeDamage(0);
-            }
-        }
     }
 }
