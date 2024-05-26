@@ -6,7 +6,6 @@ using UnityEngine;
 public class StateMachine<TStateID> where TStateID : Enum
 {
     Dictionary<TStateID, IState<TStateID>> states;
-    AnyState<TStateID> anyState;
     
     [SerializeField] TStateID currentState;
     
@@ -15,7 +14,6 @@ public class StateMachine<TStateID> where TStateID : Enum
         if (this.states != null)
             this.states = null;
         this.states = states;
-        this.anyState = null;
         ChangeState(initialState);
     }
     
@@ -24,10 +22,9 @@ public class StateMachine<TStateID> where TStateID : Enum
         return states[stateID];
     }
     
-    public void Tick()
+    public void UpdateState()
     {
-        GetState(currentState)?.Tick(this);
-        anyState?.Tick();
+        GetState(currentState)?.UpdateState(this);
     }
     
     public void ChangeState(TStateID nextState)

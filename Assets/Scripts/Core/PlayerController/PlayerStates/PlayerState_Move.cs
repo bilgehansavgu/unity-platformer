@@ -7,7 +7,7 @@ public class PlayerState_Move : PlayerState_Base
     {
     }
 
-    public override PlayerController.StateID GetID() => PlayerController.StateID.Move;
+    public PlayerController.StateID GetID() => PlayerController.StateID.Move;
 
     public override void Enter(StateMachine<PlayerController.StateID> machine) => PlayClip(walkClip);
 
@@ -19,36 +19,41 @@ public class PlayerState_Move : PlayerState_Base
     protected override void Act(StateMachine<PlayerController.StateID> machine)
     {
         Move();
-        HandleSpriteDirection();
     }
 
     private void Move()
     {
-        if (parent.Inputs.MoveInputValue.x > 0)
+        if (parent.PlayerInputs.MoveInputValue.x > 0)
         {
+            parent.transform.rotation = Quaternion.Euler(0, 0, 0);
             WalkRight();
         }
-        if (parent.Inputs.MoveInputValue.x < 0)
+        if (parent.PlayerInputs.MoveInputValue.x < 0)
         {
+            parent.transform.rotation = Quaternion.Euler(0, 180, 0);
             WalkLeft();
+        }
+        if (parent.PlayerInputs.MoveInputValue.x == 0)
+        {
+            parent.Rb.velocity = new Vector2(0, parent.Rb.velocity.y);
         }
     }
 
     protected override void Decide(StateMachine<PlayerController.StateID> machine)
     {
-        if (!parent.IsMoving)
+        if (!parent.IsMoveInput)
             machine.ChangeState(PlayerController.StateID.Idle);
         
-        if (parent.Inputs.JumpTriggered)
+        if (parent.PlayerInputs.JumpTriggered)
             machine.ChangeState(PlayerController.StateID.Jump);
         
-        if (parent.Inputs.AttackSquareActionTriggered && parent.ReadyToAttack)
+        if (parent.PlayerInputs.AttackSquareActionTriggered)
             machine.ChangeState(PlayerController.StateID.SquareAttack);
         
-        if (parent.Inputs.AttackTriangleActionTriggered && parent.ReadyToAttack)
+        if (parent.PlayerInputs.AttackTriangleActionTriggered)
             machine.ChangeState(PlayerController.StateID.TriangleAttack);
         
-        if (parent.Rb.velocity.y < -2)
+        if (parent.Rb.velocity.y < -1)
             machine.ChangeState(PlayerController.StateID.Falling);
     }
 
@@ -57,7 +62,7 @@ public class PlayerState_Move : PlayerState_Base
         if (parent.Rb.velocity.x < parent.config.MovementSpeed)
         {
             float speedDifference = Mathf.Abs(parent.config.MovementSpeed - parent.Rb.velocity.x);
-            parent.Rb.velocity += new Vector2(parent.Inputs.MoveInputValue.x * speedDifference, 0);
+            parent.Rb.velocity += new Vector2(parent.PlayerInputs.MoveInputValue.x * speedDifference, 0);
         }
     }
 

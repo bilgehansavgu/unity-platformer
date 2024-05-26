@@ -17,12 +17,4 @@ public abstract class PlayerState_Base : StateBase<PlayerController.StateID>
     {
         parent.Animator.Play(clipName, 0, (1f / totalFramesInAnimation) * index);
     }
-    
-    protected void HandleSpriteDirection()
-    {
-        if (parent.Inputs.MoveInputValue.x > 0)
-            parent.transform.rotation = Quaternion.Euler(0, 0, 0);
-        if (parent.Inputs.MoveInputValue.x < 0)
-            parent.transform.rotation = Quaternion.Euler(0, 180, 0);
-    }
 }

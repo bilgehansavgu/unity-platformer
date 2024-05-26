@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: playerConfig
   m_EditorClassIdentifier: 
   movementSpeed: 6
+  landingSpeed: 8
   airbourneMoveSpeed: 4
-  hitForce: 4
-  chargeMultiplier: 1
-  fallLoad: 4
+  jumpVelocity: 20
   jumpLoad: 6
+  fallLoad: 4
+  maxFallSpeed: -15
+  jumpCount: 10
+  dashForce: 14
   groundCheckDistance: 0.55
   fallCheckDistance: 1
-  whatIsGround:
+  groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  whatIsWall:
-    serializedVersion: 2
-    m_Bits: 0

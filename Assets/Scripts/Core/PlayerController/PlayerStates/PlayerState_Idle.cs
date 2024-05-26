@@ -1,4 +1,4 @@
-﻿
+﻿using UnityEngine;
 
 public class PlayerState_Idle : PlayerState_Base
 {
@@ -7,7 +7,7 @@ public class PlayerState_Idle : PlayerState_Base
     {
     }
 
-    public override PlayerController.StateID GetID() => PlayerController.StateID.Idle;
+    public PlayerController.StateID GetID() => PlayerController.StateID.Idle;
 
     public override void Enter(StateMachine<PlayerController.StateID> machine) => PlayClip(idleClip);
 
@@ -16,17 +16,19 @@ public class PlayerState_Idle : PlayerState_Base
     }
     protected override void Act(StateMachine<PlayerController.StateID> machine)
     {
+        if (parent.IsGrounded())
+        parent.Rb.velocity = new Vector2();
     }
 
     protected override void Decide(StateMachine<PlayerController.StateID> machine)
     {
-        if (parent.IsMoving)
+        if (parent.IsMoveInput)
             machine.ChangeState(PlayerController.StateID.Move);
-        if (parent.Inputs.JumpTriggered && parent.IsGrounded())
+        if (parent.PlayerInputs.JumpTriggered && parent.IsGrounded())
             machine.ChangeState(PlayerController.StateID.Jump);
-        if (parent.Inputs.AttackSquareActionTriggered && parent.ReadyToAttack)
-            machine.ChangeState(PlayerController.StateID.SquareAttack);
-        if (parent.Inputs.AttackTriangleActionTriggered && parent.ReadyToAttack)
-            machine.ChangeState(PlayerController.StateID.TriangleAttack);
+        // if (parent.PlayerInputs.AttackSquareActionTriggered)
+        //     machine.ChangeState(PlayerController.StateID.SquareAttack);
+        // if (parent.PlayerInputs.AttackTriangleActionTriggered)
+        //     machine.ChangeState(PlayerController.StateID.TriangleAttack);
     }
 }

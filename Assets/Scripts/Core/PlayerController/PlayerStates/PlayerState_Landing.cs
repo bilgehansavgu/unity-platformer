@@ -6,7 +6,7 @@ public class PlayerState_Landing : PlayerState_Base
     public PlayerState_Landing(PlayerController parent) : base(parent)
     {
     }
-    public override PlayerController.StateID GetID() => PlayerController.StateID.Landing;
+    public PlayerController.StateID GetID() => PlayerController.StateID.Landing;
 
     public override void Enter(StateMachine<PlayerController.StateID> machine)
     {
@@ -21,42 +21,27 @@ public class PlayerState_Landing : PlayerState_Base
 
     protected override void Act(StateMachine<PlayerController.StateID> machine)
     {
-        if (parent.Inputs.MoveInputValue.x > 0)
+        if (!parent.IsMoveInput)
         {
-            WalkRight();
-        }
-        if (parent.Inputs.MoveInputValue.x < 0)
-        {
-            WalkLeft();
+            parent.Rb.velocity = new Vector2();
         }
     }
+
     protected override void Decide(StateMachine<PlayerController.StateID> machine)
     {
-        if (parent.Inputs.JumpTriggered)
-            machine.ChangeState(PlayerController.StateID.Jump);
-    }
-
-    public override void InvokeState(StateMachine<PlayerController.StateID> machine)
-    {
-        if (parent.IsGrounded())
+        if (isAnimationFinished())
+        {
             machine.ChangeState(PlayerController.StateID.Idle);
+        }
+        
+        if (parent.IsMoveInput)
+        {
+            machine.ChangeState(PlayerController.StateID.Move);
+        }
     }
     
-    private void WalkRight()
+    private bool isAnimationFinished(float normalizedTime = 1)
     {
-        if (parent.Rb.velocity.x < parent.config.LandingSpeed)
-        {
-            float speedDifference = Mathf.Abs(parent.config.LandingSpeed - parent.Rb.velocity.x);
-            parent.Rb.velocity += new Vector2(parent.Inputs.MoveInputValue.x * speedDifference, 0);
-        }
-    }
-
-    private void WalkLeft()
-    {
-        if (parent.Rb.velocity.x > -parent.config.LandingSpeed)
-        {
-            float speedDifference = Mathf.Abs(parent.config.LandingSpeed + parent.Rb.velocity.x);
-            parent.Rb.velocity += new Vector2(-speedDifference, 0);
-        }
+        return parent.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= normalizedTime;
     }
 }

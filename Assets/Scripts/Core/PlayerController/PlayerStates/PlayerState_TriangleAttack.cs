@@ -6,7 +6,7 @@ public class PlayerState_TriangleAttack : PlayerState_Base
     public PlayerState_TriangleAttack(PlayerController parent) : base(parent)
     {
     }
-    public override PlayerController.StateID GetID() => PlayerController.StateID.TriangleAttack;
+    public PlayerController.StateID GetID() => PlayerController.StateID.TriangleAttack;
 
     public override void Enter(StateMachine<PlayerController.StateID> machine)
     {
@@ -17,7 +17,6 @@ public class PlayerState_TriangleAttack : PlayerState_Base
     public override void Exit(StateMachine<PlayerController.StateID> machine)
     {
         parent.Rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-        parent.SetAttackCooldown(0.7f);
     }
 
 
@@ -27,11 +26,5 @@ public class PlayerState_TriangleAttack : PlayerState_Base
     }
     protected override void Decide(StateMachine<PlayerController.StateID> machine)
     {
-    }
-
-    public override void InvokeState(StateMachine<PlayerController.StateID> machine)
-    {
-        if (parent.IsGrounded())
-            machine.ChangeState(PlayerController.StateID.Idle);
     }
 }
