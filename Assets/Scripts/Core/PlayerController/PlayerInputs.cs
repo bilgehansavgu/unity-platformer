@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PlayerInputs : MonoBehaviour
 {
@@ -15,11 +16,16 @@ public class PlayerInputs : MonoBehaviour
     public InputAction attackTriangleAction;
     public InputAction dashAction;
 
+    public InputActionReference jumpActionReference;
+
     public Vector2 MoveInputValue;
-    public bool JumpTriggered = false;
+    
+    public bool IsHorizontalMoveInput => MoveInputValue.x != 0;
+    
+    public bool IsJumpInput = false;
+    public bool IsDashInput = false;
     public bool AttackSquareActionTriggered = false;
     public bool AttackTriangleActionTriggered = false;
-    public bool DashTriggered = false;
 
     private void Awake()
     {
@@ -37,8 +43,8 @@ public class PlayerInputs : MonoBehaviour
         moveAction.performed += context => MoveInputValue = context.ReadValue<Vector2>();;
         moveAction.canceled += context => MoveInputValue = Vector2.zero;
 
-        jumpAction.performed += context => JumpTriggered = true;
-        jumpAction.canceled += context => JumpTriggered = false;
+        jumpAction.performed += context => IsJumpInput = true;
+        jumpAction.canceled += context => IsJumpInput = false;
 
         attackSquareAction.performed += context => AttackSquareActionTriggered = true;
         attackSquareAction.canceled += context => AttackSquareActionTriggered = false;
@@ -46,8 +52,8 @@ public class PlayerInputs : MonoBehaviour
         attackTriangleAction.performed += context => AttackTriangleActionTriggered = true;
         attackTriangleAction.canceled += context => AttackTriangleActionTriggered = false;
         
-        dashAction.performed += context => DashTriggered = true;
-        dashAction.canceled += context => DashTriggered = false;
+        dashAction.performed += context => IsDashInput = true;
+        dashAction.canceled += context => IsDashInput = false;
     }
 
     private void OnEnable()

@@ -16,7 +16,8 @@ public class PlayerState_Jump : PlayerState_Base
 
     public override void Enter(StateMachine<PlayerController.StateID> machine)
     {
-        parent.Rb.velocity += new Vector2(0,parent.config.JumpVelocity);
+        //parent.Rb.velocity += new Vector2(0,parent.config.JumpVelocity);
+        parent.Rb.velocity = new Vector2(0,parent.config.JumpVelocity);
         jumpCount = parent.config.JumpCount; 
         _prevJumpInput = true;
     }
@@ -27,10 +28,11 @@ public class PlayerState_Jump : PlayerState_Base
 
     protected override void Act(StateMachine<PlayerController.StateID> machine)
     {
-        if (parent.PlayerInputs.JumpTriggered && _prevJumpInput == false && jumpCount > 0)
+        if (parent.PlayerInputs.IsJumpInput && _prevJumpInput == false && jumpCount > 0)
         {
             // yükselirken ayrı düşerken ayrı double jump forceları eklenecek
-            parent.Rb.velocity += new Vector2(0, parent.config.JumpVelocity - parent.Rb.velocity.y);
+            // parent.Rb.velocity += new Vector2(0, parent.config.JumpVelocity - parent.Rb.velocity.y);
+            parent.Rb.velocity = new Vector2(0, parent.config.JumpVelocity);
             jumpCount--;
         }
 
@@ -53,6 +55,7 @@ public class PlayerState_Jump : PlayerState_Base
             }
         }
         
+        //Airbourne Move Physics
         if (parent.Rb.velocity.y <= 0)
         {
             parent.Rb.velocity += Vector2.up * (Physics2D.gravity.y * parent.config.FallLoad * Time.deltaTime);
@@ -70,7 +73,7 @@ public class PlayerState_Jump : PlayerState_Base
             PlayClip(jumpClip, parent.GetAirSprite(9), 9);
         }
         
-        _prevJumpInput = parent.PlayerInputs.JumpTriggered;
+        _prevJumpInput = parent.PlayerInputs.IsJumpInput;
     }
     
     protected override void Decide(StateMachine<PlayerController.StateID> machine)
@@ -79,7 +82,7 @@ public class PlayerState_Jump : PlayerState_Base
             machine.ChangeState(PlayerController.StateID.SquareAttack);
         if (parent.PlayerInputs.AttackTriangleActionTriggered)
             machine.ChangeState(PlayerController.StateID.TriangleAttack);
-        if (parent.PlayerInputs.DashTriggered)
+        if (parent.PlayerInputs.IsDashInput)
             if (parent.PlayerInputs.MoveInputValue.x != 0 && parent.Rb.velocity.x != 0)
             {
                 machine.ChangeState(PlayerController.StateID.Dash);

@@ -53,13 +53,13 @@ public class PlayerState_Falling : PlayerState_Base
         //     machine.ChangeState(PlayerController.StateID.SquareAttack);
         // if (parent.PlayerInputs.AttackTriangleActionTriggered)
         //     machine.ChangeState(PlayerController.StateID.TriangleAttack);
-        if (parent.IsGrounded() && parent.IsMoveInput)
+        if (parent.IsGrounded() && parent.PlayerInputs.IsHorizontalMoveInput)
             machine.ChangeState(PlayerController.StateID.Move);
-        if (parent.IsGrounded() && !parent.IsMoveInput)
+        if (parent.IsGrounded() && !parent.PlayerInputs.IsHorizontalMoveInput)
             machine.ChangeState(PlayerController.StateID.Landing);
-        if (parent.PlayerInputs.DashTriggered)
+        if (parent.PlayerInputs.IsDashInput)
             machine.ChangeState(PlayerController.StateID.Dash);
-        if (parent.PlayerInputs.JumpTriggered)
+        if (parent.PlayerInputs.IsJumpInput)
             machine.ChangeState(PlayerController.StateID.Jump);
     }
 }

@@ -87,8 +87,6 @@ public class PlayerController : MonoBehaviour
         //     BoxCollider2D.sharedMaterial.friction = 0;
         // }
     }
-
-    public bool IsMoveInput => PlayerInputs.MoveInputValue.x != 0;
   
     public bool IsGrounded()
     {

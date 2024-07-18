@@ -6,7 +6,6 @@ public class PlayerConfig : ScriptableObject
 {
     [Header("Movement")]
     [SerializeField] float movementSpeed = 10f;
-    [SerializeField] float landingSpeed = 8f; //to slow down the landing
     
     [Header("Airbourne & Jump")]
     [SerializeField] float airbourneMoveSpeed = 5f;
@@ -28,7 +27,6 @@ public class PlayerConfig : ScriptableObject
     [SerializeField] LayerMask groundLayer;
 
     public float MovementSpeed => movementSpeed;
-    public float LandingSpeed => landingSpeed;
     public float AirbourneMoveSpeed => airbourneMoveSpeed;
     public float JumpVelocity => jumpVelocity;
     public float JumpLoad => jumpLoad;

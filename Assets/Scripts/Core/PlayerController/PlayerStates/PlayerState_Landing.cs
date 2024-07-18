@@ -21,7 +21,7 @@ public class PlayerState_Landing : PlayerState_Base
 
     protected override void Act(StateMachine<PlayerController.StateID> machine)
     {
-        if (!parent.IsMoveInput)
+        if (!parent.PlayerInputs.IsHorizontalMoveInput)
         {
             parent.Rb.velocity = new Vector2();
         }
@@ -33,8 +33,13 @@ public class PlayerState_Landing : PlayerState_Base
         {
             machine.ChangeState(PlayerController.StateID.Idle);
         }
+
+        if (parent.PlayerInputs.IsJumpInput)
+        {
+            machine.ChangeState(PlayerController.StateID.Jump);
+        }
         
-        if (parent.IsMoveInput)
+        if (parent.PlayerInputs.IsHorizontalMoveInput)
         {
             machine.ChangeState(PlayerController.StateID.Move);
         }

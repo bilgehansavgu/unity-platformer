@@ -22,10 +22,12 @@ public class PlayerState_Idle : PlayerState_Base
 
     protected override void Decide(StateMachine<PlayerController.StateID> machine)
     {
-        if (parent.IsMoveInput)
+        if (parent.PlayerInputs.IsHorizontalMoveInput)
             machine.ChangeState(PlayerController.StateID.Move);
-        if (parent.PlayerInputs.JumpTriggered && parent.IsGrounded())
+        if (parent.PlayerInputs.IsJumpInput && parent.IsGrounded())
             machine.ChangeState(PlayerController.StateID.Jump);
+        if (parent.Rb.velocity.y < -1)
+            machine.ChangeState(PlayerController.StateID.Falling);
         // if (parent.PlayerInputs.AttackSquareActionTriggered)
         //     machine.ChangeState(PlayerController.StateID.SquareAttack);
         // if (parent.PlayerInputs.AttackTriangleActionTriggered)

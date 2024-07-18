@@ -41,10 +41,10 @@ public class PlayerState_Move : PlayerState_Base
 
     protected override void Decide(StateMachine<PlayerController.StateID> machine)
     {
-        if (!parent.IsMoveInput)
+        if (!parent.PlayerInputs.IsHorizontalMoveInput)
             machine.ChangeState(PlayerController.StateID.Idle);
         
-        if (parent.PlayerInputs.JumpTriggered)
+        if (parent.PlayerInputs.IsJumpInput)
             machine.ChangeState(PlayerController.StateID.Jump);
         
         if (parent.PlayerInputs.AttackSquareActionTriggered)

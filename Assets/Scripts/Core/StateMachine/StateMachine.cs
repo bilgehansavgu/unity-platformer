@@ -9,6 +9,11 @@ public class StateMachine<TStateID> where TStateID : Enum
     
     [SerializeField] TStateID currentState;
     
+    private Stack<TStateID> stateHistory = new Stack<TStateID>();
+    
+    [SerializeField] bool showEnterStateDebug;
+    [SerializeField] bool showExitStateDebug;
+    
     public StateMachine(Dictionary<TStateID, IState<TStateID>> states, TStateID initialState)
     {
         if (this.states != null)
@@ -32,17 +37,24 @@ public class StateMachine<TStateID> where TStateID : Enum
         if (showExitStateDebug)
             Debug.Log("Exit: " + currentState);
         GetState(currentState)?.Exit(this);
+        
+        stateHistory.Push(currentState);
+        
         currentState = nextState;
         GetState(currentState)?.Enter(this);
         if (showEnterStateDebug)
             Debug.Log("Enter: " + nextState);
     }
     
-    public bool IsEqual(TStateID other)
+    public TStateID GetPreviousState()
     {
-        return GetState(currentState) == GetState(other);
+        if (stateHistory.Count > 0)
+        {
+            return stateHistory.Peek();
+        }
+        else
+        {
+            throw new InvalidOperationException("No previous state in history.");
+        }
     }
-
-    [SerializeField] bool showEnterStateDebug;
-    [SerializeField] bool showExitStateDebug;
 }
